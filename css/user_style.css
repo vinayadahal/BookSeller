@@ -5,10 +5,6 @@
     font-size: 13px;
 }
 
-/*a{
-    text-decoration: none;
-}*/
-
 .header{
     height: 262px;
     width: 100%;
@@ -28,8 +24,12 @@
     -moz-border-top-right-radius: 5px;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
-    background-color: #2485B1;
-    /*background-color: #ccc;*/
+    /*background-color: #222;*/
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
 }
 
 .menu ul li{
@@ -38,10 +38,15 @@
 }
 
 .menu ul li:hover{
-    background-color: #1475A1;
+    /*background-color: #555;*/
+    background: #555; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#222, #666); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#222, #666); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#222, #666); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#222, #666); /* Standard syntax */
 }
 
-.menu ul a li:first-child{
+.menu_ul > a:first-child li{
     border-top-left-radius: 5px;
     -moz-border-top-left-radius: 5px;
     -webkit-border-top-left-radius: 5px;
@@ -55,19 +60,13 @@
 
 .container{
     width: 100%;
-    /*height: 500px;*/
-    /*position: relative;*/
-    /*background-color: #ccc;*/
 }
 
 .caption h4 a{
-    /*color: #000;*/
-    /*    text-align: center;*/
     padding: 5px 0px;
     font-weight: bold;
     font-size: 14px;
     color: #333;
-    /*border-bottom: 1px solid #ccc;*/
 }
 
 .caption h4 a:hover{
@@ -75,13 +74,11 @@
 }
 
 .product_title{
-    height: 90px;
-    /*background-color: #ccc;*/
+    height: 65px;
 }
 
 .product_offer{
     height: 55px;
-    /*background-color: #777;*/
     font-style: italic;
     font-size: 12px;
     font-weight: bold;
@@ -93,7 +90,6 @@
 }
 
 .price_btn{
-    /*background-color: #ccc;*/
 }
 
 .price_btn p{
@@ -101,15 +97,98 @@
     font-weight: bold;
 }
 
-/*.item_count{
+.pagination{
+    margin: 10px 15px;
+}
+
+.pagination li a{
+    /*background-color: #222;*/
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
+    border: 1px solid #222;
     color: #fff;
-    background-color: #ff0000;
-    padding: 0px 4px;
-    border-radius: 10px;
-    display: none;
-    font-weight: bold;
-}*/
+}
 
+.pagination li a:hover{
+    /*background-color: #3A5F0B;*/
+    background: #555; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#222, #666); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#222, #666); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#222, #666); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#222, #666); /* Standard syntax */
+    border: 1px solid #555;
+    color:#fff;
+}
 
+.footerWrap{
+    margin: 0 15px;
+    border-top: 5px solid #555;
+    height: 250px;
+    padding-top: 30px; 
+    /*background-color: #222;*/
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
+}
 
+.footerLinkWrap{
+    display: table;
+}
 
+.footerLink:first-child{
+    border-left: 0px;
+    width: 350px;
+}
+
+.footerLink{
+    display: table-cell;
+    padding: 20px 0px 0px 20px; 
+    height: 200px;
+    width: 180px;
+    float: left;
+    color: #fff;
+    border-left: 1px solid #fff; 
+}
+
+.footerLink ul{
+    list-style: none;
+}
+
+.footerLink li{
+    height: 25px;
+    margin-bottom: 10px;
+}
+
+.footerLink a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.footerLink a:hover{
+    text-decoration: underline;
+}
+
+.footerIcon{
+    padding: 9px 35px;
+}
+
+.fb{
+    background: url(../images/socialMedia/fb.png) left center no-repeat;
+}
+
+.tw{
+    background: url(../images/socialMedia/tw.png) left center no-repeat;
+}
+
+.in{
+    background: url(../images/socialMedia/in.png) left center no-repeat;
+}
+
+.gp{
+    background: url(../images/socialMedia/gp.png) left center no-repeat;
+}
