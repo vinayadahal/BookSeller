@@ -7,17 +7,23 @@ class Home extends CI_Controller {
     public function __construct() {
         parent:: __construct();
         $this->load->database();
-//        $this->load->model('fetch');
+        $this->load->model('select');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
 //        $this->session_check();
     }
 
     public function index() {
-        $this->load->view('user/template/header');
-        $this->load->view('user/template/slider');
-        $this->load->view('user/home');
-        $this->load->view('user/template/footer');
+        $data['AllBooks'] = (array) ($this->select->getAllFromTable('book', '', ''));
+        $this->loadView($data, 'home');
+    }
+
+    public function loadView($data, $page_name) {
+        $data['title'] = ucfirst('home');
+        $this->load->view('user/template/header', $data);
+        $this->load->view('user/template/slider', $data);
+        $this->load->view('user/' . $page_name, $data);
+        $this->load->view('user/template/footer', $data);
     }
 
 }

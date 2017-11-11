@@ -1,0 +1,74 @@
+-- phpMyAdmin SQL Dump
+-- version 4.1.14
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Nov 11, 2017 at 06:07 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `bookresell`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `book`
+--
+
+CREATE TABLE IF NOT EXISTS `book` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `year` date DEFAULT NULL,
+  `edition` varchar(255) DEFAULT NULL,
+  `offer` text,
+  `price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `book`
+--
+
+INSERT INTO `book` (`id`, `name`, `category_id`, `author`, `year`, `edition`, `offer`, `price`) VALUES
+(1, 'Aorus X5 MD-KL4K3M 15.6&amp;quot; 4K UHD G-SYNC Gaming Laptop Intel Core i7 7th Gen 7820HK (2.90 GHz) NVIDIA GeForce', 1, 'Vinaya Dahal', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 2000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `book_description`
+--
+
+CREATE TABLE IF NOT EXISTS `book_description` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `book_id` int(11) NOT NULL,
+  `condition` varchar(255) NOT NULL,
+  `description` longtext NOT NULL,
+  `review` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'Aatma Katha');

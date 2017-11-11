@@ -5,9 +5,9 @@
     font-size: 13px;
 }
 
-a{
+/*a{
     text-decoration: none;
-}
+}*/
 
 .header{
     height: 262px;
@@ -19,68 +19,97 @@ a{
 
 .menu {
     position: absolute;
-    left: 10px;
-    right: 10px;
+    left: 15px;
+    right: 15px;
     bottom: 0px;
-    padding: 0 7px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     -moz-border-top-left-radius: 5px;
     -moz-border-top-right-radius: 5px;
-    background-color: #1475A1;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    background-color: #2485B1;
+    /*background-color: #ccc;*/
 }
 
 .menu ul li{
     list-style: none;
     float: left;
-    height: 33px;
-    padding-top: 17px;
 }
 
 .menu ul li:hover{
-    text-decoration: underline;
-    /*color: #ccc;*/
+    background-color: #1475A1;
+}
+
+.menu ul a li:first-child{
+    border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
 }
 
 .menu ul a li{
     text-decoration: none;
-    padding-top: 17px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 17px 30px;
     color:#fff;
 }
 
 .container{
     width: 100%;
-    height: 500px;
-    background: #ddd;
-    position: relative;
+    /*height: 500px;*/
+    /*position: relative;*/
+    /*background-color: #ccc;*/
 }
 
-.side_bar{
-    position: absolute;
-    top: 0;
-    left: 10px;
-    background: #aaa;
+.caption h4 a{
+    /*color: #000;*/
+    /*    text-align: center;*/
+    padding: 5px 0px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    /*border-bottom: 1px solid #ccc;*/
 }
 
-.side_bar li{
-    list-style: none;
-    width: 245px;
-
+.caption h4 a:hover{
+    text-decoration: underline;
 }
 
-.side_bar li:hover{
-    background-color: #333;
-
+.product_title{
+    height: 90px;
+    /*background-color: #ccc;*/
 }
 
-
-
-.side_bar a li{
-    padding: 10px 30px;
-    text-decoration: none;
-    color:#fff;
+.product_offer{
+    height: 55px;
+    /*background-color: #777;*/
+    font-style: italic;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ff884e;
 }
+
+.product_offer i{
+    font-size: 15px;
+}
+
+.price_btn{
+    /*background-color: #ccc;*/
+}
+
+.price_btn p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/*.item_count{
+    color: #fff;
+    background-color: #ff0000;
+    padding: 0px 4px;
+    border-radius: 10px;
+    display: none;
+    font-weight: bold;
+}*/
+
+
 
 
