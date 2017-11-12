@@ -18,6 +18,11 @@ class Home extends CI_Controller {
         $this->loadView($data, 'home');
     }
 
+    public function showDetails($book_id) {
+        //select * from book where id=1 AND category_id=(select id from category)
+//        $data['book']
+    }
+
     public function loadView($data, $page_name) {
         $data['title'] = ucfirst('home');
         $this->load->view('user/template/header', $data);

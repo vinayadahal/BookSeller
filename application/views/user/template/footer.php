@@ -1,28 +1,27 @@
 </div><!--container close-->
-<!--<div class="footer"></div>-->
-<!--<nav aria-label="Page navigation">-->
-<hr style="margin-left: 15px; margin-right: 15px;"/>
-<ul class="pagination">
-    <li>
-        <a href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-        </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-        <a href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
-    </li>
-</ul>
-<!--</nav>-->
+<div class="pagination_wrap">
+    <hr />
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/script.js"></script>
 
-<div class="footerWrap">
+<div class="footerWrap" id="footerWrap">
     <div class="footerLinkWrap">
         <div class="footerLink">
             <!--<img src="<?php echo base_url(); ?>images/logo.png" width="200" />-->
@@ -58,13 +57,6 @@
         </div>
         <div class="footerLink">
             <ul>
-                <li><h4>Company Info</h4></li>
-                <li><a href="javascript:void(0)" onclick="loadForm('Suggestion');">About Us</a></li>
-                <li><a href="javascript:void(0)" onclick="loadForm('Feedback');">Contact Us</a></li>
-            </ul>
-        </div>
-        <div class="footerLink">
-            <ul>
                 <li><h4>Customer Service</h4></li>
                 <li><a href="javascript:void(0)" onclick="loadForm('Suggestion');">Return Policy</a></li>
                 <li><a href="javascript:void(0)" onclick="loadForm('Suggestion');">Privacy & Security</a></li>
@@ -83,5 +75,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

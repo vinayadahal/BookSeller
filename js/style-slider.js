@@ -1,11 +1,11 @@
-var MAX_WIDTH;
+//var MAX_WIDTH;
 
-$(document).ready(function () {
-    MAX_WIDTH = $("#container").width();
-});
-$(window).resize(function () {
-    MAX_WIDTH = $("#container").width();
-});
+//$(document).ready(function () {
+//    MAX_WIDTH = $("#container").width();
+//});
+//$(window).resize(function () {
+//    MAX_WIDTH = $("#container").width();
+//});
 
 jssor_1_slider_init = function () {
 
@@ -33,7 +33,7 @@ jssor_1_slider_init = function () {
 
     /*#region responsive code begin*/
 
-//    var MAX_WIDTH = 980;
+    var MAX_WIDTH = 1200;
 
     function ScaleSlider() {
         var containerElement = jssor_1_slider.$Elmt.parentNode;
