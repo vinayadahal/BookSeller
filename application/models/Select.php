@@ -12,6 +12,17 @@ class Select extends CI_Model {
         return $query->result();
     }
 
+    function getAllFromTableWhere($table, $cond_col, $cond_val, $limit, $start) {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->where($cond_col, $cond_val);
+        if (isset($limit)) {
+            $this->db->limit($limit, $start);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function getSingleRecordInnerJoin($col, $t_name1, $t_name2, $t_1_col, $t_2_col, $cond_col, $cond_value) { //$col should be array like $col=array('name','category')
         $field = "`" . implode("`,`", $col) . "`";
         $this->db->select($field);
@@ -94,7 +105,8 @@ class Select extends CI_Model {
         $this->db->limit(1);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
-            return $query->result();
+//            return $query->result();
+            return $query->row();
         } else {
             return false;
         }

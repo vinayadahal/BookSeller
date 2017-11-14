@@ -19,23 +19,40 @@ class Home extends CI_Controller {
     }
 
     public function showDetails($book_id) {
-        $col = array("book.id",
-            "book.name",
-            "book.author",
-            "book.year",
-            "book.edition",
-            "book.offer",
-            "book.price",
-            "book.pages",
-            "book.condition",
-            "category.name as category_name");
+        $data['book_category'] = $this->BookDetails($book_id);
+        $data['reviews'] = $this->UserReview($book_id);
+//        $data['reviews'] = (array) ($this->select->getAllFromTableWhere('review', 'book_id', $book_id, '', ''));
+        $this->loadView($data, "showDetails");
+    }
+
+    public function BookDetails($book_id) {
+        $col = array("book.id", "book.name",
+            "book.author", "book.year",
+            "book.edition", "book.offer",
+            "book.price", "book.pages",
+            "book.condition", "category.name as category_name");
         $table1 = 'book';
         $table2 = 'category';
         $table1_id = "category_id";
         $table2_id = "id";
-        $data['book_category'] = (array) $this->select->getSingleRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'id', $book_id);
+        return (array) $this->select->getSingleRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'id', $book_id);
+    }
 
-        $this->loadView($data, "showDetails");
+    public function UserReview($book_id) {
+        $reviews = array();
+        $i = 0;
+        $result = (array) ($this->select->getAllFromTableWhere('review', 'book_id', $book_id, '', ''));
+        foreach ($result as $review) {
+            $user_details = (array) ($this->select->getSingleRecord('user', $review->user_id));
+            $reviews[$i++] = array(
+                'title' => $review->title,
+                'review' => $review->review,
+                'username' => $user_details['username'],
+                'member_since' => $user_details['created']
+            );
+        }
+//        var_dump($reviews);
+        return $reviews;
     }
 
     public function loadView($data, $page_name) {

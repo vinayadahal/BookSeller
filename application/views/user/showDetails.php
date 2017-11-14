@@ -68,48 +68,54 @@
         </div>
         <div class="item_details" id="review">
             <div class="reviewWrap">
-                <div class="reviewBox">
-                    <h4>Worst book ever</h4>
-                    <div class="review">
-                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                <?php foreach ($reviews as $review) { ?>
+                    <div class="reviewBox">
+                        <h4><?php echo $review['title']; ?></h4>
+                        <div class="review">
+                            <?php echo $review['review']; ?>
+                        </div>
+                        <h6 style="text-align: right">
+                            <b><?php echo $review['username']; ?></b>
+                            <br><br>
+                            Member Since: <?php echo date('M j, Y', strtotime($review['member_since'])); ?>
+                        </h6>
                     </div>
-                    <h6 style="text-align: right">- Username</h6>
-                </div>
-                <div class="reviewBox">
-                    <h4>Worst book ever</h4>
-                    <div class="review">
-                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                    </div>
-                    <h6 style="text-align: right">- Username</h6>
-                </div>
-                <div class="reviewBox">
-                    <h4>Worst book ever</h4>
-                    <div class="review">
-                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                    </div>
-                    <h6 style="text-align: right">- Username</h6>
-                </div>
-                <div class="reviewBox">
-                    <h4>Worst book ever</h4>
-                    <div class="review">
-                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                    </div>
-                    <h6 style="text-align: right">- Username</h6>
-                </div>
-                <div class="reviewBox">
-                    <h4>Worst book ever</h4>
-                    <div class="review">
-                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                    </div>
-                    <h6 style="text-align: right">- Username</h6>
-                </div>
-                <div class="reviewBox">
-                    <h4>Worst book ever</h4>
-                    <div class="review">
-                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                    </div>
-                    <h6 style="text-align: right">- Username</h6>
-                </div>
+                <?php } ?>
+                <!--                <div class="reviewBox">
+                                    <h4>Worst book ever</h4>
+                                    <div class="review">
+                                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                                    </div>
+                                    <h6 style="text-align: right">- Username</h6>
+                                </div>
+                                <div class="reviewBox">
+                                    <h4>Worst book ever</h4>
+                                    <div class="review">
+                                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                                    </div>
+                                    <h6 style="text-align: right">- Username</h6>
+                                </div>
+                                <div class="reviewBox">
+                                    <h4>Worst book ever</h4>
+                                    <div class="review">
+                                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                                    </div>
+                                    <h6 style="text-align: right">- Username</h6>
+                                </div>
+                                <div class="reviewBox">
+                                    <h4>Worst book ever</h4>
+                                    <div class="review">
+                                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                                    </div>
+                                    <h6 style="text-align: right">- Username</h6>
+                                </div>
+                                <div class="reviewBox">
+                                    <h4>Worst book ever</h4>
+                                    <div class="review">
+                                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                                    </div>
+                                    <h6 style="text-align: right">- Username</h6>
+                                </div>-->
             </div>
         </div>
         <div class="item_details" id="bidding">
