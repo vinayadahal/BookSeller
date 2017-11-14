@@ -11,7 +11,7 @@
         <hr/>
         <div class="showDetailsBtnWrap">
             <a href="javascript:void(0);" onclick="showOverView();"><div class="showDetailsBtn">Overview</div></a>
-            <a href="javascript:void(0);" onclick="showReview();"><div class="showDetailsBtn">Review</div></a>
+            <a href="javascript:void(0);" onclick="showReview();"><div class="showDetailsBtn">Review <span id="review_count"></span></div></a>
             <a href="javascript:void(0);" onclick="showBidding();"><div class="showDetailsBtn">Bidding</div></a>
         </div>
 
@@ -36,6 +36,10 @@
                         <td width="150"><h5>Edition:</h5></td>
                         <td><h5><?php echo $book_category['edition']; ?></h5></td>
                     </tr>
+                    <tr>
+                        <td width="150"><h5>Pages:</h5></td>
+                        <td><h5><?php echo $book_category['pages']; ?></h5></td>
+                    </tr>
                     <?php if (!empty($book_category['offer'])) { ?>
                         <tr>
                             <td width="150"><h5>Offer:</h5></td>
@@ -46,7 +50,10 @@
                         <td width="150"><h5>Category:</h5></td>
                         <td><h5><?php echo $book_category['category_name']; ?></h5></td>
                     </tr>
-
+                    <tr>
+                        <td width="150"><h5>Condition:</h5></td>
+                        <td><h5><?php echo $book_category['condition']; ?></h5></td>
+                    </tr>
                     <tr>
                         <td width="150"><h5>Price:</h5></td>
                         <?php if (!empty($book_category['price'])) { ?>
@@ -60,7 +67,50 @@
             </table>
         </div>
         <div class="item_details" id="review">
-            review
+            <div class="reviewWrap">
+                <div class="reviewBox">
+                    <h4>Worst book ever</h4>
+                    <div class="review">
+                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                    </div>
+                    <h6 style="text-align: right">- Username</h6>
+                </div>
+                <div class="reviewBox">
+                    <h4>Worst book ever</h4>
+                    <div class="review">
+                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                    </div>
+                    <h6 style="text-align: right">- Username</h6>
+                </div>
+                <div class="reviewBox">
+                    <h4>Worst book ever</h4>
+                    <div class="review">
+                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                    </div>
+                    <h6 style="text-align: right">- Username</h6>
+                </div>
+                <div class="reviewBox">
+                    <h4>Worst book ever</h4>
+                    <div class="review">
+                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                    </div>
+                    <h6 style="text-align: right">- Username</h6>
+                </div>
+                <div class="reviewBox">
+                    <h4>Worst book ever</h4>
+                    <div class="review">
+                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                    </div>
+                    <h6 style="text-align: right">- Username</h6>
+                </div>
+                <div class="reviewBox">
+                    <h4>Worst book ever</h4>
+                    <div class="review">
+                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                    </div>
+                    <h6 style="text-align: right">- Username</h6>
+                </div>
+            </div>
         </div>
         <div class="item_details" id="bidding">
             bidding

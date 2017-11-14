@@ -29,12 +29,15 @@ CREATE TABLE `book` (
   `edition` varchar(255) DEFAULT NULL,
   `offer` text,
   `price` int(11) DEFAULT NULL,
+  `pages` int(11) NOT NULL,
+  `condition` varchar(255) NOT NULL,
+  `dimension` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `book` */
 
-insert  into `book`(`id`,`name`,`category_id`,`author`,`year`,`edition`,`offer`,`price`) values (1,'Jindagi Yestai Cha',1,'Vinaya Dahal','2017-11-01','First','Get a free ticket to chandragiri hills',2000),(2,'Maya Ma Payeko Dhoka',1,'Vivek Dahal','2015-11-01','First',NULL,3000);
+insert  into `book`(`id`,`name`,`category_id`,`author`,`year`,`edition`,`offer`,`price`,`pages`,`condition`,`dimension`) values (1,'Jindagi Yestai Cha',1,'Vinaya Dahal','2017-11-01','First','Get a free ticket to chandragiri hills',2000,200,'Used',NULL),(2,'Maya Ma Payeko Dhoka',1,'Vivek Dahal','2015-11-01','First',NULL,3000,500,'Brand New',NULL);
 
 /*Table structure for table `category` */
 

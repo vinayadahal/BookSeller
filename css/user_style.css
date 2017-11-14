@@ -147,6 +147,9 @@
     display: table;
     width: 1200px;
     min-width: 1200px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
 }
 
 .breadcrumb{
@@ -222,7 +225,7 @@
 }
 
 .item_details{
-    height: 386px; /* update this as per need*/
+    /*height: 386px;  update this as per need*/
     border: 1px solid #222;
     display: none;
     padding: 10px;
@@ -230,6 +233,24 @@
 
 .item_details table{
     width: 100%;
+}
+
+.reviewWrap{
+    height: 365px; /* update this as per need*/
+    overflow-y: auto;
+    overflow-x: no-content;
+    padding-right: 10px;
+}
+
+.reviewBox{
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+}
+
+.review{
+    background-color: #eee;
+    padding: 10px;
 }
 
 /*Details Page Style*/

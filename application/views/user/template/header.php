@@ -14,7 +14,7 @@
         <div class="header">
             <div class="menu">
                 <ul class="menu_ul">
-                    <a href="#"><li>Home</li></a>
+                    <a href="<?php echo base_url(); ?>"><li>Home</li></a>
                     <a href="#"><li>Categories</li></a>
                     <a href="#"><li>Reselled</li></a>
                     <a href="#"><li>Shared</li></a>

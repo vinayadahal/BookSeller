@@ -19,7 +19,16 @@ class Home extends CI_Controller {
     }
 
     public function showDetails($book_id) {
-        $col = array("book.id", "book.name", "book.author", "book.year", "book.edition", "book.offer", "book.price", "category.name as category_name");
+        $col = array("book.id",
+            "book.name",
+            "book.author",
+            "book.year",
+            "book.edition",
+            "book.offer",
+            "book.price",
+            "book.pages",
+            "book.condition",
+            "category.name as category_name");
         $table1 = 'book';
         $table2 = 'category';
         $table1_id = "category_id";
