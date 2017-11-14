@@ -77,7 +77,7 @@ $db['default'] = array(
 	'dsn'  => 'mysql:host=localhost; dbname=book_deals; charset=utf8;',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'root',
 	'database' => 'book_deals',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',

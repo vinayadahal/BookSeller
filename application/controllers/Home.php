@@ -19,14 +19,22 @@ class Home extends CI_Controller {
     }
 
     public function showDetails($book_id) {
-        //select * from book where id=1 AND category_id=(select id from category)
-//        $data['book']
+        $col = array("book.id", "book.name", "book.author", "book.year", "book.edition", "book.offer", "book.price", "category.name as category_name");
+        $table1 = 'book';
+        $table2 = 'category';
+        $table1_id = "category_id";
+        $table2_id = "id";
+        $data['book_category'] = (array) $this->select->getSingleRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'id', $book_id);
+
+        $this->loadView($data, "showDetails");
     }
 
     public function loadView($data, $page_name) {
-        $data['title'] = ucfirst('home');
+        $data['title'] = ucfirst($page_name);
         $this->load->view('user/template/header', $data);
-        $this->load->view('user/template/slider', $data);
+        if ($page_name == 'home') {
+            $this->load->view('user/template/slider', $data);
+        }
         $this->load->view('user/' . $page_name, $data);
         $this->load->view('user/template/footer', $data);
     }

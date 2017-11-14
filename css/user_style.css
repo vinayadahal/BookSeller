@@ -5,21 +5,19 @@
     font-size: 13px;
 }
 
+
+/*Start of Header Section*/
 .header{
     height: 262px;
-    /*width: 100%;*/
     min-width: 1200px;
     width: 1200px;
     position: relative;
     background: url('../images/banner.png') no-repeat right top;
-    /*background-color: #ccc;*/
     margin: 0px auto;
 }
 
 .menu {
     position: absolute;
-    /*    left: 15px;
-        right: 15px;*/
     left:0;
     right:0;
     bottom: 0px;
@@ -29,7 +27,6 @@
     -moz-border-top-right-radius: 5px;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
-    /*background-color: #222;*/
     background: #222; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
@@ -62,7 +59,9 @@
     padding: 17px 30px;
     color:#fff;
 }
+/*End of Header Section*/
 
+/*Start of index page body*/
 .container{
     /*width: 100%;*/
     /*min-width: 1320px;*/
@@ -100,13 +99,15 @@
     font-size: 15px;
 }
 
-.price_btn{
-}
 
-.price_btn p{
+.price_btn p{ /* remove this*/
     font-size: 20px;
     font-weight: bold;
 }
+
+/*End of index page body*/
+
+/*Pagination Style User Page*/
 
 .pagination_wrap{
     min-width: 1200px;
@@ -115,7 +116,6 @@
 }
 
 .pagination li a{
-    /*background-color: #222;*/
     background: #222; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
@@ -136,17 +136,113 @@
     color:#fff;
 }
 
+/*Pagination Style User Page*/
+
+
+/*Details Page Style*/
+
+.showDetailsWrap{
+    /*height: 200px;*/
+    /*background-color: #ccc;*/
+    display: table;
+    width: 1200px;
+    min-width: 1200px;
+}
+
+.breadcrumb{
+    border-radius: 0px;
+    border-bottom: 1px solid #eee;
+    /*height: 60px;*/
+    padding: 15px 10px;
+    background: none;
+}
+
+.showDetailsImage{
+    display: table-cell;
+    float: left;
+    width: 350px;
+    padding: 5px;
+    /*background-color: #555;*/
+}
+
+.showDetailsImage img{
+    width: 340px;
+}
+
+.showDetailsItem{
+    display: table-cell;
+    float: left;
+    width: 830px;
+    /*background-color: #888;*/
+    margin-left: 20px;
+}
+
+.showDetailsBtnWrap{
+    display: table;
+    /*background-color: #ff884e;*/
+}
+
+.showDetailsBtn{
+    width: 100px;
+    padding: 10px;
+    text-align: center;
+    color: #666;
+    float: left;
+    display: table-cell;
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
+    border: 1px solid #222;
+    border-bottom: none;
+    color: #fff;
+}
+
+.showDetailsBtnWrap > a:first-child > div {
+    border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+}
+
+.showDetailsBtnWrap > a:last-child > div{
+    border-top-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+}
+
+.showDetailsBtn:hover{
+    background: #555; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#222, #666); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#222, #666); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#222, #666); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#222, #666); /* Standard syntax */
+    border: 1px solid #555;
+    border-bottom: none;
+}
+
+.item_details{
+    height: 386px; /* update this as per need*/
+    border: 1px solid #222;
+    display: none;
+    padding: 10px;
+}
+
+.item_details table{
+    width: 100%;
+}
+
+/*Details Page Style*/
+
+
+/*Footer Style*/
 .footerWrap{
-    /*min-width: 1320px;*/
-    /*max-width: 1320px;*/
-    /*margin: 0 15px;*/
     min-width: 1200px;
     width: 1200px;
     margin: 0 auto;
     border-top: 5px solid #555;
     height: 250px;
     padding-top: 30px; 
-    /*background-color: #222;*/
     background: #222; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
@@ -210,3 +306,5 @@
 .gp{
     background: url(../images/socialMedia/gp.png) left center no-repeat;
 }
+
+/*Footer Style*/
