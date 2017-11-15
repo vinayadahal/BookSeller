@@ -21,7 +21,7 @@ class Home extends CI_Controller {
     public function showDetails($book_id) {
         $data['book_category'] = $this->BookDetails($book_id);
         $data['reviews'] = $this->UserReview($book_id);
-//        $data['reviews'] = (array) ($this->select->getAllFromTableWhere('review', 'book_id', $book_id, '', ''));
+        $data['biddings'] = $this->Bidding($book_id);
         $this->loadView($data, "showDetails");
     }
 
@@ -51,8 +51,23 @@ class Home extends CI_Controller {
                 'member_since' => $user_details['created']
             );
         }
-//        var_dump($reviews);
         return $reviews;
+    }
+
+    public function Bidding($book_id) {
+        $biddings = array();
+        $i = 0;
+        $result = (array) ($this->select->getAllFromTableWhere('bidding', 'book_id', $book_id, '', ''));
+        foreach ($result as $bidding) {
+            $user_details = (array) ($this->select->getSingleRecord('user', $bidding->user_id));
+            $biddings[$i++] = array(
+                'bidding' => $bidding->bidding,
+                'time' => $bidding->date,
+                'username' => $user_details['username'],
+                'member_since' => $user_details['created']
+            );
+        }
+        return $biddings;
     }
 
     public function loadView($data, $page_name) {

@@ -1,6 +1,7 @@
 $(document).ready(function () {
-    showOverView();//loadsOverView
+//    showOverView();//loadsOverView
 //    showReview();
+    showBidding();
     console.log($("#overview").height());
     $("#review_count").html('(' + $(".reviewBox").length + ')');
 });

@@ -81,45 +81,24 @@
                         </h6>
                     </div>
                 <?php } ?>
-                <!--                <div class="reviewBox">
-                                    <h4>Worst book ever</h4>
-                                    <div class="review">
-                                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                                    </div>
-                                    <h6 style="text-align: right">- Username</h6>
-                                </div>
-                                <div class="reviewBox">
-                                    <h4>Worst book ever</h4>
-                                    <div class="review">
-                                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                                    </div>
-                                    <h6 style="text-align: right">- Username</h6>
-                                </div>
-                                <div class="reviewBox">
-                                    <h4>Worst book ever</h4>
-                                    <div class="review">
-                                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                                    </div>
-                                    <h6 style="text-align: right">- Username</h6>
-                                </div>
-                                <div class="reviewBox">
-                                    <h4>Worst book ever</h4>
-                                    <div class="review">
-                                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                                    </div>
-                                    <h6 style="text-align: right">- Username</h6>
-                                </div>
-                                <div class="reviewBox">
-                                    <h4>Worst book ever</h4>
-                                    <div class="review">
-                                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                                    </div>
-                                    <h6 style="text-align: right">- Username</h6>
-                                </div>-->
+
             </div>
         </div>
         <div class="item_details" id="bidding">
-            bidding
+            <?php foreach ($biddings as $bidding) { ?>
+                <div class="reviewBox">
+                    <div style="">
+                        <h4>
+                            <?php echo $bidding['username']; ?>
+                            Member Since: <?php echo date('M j, Y', strtotime($bidding['member_since'])); ?>
+                        </h4>
+                    </div>
+                    <div class="review">
+                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
+                    </div>
+                    <h6 style="text-align: right">-Date: <?php echo $bidding['time']; ?></h6>
+                </div>
+            <?php } ?>
         </div>
     </div>
 </div>
