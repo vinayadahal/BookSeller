@@ -148,8 +148,7 @@
     width: 1200px;
     min-width: 1200px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 20px;
+
 }
 
 .breadcrumb{
@@ -251,6 +250,19 @@
 .review{
     background-color: #eee;
     padding: 10px;
+}
+
+.reviewBidWrap{
+    display: table;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.reviewBidBox{
+    float:left;
+    display: table-cell;
+    background-color: #ccc;
+    height: 200px;
 }
 
 /*Details Page Style*/

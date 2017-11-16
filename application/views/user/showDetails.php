@@ -12,7 +12,7 @@
         <div class="showDetailsBtnWrap">
             <a href="javascript:void(0);" onclick="showOverView();"><div class="showDetailsBtn">Overview</div></a>
             <a href="javascript:void(0);" onclick="showReview();"><div class="showDetailsBtn">Review <span id="review_count"></span></div></a>
-            <a href="javascript:void(0);" onclick="showBidding();"><div class="showDetailsBtn">Bidding</div></a>
+            <a href="javascript:void(0);" onclick="showBidding();"><div class="showDetailsBtn">Bidding <span id="bidding_count"></span></div></a>
         </div>
 
         <div class="item_details" id="overview">
@@ -68,7 +68,12 @@
         </div>
         <div class="item_details" id="review">
             <div class="reviewWrap">
-                <?php foreach ($reviews as $review) { ?>
+                <?php
+                if (empty($reviews)) {
+                    echo "No review for this book has been posted yet!";
+                }
+                foreach ($reviews as $review) {
+                    ?>
                     <div class="reviewBox">
                         <h4><?php echo $review['title']; ?></h4>
                         <div class="review">
@@ -81,24 +86,34 @@
                         </h6>
                     </div>
                 <?php } ?>
-
             </div>
         </div>
         <div class="item_details" id="bidding">
-            <?php foreach ($biddings as $bidding) { ?>
-                <div class="reviewBox">
-                    <div style="">
+            <div class="reviewWrap">
+                <?php
+                if (empty($biddings)) {
+                    echo "No bidding for this book has been posted yet!";
+                }
+                foreach ($biddings as $bidding) {
+                    ?>
+                    <div class="reviewBox">
                         <h4>
                             <?php echo $bidding['username']; ?>
-                            Member Since: <?php echo date('M j, Y', strtotime($bidding['member_since'])); ?>
                         </h4>
+                        <h6>Member Since: <?php echo date('M j, Y', strtotime($bidding['member_since'])); ?></h6>
+                        <div class="review">
+                            <?php echo $bidding['bidding']; ?>
+                        </div>
+                        <h6 style="text-align: right">- Posted On: <?php echo date('M j, Y H:i:s', strtotime($bidding['time'])); ?></h6>
                     </div>
-                    <div class="review">
-                        This is a really bad book. Please don't consider buying it. Its a waste of time and money.
-                    </div>
-                    <h6 style="text-align: right">-Date: <?php echo $bidding['time']; ?></h6>
-                </div>
-            <?php } ?>
+                <?php } ?>
+            </div>
         </div>
     </div>
+</div>
+
+<div class="reviewBidWrap">
+
+    <div class="reviewBidBox" >test</div>
+    <div class="reviewBidBox" >test2</div>
 </div>

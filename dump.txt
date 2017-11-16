@@ -1,43 +1,40 @@
-/*
-SQLyog Professional v12.09 (32 bit)
-MySQL - 5.7.19-0ubuntu0.16.04.1 : Database - book_deals
-*********************************************************************
-*/
+-- phpMyAdmin SQL Dump
+-- version 4.1.14
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Nov 14, 2017 at 06:05 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
-/*!40101 SET NAMES utf8 */;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
-/*!40101 SET SQL_MODE=''*/;
+--
+-- Database: `book_deals`
+--
 
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`book_deals` /*!40100 DEFAULT CHARACTER SET latin1 */;
+-- --------------------------------------------------------
 
-USE `book_deals`;
+--
+-- Table structure for table `bidding`
+--
 
-/*Table structure for table `bidding` */
-
-DROP TABLE IF EXISTS `bidding`;
-
-CREATE TABLE `bidding` (
+CREATE TABLE IF NOT EXISTS `bidding` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `bidding` longtext NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Data for the table `bidding` */
+-- --------------------------------------------------------
 
-insert  into `bidding`(`id`,`book_id`,`user_id`,`bidding`,`date`) values (1,1,1,'I give 300','2017-11-15 15:43:08');
+--
+-- Table structure for table `book`
+--
 
-/*Table structure for table `book` */
-
-DROP TABLE IF EXISTS `book`;
-
-CREATE TABLE `book` (
+CREATE TABLE IF NOT EXISTS `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `category_id` int(11) NOT NULL,
@@ -50,75 +47,112 @@ CREATE TABLE `book` (
   `condition` varchar(255) NOT NULL,
   `dimension` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-/*Data for the table `book` */
+--
+-- Dumping data for table `book`
+--
 
-insert  into `book`(`id`,`name`,`category_id`,`author`,`year`,`edition`,`offer`,`price`,`pages`,`condition`,`dimension`) values (1,'Jindagi Yestai Cha',1,'Vinaya Dahal','2017-11-01','First','Get a free ticket to chandragiri hills',2000,200,'Used',NULL),(2,'Maya Ma Payeko Dhoka',1,'Vivek Dahal','2015-11-01','First',NULL,3000,500,'Brand New',NULL);
+INSERT INTO `book` (`id`, `name`, `category_id`, `author`, `year`, `edition`, `offer`, `price`, `pages`, `condition`, `dimension`) VALUES
+(1, 'Jindagi Yestai Cha', 1, 'Vinaya Dahal', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 2000, 200, 'Used', NULL),
+(2, 'Maya Ma Payeko Dhoka', 1, 'Vivek Dahal', '2015-11-01', 'First', NULL, 3000, 500, 'Brand New', NULL);
 
-/*Table structure for table `category` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `category`;
+--
+-- Table structure for table `category`
+--
 
-CREATE TABLE `category` (
+CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-/*Data for the table `category` */
+--
+-- Dumping data for table `category`
+--
 
-insert  into `category`(`id`,`name`) values (1,'Aatma Katha');
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'Aatma Katha');
 
-/*Table structure for table `images` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `images`;
+--
+-- Table structure for table `description`
+--
 
-CREATE TABLE `images` (
+CREATE TABLE IF NOT EXISTS `description` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `book_id` int(11) NOT NULL,
+  `condition` varchar(255) NOT NULL,
+  `description` longtext NOT NULL,
+  `review` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `images`
+--
+
+CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `image_location` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Data for the table `images` */
+-- --------------------------------------------------------
 
-/*Table structure for table `review` */
+--
+-- Table structure for table `review`
+--
 
-DROP TABLE IF EXISTS `review`;
-
-CREATE TABLE `review` (
+CREATE TABLE IF NOT EXISTS `review` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `review` longtext NOT NULL,
   `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-/*Data for the table `review` */
+--
+-- Dumping data for table `review`
+--
 
-insert  into `review`(`id`,`book_id`,`user_id`,`review`,`title`) values (1,2,1,'This is a really bad book. Please don\'t consider buying it. Its a waste of time and money. ','Worst book ever');
+INSERT INTO `review` (`id`, `book_id`, `user_id`, `review`, `title`) VALUES
+(1, 2, 1, 'This is a really bad book. Please don''t consider buying it. Its a waste of time and money. ', 'Worst book ever');
 
-/*Table structure for table `role` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `role`;
+--
+-- Table structure for table `role`
+--
 
-CREATE TABLE `role` (
+CREATE TABLE IF NOT EXISTS `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-/*Data for the table `role` */
+--
+-- Dumping data for table `role`
+--
 
-insert  into `role`(`id`,`role`) values (1,'role_admin'),(2,'role_user');
+INSERT INTO `role` (`id`, `role`) VALUES
+(1, 'role_admin'),
+(2, 'role_user');
 
-/*Table structure for table `user` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `user`;
+--
+-- Table structure for table `user`
+--
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -129,28 +163,31 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-/*Data for the table `user` */
+--
+-- Dumping data for table `user`
+--
 
-insert  into `user`(`id`,`name`,`email`,`phone`,`address`,`created`,`role`,`username`,`password`) values (1,'vinaya dahal','myemail@mail.com','12312434234','country of mountains','2017-11-14 19:24:23',2,'vinayadahal','user');
+INSERT INTO `user` (`id`, `name`, `email`, `phone`, `address`, `created`, `role`, `username`, `password`) VALUES
+(1, 'vinaya dahal', 'myemail@mail.com', '12312434234', 'country of mountains', '2017-11-14 19:24:23', 2, 'vinayadahal', 'user');
 
-/*Table structure for table `user_role` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `user_role`;
+--
+-- Table structure for table `user_role`
+--
 
-CREATE TABLE `user_role` (
+CREATE TABLE IF NOT EXISTS `user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-/*Data for the table `user_role` */
+--
+-- Dumping data for table `user_role`
+--
 
-insert  into `user_role`(`id`,`user_id`,`role_id`) values (1,1,2);
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+INSERT INTO `user_role` (`id`, `user_id`, `role_id`) VALUES
+(1, 1, 2);

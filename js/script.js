@@ -1,9 +1,10 @@
 $(document).ready(function () {
-//    showOverView();//loadsOverView
+    showOverView();//loadsOverView
 //    showReview();
-    showBidding();
+//    showBidding();
     console.log($("#overview").height());
-    $("#review_count").html('(' + $(".reviewBox").length + ')');
+    $("#review_count").html('(' + $("#review .reviewBox").length + ')');
+    $("#bidding_count").html('(' + $("#bidding .reviewBox").length + ')');
 });
 
 function showOverView() {
