@@ -259,10 +259,21 @@
 }
 
 .reviewBidBox{
-    float:left;
+    
     display: table-cell;
-    background-color: #ccc;
-    height: 200px;
+    /*background-color: #ccc;*/
+    width: 600px;
+    float:left;
+    padding: 20px;
+    /*height: 200px;*/
+}
+
+.reviewBidBox .table{
+    width: 100%;
+}
+
+.reviewBidBox .table td{
+    vertical-align: middle;
 }
 
 /*Details Page Style*/

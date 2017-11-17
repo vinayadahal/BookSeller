@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2017 at 06:05 PM
+-- Generation Time: Nov 17, 2017 at 06:08 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `book` (
   `condition` varchar(255) NOT NULL,
   `dimension` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `book`
@@ -55,7 +55,11 @@ CREATE TABLE IF NOT EXISTS `book` (
 
 INSERT INTO `book` (`id`, `name`, `category_id`, `author`, `year`, `edition`, `offer`, `price`, `pages`, `condition`, `dimension`) VALUES
 (1, 'Jindagi Yestai Cha', 1, 'Vinaya Dahal', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 2000, 200, 'Used', NULL),
-(2, 'Maya Ma Payeko Dhoka', 1, 'Vivek Dahal', '2015-11-01', 'First', NULL, 3000, 500, 'Brand New', NULL);
+(2, 'Maya Ma Payeko Dhoka', 1, 'Vivek Dahal', '2015-11-01', 'First', NULL, 3000, 500, 'Brand New', NULL),
+(3, 'Jindagi Yestai Cha', 1, 'Vinaya Dahal', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 0, 200, 'Used', NULL),
+(4, 'Maya Ma Payeko Dhoka', 1, 'Vivek Dahal', '2015-11-01', 'First', NULL, 3000, 500, 'Brand New', NULL),
+(5, 'Jindagi Yestai Cha', 1, 'Vinaya Dahal', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 2000, 200, 'Used', NULL),
+(6, 'Maya Ma Payeko Dhoka', 1, 'Vivek Dahal', '2015-11-01', 'First', NULL, 3000, 500, 'Brand New', NULL);
 
 -- --------------------------------------------------------
 

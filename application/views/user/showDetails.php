@@ -12,7 +12,9 @@
         <div class="showDetailsBtnWrap">
             <a href="javascript:void(0);" onclick="showOverView();"><div class="showDetailsBtn">Overview</div></a>
             <a href="javascript:void(0);" onclick="showReview();"><div class="showDetailsBtn">Review <span id="review_count"></span></div></a>
-            <a href="javascript:void(0);" onclick="showBidding();"><div class="showDetailsBtn">Bidding <span id="bidding_count"></span></div></a>
+            <?php if ($book_category['condition'] != "Brand New" && !empty($book_category['price'])) { ?>
+                <a href="javascript:void(0);" onclick="showBidding();"><div class="showDetailsBtn">Bidding <span id="bidding_count"></span></div></a>
+            <?php } ?>
         </div>
 
         <div class="item_details" id="overview">
@@ -114,6 +116,46 @@
 
 <div class="reviewBidWrap">
 
-    <div class="reviewBidBox" >test</div>
-    <div class="reviewBidBox" >test2</div>
+    <div class="reviewBidBox">
+        <h4>Post A Review</h4>
+        <form>
+            <table class="table">
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="name" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>Title:</td>
+                    <td><input type="text" name="title" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>Review:</td>
+                    <td><textarea name="review" class="form-control"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Post Your Review" class="btn btn-info" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <?php if ($book_category['condition'] != "Brand New" && !empty($book_category['price'])) { ?>
+        <div class="reviewBidBox">
+            <h4>Post A Bidding</h4>
+            <form>
+                <table class="table">
+                    <tr>
+                        <td>Username:</td>
+                        <td><input type="text" name="name" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                        <td>Review:</td>
+                        <td><textarea name="review" class="form-control"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="Post Your Bid" class="btn btn-info" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    <?php } ?>
 </div>
