@@ -11,17 +11,26 @@ function showOverView() {
     $("#overview").fadeIn(600);
     $("#review").hide();
     $("#bidding").hide();
+    $("#description").hide();
 }
 
 function showReview() {
     $("#review").fadeIn(600);
     $("#overview").hide();
     $("#bidding").hide();
+    $("#description").hide();
 }
 
 function showBidding() {
     $("#bidding").fadeIn(600);
     $("#review").hide();
     $("#overview").hide();
+    $("#description").hide();
 }
 
+function showDescription() {
+    $("#description").fadeIn(600);
+    $("#review").hide();
+    $("#overview").hide();
+    $("#bidding").hide();
+}

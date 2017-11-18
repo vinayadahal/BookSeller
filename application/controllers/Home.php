@@ -22,6 +22,7 @@ class Home extends CI_Controller {
         $data['book_category'] = $this->BookDetails($book_id);
         $data['reviews'] = $this->UserReview($book_id);
         $data['biddings'] = $this->Bidding($book_id);
+        $data['descriptions'] = $this->Description($book_id);
         $this->loadView($data, "showDetails");
     }
 
@@ -68,6 +69,18 @@ class Home extends CI_Controller {
             );
         }
         return $biddings;
+    }
+
+    public function Description($book_id) {
+        $descriptions = array();
+        $i = 0;
+        $result = (array) ($this->select->getAllFromTableWhere('description', 'book_id', $book_id, '', ''));
+        foreach ($result as $description) {
+            $descriptions[$i++] = array(
+                'description' => $description->description
+            );
+        }
+        return $descriptions;
     }
 
     public function loadView($data, $page_name) {
