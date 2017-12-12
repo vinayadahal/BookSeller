@@ -1,4 +1,4 @@
-<div id="jssor_1" class="slider_wrap" id="slider_wrap">
+<div id="jssor_1" class="slider_wrap">
     <div data-u="loading" class="jssorl-009-spin slider_loading_icon">
         <img class="loading_image" src="images/slider/spin.svg" />
     </div>

@@ -5,6 +5,11 @@
     font-size: 13px;
 }
 
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000; 
+}
+
 
 /*Start of Header Section*/
 .header{
@@ -40,7 +45,6 @@
 }
 
 .menu ul li:hover{
-    /*background-color: #555;*/
     background: #555; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#222, #666); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#222, #666); /* For Opera 11.1 to 12.0 */
@@ -63,13 +67,83 @@
 
 /*Start of index page body*/
 .container{
-    /*width: 100%;*/
-    /*min-width: 1320px;*/
     min-width: 1200px;
     width: 1200px;
     padding: 0px;
-    /*background-color: #ccc;*/
     position: relative;
+}
+
+.search_area{
+    margin: 0 15px 20px 15px;
+    display: table;
+}
+
+.search_box{
+    width: 1130px;
+    float: left;
+    display: table-cell;
+    border-radius: 3px 0 0 3px;
+    border-right: none;
+}
+
+.search_btn{
+    float: right;
+    display: table-cell;
+    border-radius: 0 3px 3px 0;
+}
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.custom-dropdown select{
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 6px 10px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-appearance: none;
+    -webkit-appearance:none;
+    appearance: none;
+    width: 125px;
+}
+
+.custom-dropdown  select::-ms-expand {
+    display: none;
+}
+
+.custom-dropdown::before,
+.custom-dropdown::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.custom-dropdown::after { /*  Custom dropdown arrow */
+    content: "\25BC";
+    font-size: .8em;
+    line-height: .2em;
+    right: .7em;
+    top: 50%;
+}
+
+.custom-dropdown::before { /*  Custom dropdown arrow cover */
+    right: 2px;
+    top: 2px;
+    bottom: 2px;
+    border-radius: 0 3px 3px 0;
+    background-color: rgba(255,255,255,1);
+}
+
+.custom-dropdown::after {
+    color: rgba(0,0,0,.6);
+}
+
+.custom-dropdown select[disabled] {
+    color: rgba(0,0,0,.25);
 }
 
 .caption h4 a{
@@ -259,7 +333,7 @@
 }
 
 .reviewBidBox{
-    
+
     display: table-cell;
     /*background-color: #ccc;*/
     width: 600px;

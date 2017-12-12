@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class PublicUser extends CI_Controller {
 
     public function __construct() {
         parent:: __construct();
@@ -13,8 +13,12 @@ class Home extends CI_Controller {
 //        $this->session_check();
     }
 
-    public function index() {
+    public function index($page = null) {
         $data['AllBooks'] = (array) ($this->select->getAllFromTable('book', '', ''));
+        $TotalCount = $this->select->getTotalCount("book");
+        $DataPerPage = 12;
+        $data['num_pages'] = ceil($TotalCount / $DataPerPage);
+//        echo "This is page: " . $page;
         $this->loadView($data, 'home');
     }
 

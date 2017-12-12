@@ -1,40 +1,40 @@
--- phpMyAdmin SQL Dump
--- version 4.1.14
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Nov 18, 2017 at 05:49 PM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+/*
+SQLyog Professional v12.09 (32 bit)
+MySQL - 5.7.19-0ubuntu0.16.04.1 : Database - book_deals
+*********************************************************************
+*/
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+/*!40101 SET NAMES utf8 */;
 
---
--- Database: `book_deals`
---
+/*!40101 SET SQL_MODE=''*/;
 
--- --------------------------------------------------------
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`book_deals` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
---
--- Table structure for table `bidding`
---
+USE `book_deals`;
 
-CREATE TABLE IF NOT EXISTS `bidding` (
+/*Table structure for table `bidding` */
+
+DROP TABLE IF EXISTS `bidding`;
+
+CREATE TABLE `bidding` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `bidding` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+/*Data for the table `bidding` */
 
---
--- Table structure for table `book`
---
+/*Table structure for table `book` */
 
-CREATE TABLE IF NOT EXISTS `book` (
+DROP TABLE IF EXISTS `book`;
+
+CREATE TABLE `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `category_id` int(11) NOT NULL,
@@ -47,123 +47,90 @@ CREATE TABLE IF NOT EXISTS `book` (
   `condition` varchar(255) NOT NULL,
   `dimension` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `book`
---
+/*Data for the table `book` */
 
-INSERT INTO `book` (`id`, `name`, `category_id`, `author`, `year`, `edition`, `offer`, `price`, `pages`, `condition`, `dimension`) VALUES
-(1, 'Jindagi Yestai Cha', 1, 'Vinaya Dahal', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 2000, 200, 'Used', NULL),
-(2, 'Maya Ma Payeko Dhoka', 1, 'Vivek Dahal', '2015-11-01', 'First', NULL, 3000, 500, 'Brand New', NULL),
-(3, 'Jindagi Yestai Cha', 1, 'Vinaya Dahal', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 0, 200, 'Used', NULL),
-(4, 'Maya Ma Payeko Dhoka', 1, 'Vivek Dahal', '2015-11-01', 'First', NULL, 3000, 500, 'Brand New', NULL),
-(5, 'Jindagi Yestai Cha', 1, 'Vinaya Dahal', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 2000, 200, 'Used', NULL),
-(6, 'Maya Ma Payeko Dhoka', 1, 'Vivek Dahal', '2015-11-01', 'First', NULL, 3000, 500, 'Brand New', NULL);
+insert  into `book`(`id`,`name`,`category_id`,`author`,`year`,`edition`,`offer`,`price`,`pages`,`condition`,`dimension`) values (1,'Jindagi Yestai Cha',1,'Vinaya Dahal','2017-11-01','First','Get a free ticket to chandragiri hills',2000,200,'Used',NULL),(2,'Maya Ma Payeko Dhoka',1,'Vivek Dahal','2015-11-01','First',NULL,3000,500,'Brand New',NULL),(3,'Jindagi Yestai Cha',1,'Vinaya Dahal','2017-11-01','First','Get a free ticket to chandragiri hills',0,200,'Used',NULL),(4,'Maya Ma Payeko Dhoka',1,'Vivek Dahal','2015-11-01','First',NULL,3000,500,'Brand New',NULL),(5,'Jindagi Yestai Cha',1,'Vinaya Dahal','2017-11-01','First','Get a free ticket to chandragiri hills',2000,200,'Used',NULL),(6,'Maya Ma Payeko Dhoka',1,'Vivek Dahal','2015-11-01','First',NULL,3000,500,'Brand New',NULL);
 
--- --------------------------------------------------------
+/*Table structure for table `category` */
 
---
--- Table structure for table `category`
---
+DROP TABLE IF EXISTS `category`;
 
-CREATE TABLE IF NOT EXISTS `category` (
+CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `category`
---
+/*Data for the table `category` */
 
-INSERT INTO `category` (`id`, `name`) VALUES
-(1, 'Aatma Katha');
+insert  into `category`(`id`,`name`) values (1,'Aatma Katha');
 
--- --------------------------------------------------------
+/*Table structure for table `description` */
 
---
--- Table structure for table `description`
---
+DROP TABLE IF EXISTS `description`;
 
-CREATE TABLE IF NOT EXISTS `description` (
+CREATE TABLE `description` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `description` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `description`
---
+/*Data for the table `description` */
 
-INSERT INTO `description` (`id`, `book_id`, `description`) VALUES
-(1, 1, '\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. '),
-(2, 2, '\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. '),
-(3, 3, '\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. ');
+insert  into `description`(`id`,`book_id`,`description`) values (1,1,'\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. '),(2,2,'\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. '),(3,3,'\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. ');
 
--- --------------------------------------------------------
+/*Table structure for table `images` */
 
---
--- Table structure for table `images`
---
+DROP TABLE IF EXISTS `images`;
 
-CREATE TABLE IF NOT EXISTS `images` (
+CREATE TABLE `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `image_location` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+/*Data for the table `images` */
 
---
--- Table structure for table `review`
---
+/*Table structure for table `review` */
 
-CREATE TABLE IF NOT EXISTS `review` (
+DROP TABLE IF EXISTS `review`;
+
+CREATE TABLE `review` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `review` longtext NOT NULL,
   `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `review`
---
+/*Data for the table `review` */
 
-INSERT INTO `review` (`id`, `book_id`, `user_id`, `review`, `title`) VALUES
-(1, 2, 1, 'This is a really bad book. Please don''t consider buying it. Its a waste of time and money. ', 'Worst book ever');
+insert  into `review`(`id`,`book_id`,`user_id`,`review`,`title`) values (1,2,1,'This is a really bad book. Please don\'t consider buying it. Its a waste of time and money. ','Worst book ever');
 
--- --------------------------------------------------------
+/*Table structure for table `role` */
 
---
--- Table structure for table `role`
---
+DROP TABLE IF EXISTS `role`;
 
-CREATE TABLE IF NOT EXISTS `role` (
+CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `role`
---
+/*Data for the table `role` */
 
-INSERT INTO `role` (`id`, `role`) VALUES
-(1, 'role_admin'),
-(2, 'role_user');
+insert  into `role`(`id`,`role`) values (1,'role_admin'),(2,'role_user');
 
--- --------------------------------------------------------
+/*Table structure for table `user` */
 
---
--- Table structure for table `user`
---
+DROP TABLE IF EXISTS `user`;
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -174,31 +141,28 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `user`
---
+/*Data for the table `user` */
 
-INSERT INTO `user` (`id`, `name`, `email`, `phone`, `address`, `created`, `role`, `username`, `password`) VALUES
-(1, 'vinaya dahal', 'myemail@mail.com', '12312434234', 'country of mountains', '2017-11-14 19:24:23', 2, 'vinayadahal', 'user');
+insert  into `user`(`id`,`name`,`email`,`phone`,`address`,`created`,`role`,`username`,`password`) values (1,'vinaya dahal','myemail@mail.com','12312434234','country of mountains','2017-11-14 19:24:23',2,'vinayadahal','user');
 
--- --------------------------------------------------------
+/*Table structure for table `user_role` */
 
---
--- Table structure for table `user_role`
---
+DROP TABLE IF EXISTS `user_role`;
 
-CREATE TABLE IF NOT EXISTS `user_role` (
+CREATE TABLE `user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `user_role`
---
+/*Data for the table `user_role` */
 
-INSERT INTO `user_role` (`id`, `user_id`, `role_id`) VALUES
-(1, 1, 2);
+insert  into `user_role`(`id`,`user_id`,`role_id`) values (1,1,2);
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

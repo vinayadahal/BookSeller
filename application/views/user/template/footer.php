@@ -1,6 +1,7 @@
 </div><!--container close-->
-
-<?php if (isset($AllBooks)) { ?>
+<?php
+if (isset($AllBooks)) {
+    ?>
     <div class="pagination_wrap">
         <hr />
         <ul class="pagination">
@@ -9,11 +10,9 @@
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
+            <?php for ($i = 1; $i <= $num_pages; $i++) { ?>
+                <li><a href="<?php echo base_url(); ?>home/<?php echo $i; ?>"><?php echo $i; ?></a></li>
+            <?php } ?>
             <li>
                 <a href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
@@ -22,6 +21,7 @@
         </ul>
     </div>
 <?php } ?>
+
 <script type="text/javascript" src="<?php echo base_url(); ?>js/script.js"></script>
 
 <div class="footerWrap" id="footerWrap">

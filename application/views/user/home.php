@@ -1,6 +1,25 @@
-<!--<div-->
 <h3>All Books</h3>
 <hr/>
+<div class="search_area">
+    <input type="text" placeholder="Search..." class="form-control search_box"/>
+    <button class="btn btn-default search_btn" type="submit">
+        <i class="fa fa-search" ></i>
+    </button>
+</div>
+<div class="search_area">
+    <span class="custom-dropdown">
+        Sort By:
+        <select >
+            <option>Lowest Price</option>
+            <option>Highest Price</option>
+            <option>Newest Book</option>
+            <option>Oldest Book</option>
+            <option>For Share</option>
+            <option>For Rent</option>
+        </select>
+    </span>
+</div>
+
 <?php foreach ($AllBooks as $book) { ?>
     <div class="item col-lg-3">
         <div class="thumbnail" >
@@ -39,11 +58,10 @@
                         }
                         ?>
                     </p>
-                    <!--<a class="btn btn-success" href="javascript:void(0);" onclick="hide_product('thumb<?php // echo $row["id"];                                    ?>')">Add To Cart</a>-->
-                    <!--<a class="btn btn-info" style="float: right;" href="javascript:void(0);" onclick="hide_product('thumb<?php // echo $row["id"];                                    ?>')" >View Details</a>-->
                 </div>
             </div>
         </div>
     </div>
-<?php } ?>
+    <?php
+}
 
