@@ -2,7 +2,7 @@ $(document).ready(function () {
     showOverView();//loadsOverView
 //    showReview();
 //    showBidding();
-    console.log($("#overview").height());
+//    console.log($("#overview").height());
     $("#review_count").html('(' + $("#review .reviewBox").length + ')');
     $("#bidding_count").html('(' + $("#bidding .reviewBox").length + ')');
 });
@@ -33,4 +33,8 @@ function showDescription() {
     $("#review").hide();
     $("#overview").hide();
     $("#bidding").hide();
+}
+
+function loadMainPreview(id) {
+    $("#image_main_preview img").attr("src", $(id).attr("src"));
 }

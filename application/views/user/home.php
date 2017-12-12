@@ -1,12 +1,5 @@
-<h3>All Books</h3>
-<hr/>
-<div class="search_area">
-    <input type="text" placeholder="Search..." class="form-control search_box"/>
-    <button class="btn btn-default search_btn" type="submit">
-        <i class="fa fa-search" ></i>
-    </button>
-</div>
-<div class="search_area">
+<div class="search_area_dropdown">
+    <span style="float: left"><h3 style="display: inline;">All Books</h3></span>
     <span class="custom-dropdown">
         Sort By:
         <select >
@@ -16,10 +9,11 @@
             <option>Oldest Book</option>
             <option>For Share</option>
             <option>For Rent</option>
+            <option>For Free</option>
         </select>
     </span>
 </div>
-
+<hr/>
 <?php foreach ($AllBooks as $book) { ?>
     <div class="item col-lg-3">
         <div class="thumbnail" >

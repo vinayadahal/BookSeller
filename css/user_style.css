@@ -74,12 +74,14 @@ select:-moz-focusring {
 }
 
 .search_area{
-    margin: 0 15px 20px 15px;
+    margin: 0 10px;
+    float: right;
     display: table;
 }
 
 .search_box{
-    width: 1130px;
+    /*width: 1130px;*/
+    width: 250px;
     float: left;
     display: table-cell;
     border-radius: 3px 0 0 3px;
@@ -92,10 +94,20 @@ select:-moz-focusring {
     border-radius: 0 3px 3px 0;
 }
 
+.search_area_dropdown{
+    margin-top: 15px;
+    /*float: right;*/
+    width: 100%;
+    display: table;
+    /*background-color: #ccc;*/
+}
+
+
 .custom-dropdown {
     position: relative;
     display: inline-block;
     vertical-align: middle;
+    float: right;
 }
 
 .custom-dropdown select{
@@ -241,8 +253,23 @@ select:-moz-focusring {
     /*background-color: #555;*/
 }
 
-.showDetailsImage img{
+.showDetailsImage > #image_main_preview > img{
     width: 340px;
+}
+
+.images_wrapper{
+    margin: 10px auto;
+    display: table;
+    background-color: #aaa;
+}
+
+.images_icons{
+    width: 42px;
+    display: table-cell;
+    float:left;
+    padding:1px;
+    background-color: #ccc;
+    cursor: pointer;
 }
 
 .showDetailsItem{
@@ -299,9 +326,19 @@ select:-moz-focusring {
 
 .item_details{
     /*height: 386px;  update this as per need*/
-    border: 1px solid #222;
+    /*border: 1px solid #222;*/
+    /*background-color: #f0f0f0;*/
+    color: #eee;
     display: none;
     padding: 10px;
+    border-radius: 0 5px 5px 5px;
+    -moz-border-radius: 0 5px 5px 5px;
+    -webkit-border-radius: 0 5px 5px 5px;
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
 }
 
 .item_details table{
@@ -318,17 +355,22 @@ select:-moz-focusring {
 .reviewBox{
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #eee;
+    /*border: 1px solid #666;*/
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: #f0f0f0;
+    color:#333; 
 }
 
 .review{
-    background-color: #eee;
+    /*background-color: #fff;*/
     padding: 10px;
 }
 
 .reviewBidWrap{
     display: table;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #fff;
     margin-bottom: 20px;
 }
 

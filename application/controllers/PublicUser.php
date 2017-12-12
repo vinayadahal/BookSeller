@@ -18,7 +18,6 @@ class PublicUser extends CI_Controller {
         $TotalCount = $this->select->getTotalCount("book");
         $DataPerPage = 12;
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
-//        echo "This is page: " . $page;
         $this->loadView($data, 'home');
     }
 
@@ -26,6 +25,8 @@ class PublicUser extends CI_Controller {
         $data['book_category'] = $this->BookDetails($book_id);
         $data['reviews'] = $this->UserReview($book_id);
         $data['biddings'] = $this->Bidding($book_id);
+        $data['images'] = (array) $this->select->getAllFromTableWhere('images', 'book_id', $book_id, '', '');
+
         $data['descriptions'] = $this->Description($book_id);
         $this->loadView($data, "showDetails");
     }

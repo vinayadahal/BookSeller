@@ -19,6 +19,13 @@
                     <a href="#"><li>Reselled</li></a>
                     <a href="#"><li>Shared</li></a>
                 </ul>
+                <div class="search_area">
+                    <input type="text" placeholder="Search..." class="form-control search_box"/>
+                    <button class="btn btn-default search_btn" type="submit">
+                        <i class="fa fa-search" ></i>
+                    </button>
+                </div>
             </div>
+
         </div>
         <div class="container" id="container">

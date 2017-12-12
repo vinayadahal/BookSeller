@@ -4,7 +4,35 @@
     </div>
 
     <div class="showDetailsImage">
-        <img src="<?php echo base_url(); ?>images/icons/1.jpg" alt="item image"/>
+        <div id="image_main_preview">
+            <?php if (!empty($images[0]->image_location)) { ?>
+                <img src="<?php echo base_url() . $images[0]->image_location; ?>" alt="item image"/>
+                <?php
+            } else {
+                ?>
+                <img src="<?php echo base_url(); ?>images/icons/default.png" alt="item image"/>
+                <?php
+            }
+            ?>
+        </div>
+        <div class="images_wrapper"> <!--Max support for 8 images-->
+            <?php
+            if (count($images) > 1) {
+                foreach ($images as $image) {
+                    ?>
+                    <div class="images_icons">
+                        <img src="<?php echo base_url() . $image->image_location; ?>" alt="item image" style="width: 40px;" onclick="loadMainPreview(this);"/>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
+        </div>
+        <div style="padding-top: 10px;font-size: 14px;">
+            Posted By: Amrit Narayan Thakur <br/>
+            Member Since: <?php echo date('M j, Y', strtotime('2017-10-10')); ?>
+        </div>
+
     </div>
     <div class="showDetailsItem">
         <h3><?php echo $book_category['name']; ?></h3>
@@ -80,7 +108,7 @@
                 foreach ($reviews as $review) {
                     ?>
                     <div class="reviewBox">
-                        <h4><?php echo $review['title']; ?></h4>
+                        <h4>"<?php echo $review['title']; ?>"</h4>
                         <div class="review">
                             <?php echo $review['review']; ?>
                         </div>
@@ -93,21 +121,21 @@
                 <?php } ?>
             </div>
         </div>
-        <div class="item_details" id="review">
+        <div class="item_details" id="bidding">
             <div class="reviewWrap">
                 <?php
-                if (empty($reviews)) {
-                    echo "No review for this book has been posted yet!";
+                if (empty($biddings)) {
+                    echo "No bidding for this book has been posted yet!";
                 }
-                foreach ($reviews as $review) {
+                foreach ($biddings as $bidding) {
                     ?>
                     <div class="reviewBox">
-                        <h4><?php echo $review['title']; ?></h4>
+                        <h4><?php echo $bidding['title']; ?></h4>
                         <div class="review">
-                            <?php echo $review['review']; ?>
+                            <?php echo $bidding['bidding']; ?>
                         </div>
                         <h6 style="text-align: right">
-                            <b><?php echo $review['username']; ?></b>
+                            <b><?php echo $bidding['username']; ?></b>
                             <br><br>
                             Member Since: <?php echo date('M j, Y', strtotime($review['member_since'])); ?>
                         </h6>
