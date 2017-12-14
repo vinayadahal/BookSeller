@@ -32,7 +32,19 @@ class Select extends CI_Model {
         $this->db->limit(1);
         $query = $this->db->get();
         return $query->row();
-//        return $query->result();
+    }
+
+    function getSingleRecordInnerJoinThreeTbl($col, $t_name1, $t_name2, $t_name3, $t_1_col, $t_2_col, $t_3_col, $cond_col, $cond_value) { //$col should be array like $col=array('name','category')
+        $field = "`" . implode("`,`", $col) . "`";
+        $field = "" . implode(",", $col) . "";
+        $this->db->select($field);
+        $this->db->from($t_name1); //book table
+        $this->db->join($t_name2, "$t_name1.$t_1_col = $t_name2.$t_2_col"); //category table
+        $this->db->join($t_name3, "$t_name1.$t_1_col = $t_name3.$t_3_col");
+        $this->db->where("$t_name1.$cond_col", $cond_value);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->row();
     }
 
     function getCountFromTable($table, $id, $value) {

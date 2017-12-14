@@ -29,8 +29,8 @@
             ?>
         </div>
         <div style="padding-top: 10px;font-size: 14px;">
-            Posted By: Amrit Narayan Thakur <br/>
-            Member Since: <?php echo date('M j, Y', strtotime('2017-10-10')); ?>
+            Posted By: <?php echo ucwords($book_category['username']); ?> <br/>
+            Member Since: <?php echo date('M j, Y', strtotime($book_category['member_since'])); ?>
         </div>
 
     </div>

@@ -26,7 +26,6 @@ class PublicUser extends CI_Controller {
         $data['reviews'] = $this->UserReview($book_id);
         $data['biddings'] = $this->Bidding($book_id);
         $data['images'] = (array) $this->select->getAllFromTableWhere('images', 'book_id', $book_id, '', '');
-
         $data['descriptions'] = $this->Description($book_id);
         $this->loadView($data, "showDetails");
     }
@@ -36,12 +35,15 @@ class PublicUser extends CI_Controller {
             "book.author", "book.year",
             "book.edition", "book.offer",
             "book.price", "book.pages",
-            "book.condition", "category.name as category_name");
+            "book.condition", "category.name as category_name",
+            "user.name as username", "DATE(user.created) as member_since");
         $table1 = 'book';
         $table2 = 'category';
+        $table3 = 'user';
         $table1_id = "category_id";
         $table2_id = "id";
-        return (array) $this->select->getSingleRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'id', $book_id);
+        $table3_id = "id";
+        return (array) $this->select->getSingleRecordInnerJoinThreeTbl($col, $table1, $table2, $table3, $table1_id, $table2_id, $table3_id, 'id', $book_id);
     }
 
     public function UserReview($book_id) {
