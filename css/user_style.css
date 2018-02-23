@@ -394,6 +394,85 @@ select:-moz-focusring {
 
 /*Details Page Style*/
 
+/*User Home Start*/
+
+.member_wrap{
+    width:100%;
+    /*background-color:#ccc;*/
+    display: table;
+}
+
+.member_left_nav{
+    float: left;
+    display: table-cell;
+    width: 200px;
+    /*background-color: #aaa;*/
+    padding: 10px 10px 0 0px;
+    margin-top: 5px;
+    border-right: 1px solid #ccc;
+}
+
+.member_left_nav ul{
+    list-style: none;
+}
+
+.member_left_nav a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.member_left_nav li{
+    background-color: #333;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.member_area_wrap{
+    width: 1000px;
+    /*background-color: #002166;*/
+    height: 300px;
+    float: left;
+    display: table-cell;
+    padding: 10px;
+}
+
+.dashboard_wrap{
+    width: 100%;
+    background-color: #ccc;
+    /*height: 200px;*/
+}
+
+.dashboard_icons_wrap{
+    padding: 20px;
+    display: table;
+}
+
+.dashboard_icons_wrap a{
+    text-decoration: none;
+    color: #333;
+}
+
+.dashboard_icons_wrap a:hover{
+    color: #666;
+}
+
+.dashboard_icons{
+    border: 1px solid #333;
+    border-radius: 3px;
+    width: 148px;
+    text-align: center;
+    float: left;
+    display: table-cell;
+    margin-right: 20px;
+    padding: 3px 10px;
+}
+
+.dashboard_icons:hover{
+    border: 1px solid #666;
+}
+
+/*User Home End*/
+
 
 /*Footer Style*/
 .footerWrap{
