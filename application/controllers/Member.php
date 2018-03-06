@@ -14,20 +14,22 @@ class Member extends CI_Controller {
     }
 
     public function index($page = null) {
-//        $data['AllBooks'] = (array) ($this->select->getAllFromTable('book', '', ''));
-//        $TotalCount = $this->select->getTotalCount("book");
-//        $DataPerPage = 12;
-//        $data['num_pages'] = ceil($TotalCount / $DataPerPage);
-        $this->loadView("", 'home');
+        $this->loadView("", 'home', 'home');
     }
 
-    public function showDetails($book_id) {
-        $data['book_category'] = $this->BookDetails($book_id);
-        $data['reviews'] = $this->UserReview($book_id);
-        $data['biddings'] = $this->Bidding($book_id);
-        $data['images'] = (array) $this->select->getAllFromTableWhere('images', 'book_id', $book_id, '', '');
-        $data['descriptions'] = $this->Description($book_id);
-        $this->loadView($data, "showDetails");
+    public function myBooks() {
+//        $data['AllBooks'] = (array) $this->select->getAllFromTableWhere('book', 'user_id', '1', '', '');
+        $col = array("book.id", "book.name",
+            "book.author", "book.year",
+            "book.edition", "book.offer",
+            "book.price", "book.pages",
+            "book.condition", "category.name as category_name");
+        $table1 = 'book';
+        $table2 = 'category';
+        $table1_id = "category_id";
+        $table2_id = "id";
+        $data['AllBooks'] = (array) $this->select->getAllRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'user_id', '1');
+        $this->loadView($data, 'my_books/index', 'My Books');
     }
 
     public function BookDetails($book_id) {
@@ -90,8 +92,8 @@ class Member extends CI_Controller {
         return $descriptions;
     }
 
-    public function loadView($data, $page_name) {
-        $data['title'] = ucfirst($page_name);
+    public function loadView($data, $page_name, $title) {
+        $data['title'] = ucfirst($title);
         $this->load->view('member/template/header', $data);
         $this->load->view('member/' . $page_name, $data);
         $this->load->view('member/template/footer', $data);

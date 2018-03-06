@@ -23,6 +23,16 @@ class Select extends CI_Model {
         return $query->result();
     }
 
+    function getAllRecordInnerJoin($col, $t_name1, $t_name2, $t_1_col, $t_2_col, $cond_col, $cond_value) { //$col should be array like $col=array('name','category')
+        $field = "`" . implode("`,`", $col) . "`";
+        $this->db->select($field);
+        $this->db->from($t_name1); //book table
+        $this->db->join($t_name2, "$t_name1.$t_1_col = $t_name2.$t_2_col"); //category table
+        $this->db->where("$t_name1.$cond_col", $cond_value);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function getSingleRecordInnerJoin($col, $t_name1, $t_name2, $t_1_col, $t_2_col, $cond_col, $cond_value) { //$col should be array like $col=array('name','category')
         $field = "`" . implode("`,`", $col) . "`";
         $this->db->select($field);

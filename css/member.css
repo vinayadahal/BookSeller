@@ -1,0 +1,163 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: arial,helvetica,sans-serif,verdana,'Open Sans';
+    font-size: 13px;
+}
+
+/* Nav bar */
+
+.navbar-default{
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
+    border-radius: 0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border: none;
+}
+
+.navbar-default .navbar-brand{
+    color: #fff;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{
+    color: #aaa;
+}
+
+.navbar-default .navbar-nav > li > a{
+    color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover{
+    color: #aaa;
+}
+
+/* Nav bar End */
+
+/*User Home Start*/
+
+.container{
+    min-width: 1200px;
+    width: 1200px;
+    padding: 0px;
+    position: relative;
+}
+
+/*.member_wrap{
+    width:100%;
+    background-color:#ccc;
+    display: table;
+}
+
+.member_left_nav{
+    float: left;
+    display: table-cell;
+    width: 200px;
+    background-color: #aaa;
+    padding: 10px 10px 0 0px;
+    margin-top: 5px;
+    border-right: 1px solid #ccc;
+}
+
+.member_left_nav ul{
+    list-style: none;
+}
+
+.member_left_nav a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.member_left_nav li{
+    background-color: #333;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.member_area_wrap{
+    width: 1000px;
+    background-color: #002166;
+    height: 300px;
+    float: left;
+    display: table-cell;
+    padding: 10px;
+}*/
+
+.dashboard_wrap{
+    width: 715px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -357px;
+    margin-top: -110px; 
+
+}
+
+.dashboard_icons_wrap{
+    padding: 20px;
+    display: table;
+}
+
+.dashboard_icons_wrap a{
+    text-decoration: none;
+    color: #333;
+}
+
+.dashboard_icons_wrap a:hover{
+    color: #666;
+}
+
+.dashboard_icons{
+    border: 1px solid #333;
+    border-radius: 3px;
+    width: 148px;
+    text-align: center;
+    float: left;
+    display: table-cell;
+    margin-right: 20px;
+    padding: 3px 10px;
+}
+
+.dashboard_icons:hover{
+    border: 1px solid #666;
+}
+
+.list_details_wrap{
+    width: 1200px;
+    margin: 0 auto;
+    /*background-color: #ccc;*/
+}
+
+.list_details{
+    /*background-color: #ccc;*/
+}
+
+.thead-dark{
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
+    color: #fff;
+}
+
+/*User Home End*/
+
+
+.footerWrap{
+    width: 100%;
+    border-top: 5px solid #555;
+    padding: 20px; 
+    text-align: center;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
+}
