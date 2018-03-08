@@ -144,7 +144,56 @@
     color: #fff;
 }
 
+.table{
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.form_wrap{
+    background-color: #ccc;
+}
+
+.form_wrap table{
+    width: 100%;
+    border-spacing: 10px;
+    border-collapse: separate;
+}
+
+.form_wrap table tr td:first-child{
+    width: 200px;
+}
+
 /*User Home End*/
+
+/*Pagination Style Member Page*/
+
+.pagination_wrap{
+    min-width: 1200px;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.pagination li a{
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
+    border: 1px solid #222;
+    color: #fff;
+}
+
+.pagination li a:hover{
+    /*background-color: #3A5F0B;*/
+    background: #555; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#222, #666); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#222, #666); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#222, #666); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#222, #666); /* Standard syntax */
+    border: 1px solid #555;
+    color:#fff;
+}
+
+/*Pagination Style Member Page*/
 
 
 .footerWrap{
