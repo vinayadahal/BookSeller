@@ -6,7 +6,6 @@
         <link href="<?php echo base_url(); ?>css/main.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>css/member.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>css/icons.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<?php echo base_url(); ?>js/slider.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>js/styler.js"></script>
     </head>
     <body>

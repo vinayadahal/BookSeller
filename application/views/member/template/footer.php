@@ -8,6 +8,6 @@
     }
     ?>
 </div>
-
+<script type="text/javascript" src="<?php echo base_url(); ?>js/member_script.js"></script>
 </body>
 </html>

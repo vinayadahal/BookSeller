@@ -31,9 +31,15 @@ class Member extends CI_Controller {
         $data['AllBooks'] = (array) $this->select->getAllRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'user_id', '1');
         $this->loadView($data, 'my_books/index', 'My Books');
     }
-    
+
     public function addBook() {
-        $this->loadView("", "my_books/create", "Add Book");
+        $data['categories'] = (array) $this->select->getAllFromTable('category', '', '');
+        $this->loadView($data, "my_books/create", "Add Book");
+    }
+    
+     public function createBook() {
+        $data['categories'] = (array) $this->select->getAllFromTable('category', '', '');
+        $this->loadView($data, "my_books/create", "Add Book");
     }
 
     public function BookDetails($book_id) {

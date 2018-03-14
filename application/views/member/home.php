@@ -1,5 +1,5 @@
-<div class="member_wrap">
-    <div class="member_area_wrap">
+<!--<div class="member_wrap">-->
+    <!--<div class="member_area_wrap">-->
         <div class="dashboard_wrap">
             <div class="dashboard_icons_wrap">
                 <a href="<?php echo base_url();?>member/my-books">
@@ -16,5 +16,5 @@
                 </a>
             </div>
         </div>
-    </div>
-</div>
+    <!--</div>-->
+<!--</div>-->

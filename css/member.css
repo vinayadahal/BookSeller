@@ -44,6 +44,7 @@
     width: 1200px;
     padding: 0px;
     position: relative;
+    /*background-color: green;*/
 }
 
 /*.member_wrap{
@@ -149,7 +150,8 @@
 }
 
 .form_wrap{
-    background-color: #ccc;
+    /*background-color: #ccc;*/
+    margin-bottom: 20px;
 }
 
 .form_wrap table{
@@ -160,6 +162,35 @@
 
 .form_wrap table tr td:first-child{
     width: 200px;
+}
+
+.productImg {
+    display:block;
+    height:auto;
+    width:100px;
+    float:left;
+}
+
+.btn-file {
+    position:relative;
+    overflow:hidden;
+    vertical-align: bottom;
+}
+
+.btn-file input[type=file] {
+    position:absolute;
+    top:0;
+    right:0;
+    min-width:100%;
+    min-height:100%;
+    font-size:100px;
+    text-align:right;
+    filter:alpha(opacity=0);
+    opacity:0;
+    outline:none;
+    background:#fff;
+    cursor:inherit;
+    display:block;
 }
 
 /*User Home End*/

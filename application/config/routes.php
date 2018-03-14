@@ -13,3 +13,4 @@ $route['member'] = 'Member/index';
 $route['member/home'] = 'Member/index';
 $route['member/my-books'] = 'Member/myBooks';
 $route['member/my-books/add'] = 'Member/addBook';
+$route['member/my-books/create'] = 'Member/createBook';

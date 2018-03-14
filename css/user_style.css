@@ -17,7 +17,7 @@ select:-moz-focusring {
     min-width: 1200px;
     width: 1200px;
     position: relative;
-    background: url('../images/banner.png') no-repeat right top;
+    background: url('../images/banner.jpg') no-repeat right top;
     margin: 0px auto;
 }
 
