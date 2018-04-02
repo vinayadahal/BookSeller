@@ -1,11 +1,11 @@
 <div class="list_details_wrap">
     <h3>Add Book</h3>
     <div class="form_wrap">
-        <form method="post" action="">
+        <form method="post" action="<?php echo base_url()?>member/my-books/create">
             <table border="0">
                 <tr>
                     <td>Book Name:</td>
-                    <td><input type="book_name" class="form-control" id="book_name"></td>
+                    <td><input type="text" class="form-control" name="book_name"></td>
                 </tr>
                 <tr>
                     <td>Image:</td>
@@ -19,7 +19,7 @@
                 <tr>
                     <td>Category:</td>
                     <td>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control" name="category">
                             <?php foreach ($categories as $category) { ?>
                                 <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
                             <?php } ?>
@@ -28,32 +28,32 @@
                 </tr>
                 <tr>
                     <td>Author:</td>
-                    <td><input type="author" class="form-control" id="author"></td>
+                    <td><input type="text" class="form-control" name="author"></td>
                 </tr>
                 <tr>
                     <td>Year:</td>
-                    <td><input type="year" class="form-control" id="year"></td>
+                    <td><input type="text" class="form-control" name="year"></td>
                 </tr>
                 <tr>
                     <td>Edition:</td>
-                    <td><input type="edition" class="form-control" id="edition"></td>
+                    <td><input type="text" class="form-control" name="edition"></td>
                 </tr>
                 <tr>
                     <td>Offer:</td>
-                    <td><input type="offer" class="form-control" id="offer"></td>
+                    <td><input type="text" class="form-control" name="offer"></td>
                 </tr>
                 <tr>
                     <td>Price:</td>
-                    <td><input type="price" class="form-control" id="price"></td>
+                    <td><input type="text" class="form-control" name="price"></td>
                 </tr>
                 <tr>
                     <td>Pages:</td>
-                    <td><input type="pages" class="form-control" id="pages"></td>
+                    <td><input type="text" class="form-control" name="pages"></td>
                 </tr>
                 <tr>
                     <td>Condition:</td>
                     <td>
-                        <select class="form-control">
+                        <select class="form-control" name="condition">
                             <option value="Brand New">Brand New</option>
                             <option value="Used">Used</option>
                         </select>
@@ -61,7 +61,7 @@
                 </tr>
                 <tr>
                     <td>Description:</td>
-                    <td><textarea class="form-control" id="description" rows="6"></textarea></td>
+                    <td><textarea class="form-control" name="description" rows="6"></textarea></td>
                 </tr>
                 <tr>
                     <td colspan="2">

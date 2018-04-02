@@ -1,7 +1,7 @@
 <div class="list_details_wrap">
     <div>
-        <a href="<?php echo base_url()?>member/my-books/add">
-        <button type="button" class="btn btn-success" style="float: right;display: table-cell;">Add New</button>
+        <a href="<?php echo base_url() ?>member/my-books/add">
+            <button type="button" class="btn btn-success" style="float: right;display: table-cell;">Add New</button>
         </a>
     </div>
     <h3>My Books</h3>
@@ -39,8 +39,8 @@
                         <td><?php echo $book->pages; ?></td>
                         <td><?php echo $book->condition; ?></td>
                         <td><a href="#">Publish</a></td>
-                        <td><a href="#">Edit</a></td>
-                        <td><a href="#">Delete</a></td>
+                        <td><a href="<?php echo base_url() ?>member/my-books/edit/<?php echo $book->id; ?>">Edit</a></td>
+                        <td><a href="<?php echo base_url() ?>member/my-books/delete">Delete</a></td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -57,7 +57,7 @@
             </a>
         </li>
         <?php // for ($i = 1; $i <= $num_pages; $i++) { ?>
-            <li><a href="<?php echo base_url(); ?>home/<?php // echo $i; ?>"><?php // echo $i; ?>1</a></li>
+        <li><a href="<?php echo base_url(); ?>home/<?php // echo $i;   ?>"><?php // echo $i;   ?>1</a></li>
         <?php // } ?>
         <li>
             <a href="#" aria-label="Next">

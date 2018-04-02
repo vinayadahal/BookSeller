@@ -134,4 +134,17 @@ class Select extends CI_Model {
         }
     }
 
+    function getSingleRecordWhere($table, $cond_col, $cond_val) {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->where($cond_col, $cond_val);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if ($query->num_rows() == 1) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
 }

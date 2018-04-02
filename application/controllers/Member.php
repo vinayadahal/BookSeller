@@ -8,12 +8,20 @@ class Member extends CI_Controller {
         parent:: __construct();
         $this->load->database();
         $this->load->model('select');
+        $this->load->model('insert');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-//        $this->session_check();
+        $this->session_check();
+    }
+
+    public function session_check() {
+        if (empty($this->session->userdata('user_id'))) {
+            redirect('PublicUser/index', 'refresh');
+        }
     }
 
     public function index($page = null) {
+        $this->session->set_userdata('user_id', '1');
         $this->loadView("", 'home', 'home');
     }
 
@@ -36,70 +44,59 @@ class Member extends CI_Controller {
         $data['categories'] = (array) $this->select->getAllFromTable('category', '', '');
         $this->loadView($data, "my_books/create", "Add Book");
     }
-    
-     public function createBook() {
+
+    public function createBook() {
+        $user_id = $this->session->userdata('user_id');
+        $book_name = $this->input->post('book_name');
+        $image = $this->input->post('imgFile');
+        $category = $this->input->post('category');
+        $author = $this->input->post('author');
+        $year = $this->input->post('year');
+        $edition = $this->input->post('edition');
+        $offer = $this->input->post('offer');
+        $pages = $this->input->post('pages');
+        $price = $this->input->post('price');
+        $condition = $this->input->post('condition');
+        $description = $this->input->post('description');
+
+        $data_book_table = array(
+            "name" => $book_name,
+            "category_id" => $category,
+            "author" => $author,
+            "year" => $year,
+            "edition" => $edition,
+            "offer" => $offer,
+            "price" => $price,
+            "condition" => $condition,
+            "user_id" => $user_id
+        );
+
+        $new_book_id = $this->insert->insert_return_id($data_book_table, "book");
+
+        $data_description_table = array(
+            "book_id" => $new_book_id,
+            "description" => $description
+        );
+
+        $data_image_table = array(
+            "book_id" => $new_book_id,
+            "image_location" => $image
+        );
+
+        if ($this->insert->insert_single_row($data_description_table, "description")) {
+            $this->insert->insert_single_row($data_image_table, "images");
+            redirect('Member/myBooks', 'refresh');
+        } else {
+            redirect('Member/myBooks', 'refresh');
+        }
+    }
+
+    public function editBook($id) {
+        $data['book'] = (array) $this->select->getSingleRecord('book', $id);
+        $data['description'] = (array) $this->select->getSingleRecordWhere('description', 'book_id', $id);
+        $data['images'] = (array) $this->select->getSingleRecordWhere('images', 'book_id', $id); // replace this with getAllRecord version of query for multiple image selection
         $data['categories'] = (array) $this->select->getAllFromTable('category', '', '');
-        $this->loadView($data, "my_books/create", "Add Book");
-    }
-
-    public function BookDetails($book_id) {
-        $col = array("book.id", "book.name",
-            "book.author", "book.year",
-            "book.edition", "book.offer",
-            "book.price", "book.pages",
-            "book.condition", "category.name as category_name",
-            "user.name as username", "DATE(user.created) as member_since");
-        $table1 = 'book';
-        $table2 = 'category';
-        $table3 = 'user';
-        $table1_id = "category_id";
-        $table2_id = "id";
-        $table3_id = "id";
-        return (array) $this->select->getSingleRecordInnerJoinThreeTbl($col, $table1, $table2, $table3, $table1_id, $table2_id, $table3_id, 'id', $book_id);
-    }
-
-    public function UserReview($book_id) {
-        $reviews = array();
-        $i = 0;
-        $result = (array) ($this->select->getAllFromTableWhere('review', 'book_id', $book_id, '', ''));
-        foreach ($result as $review) {
-            $user_details = (array) ($this->select->getSingleRecord('user', $review->user_id));
-            $reviews[$i++] = array(
-                'title' => $review->title,
-                'review' => $review->review,
-                'username' => $user_details['username'],
-                'member_since' => $user_details['created']
-            );
-        }
-        return $reviews;
-    }
-
-    public function Bidding($book_id) {
-        $biddings = array();
-        $i = 0;
-        $result = (array) ($this->select->getAllFromTableWhere('bidding', 'book_id', $book_id, '', ''));
-        foreach ($result as $bidding) {
-            $user_details = (array) ($this->select->getSingleRecord('user', $bidding->user_id));
-            $biddings[$i++] = array(
-                'bidding' => $bidding->bidding,
-                'time' => $bidding->date,
-                'username' => $user_details['username'],
-                'member_since' => $user_details['created']
-            );
-        }
-        return $biddings;
-    }
-
-    public function Description($book_id) {
-        $descriptions = array();
-        $i = 0;
-        $result = (array) ($this->select->getAllFromTableWhere('description', 'book_id', $book_id, '', ''));
-        foreach ($result as $description) {
-            $descriptions[$i++] = array(
-                'description' => $description->description
-            );
-        }
-        return $descriptions;
+        $this->loadView($data, "my_books/edit", "Edit Book");
     }
 
     public function loadView($data, $page_name, $title) {
