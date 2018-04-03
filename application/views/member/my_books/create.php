@@ -1,11 +1,11 @@
 <div class="list_details_wrap">
     <h3>Add Book</h3>
     <div class="form_wrap">
-        <form method="post" action="<?php echo base_url()?>member/my-books/create">
+        <form method="post" action="<?php echo base_url() ?>member/my-books/create">
             <table border="0">
                 <tr>
                     <td>Book Name:</td>
-                    <td><input type="text" class="form-control" name="book_name"></td>
+                    <td><input type="text" class="form-control" name="book_name" /></td>
                 </tr>
                 <tr>
                     <td>Image:</td>
@@ -28,27 +28,27 @@
                 </tr>
                 <tr>
                     <td>Author:</td>
-                    <td><input type="text" class="form-control" name="author"></td>
+                    <td><input type="text" class="form-control" name="author" /></td>
                 </tr>
                 <tr>
                     <td>Year:</td>
-                    <td><input type="text" class="form-control" name="year"></td>
+                    <td><input type="text" class="form-control" name="year" /></td>
                 </tr>
                 <tr>
                     <td>Edition:</td>
-                    <td><input type="text" class="form-control" name="edition"></td>
+                    <td><input type="text" class="form-control" name="edition" /></td>
                 </tr>
                 <tr>
                     <td>Offer:</td>
-                    <td><input type="text" class="form-control" name="offer"></td>
+                    <td><input type="text" class="form-control" name="offer" /></td>
                 </tr>
                 <tr>
                     <td>Price:</td>
-                    <td><input type="text" class="form-control" name="price"></td>
+                    <td><input type="text" class="form-control" name="price" /></td>
                 </tr>
                 <tr>
                     <td>Pages:</td>
-                    <td><input type="text" class="form-control" name="pages"></td>
+                    <td><input type="text" class="form-control" name="pages" /></td>
                 </tr>
                 <tr>
                     <td>Condition:</td>

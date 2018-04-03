@@ -4,29 +4,90 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Member extends CI_Controller {
 
+    private $user_id;
+    private $book_name;
+    private $image;
+    private $category;
+    private $author;
+    private $year;
+    private $edition;
+    private $offer;
+    private $pages;
+    private $price;
+    private $condition;
+    private $description;
+    private $book_id;
+
     public function __construct() {
         parent:: __construct();
         $this->load->database();
         $this->load->model('select');
         $this->load->model('insert');
+        $this->load->model('update');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-        $this->session_check();
+//        $this->session_check();
     }
 
     public function session_check() {
         if (empty($this->session->userdata('user_id'))) {
-            redirect('PublicUser/index', 'refresh');
+            redirect(base_url(), 'refresh');
         }
     }
 
-    public function index($page = null) {
+    public function form_value_init() {
+        $this->user_id = $this->session->userdata('user_id');
+        $this->book_name = $this->input->post('book_name');
+        $this->image = $this->input->post('imgFile');
+        $this->category = $this->input->post('category');
+        $this->author = $this->input->post('author');
+        $this->year = $this->input->post('year');
+        $this->edition = $this->input->post('edition');
+        $this->offer = $this->input->post('offer');
+        $this->pages = $this->input->post('pages');
+        $this->price = $this->input->post('price');
+        $this->condition = $this->input->post('condition');
+        $this->description = $this->input->post('description');
+        if (!empty($this->input->post('book_id')) && null !== $this->input->post('book_id')) {
+            $this->book_id = $this->input->post('book_id');
+        }
+    }
+
+    public function array_maker_book_table() {
+        return array(
+            "name" => $this->book_name,
+            "category_id" => $this->category,
+            "author" => $this->author,
+            "year" => $this->year,
+            "edition" => $this->edition,
+            "offer" => $this->offer,
+            "pages" => $this->pages,
+            "price" => $this->price,
+            "condition" => $this->condition,
+            "user_id" => $this->user_id
+        );
+    }
+
+    public function pageDataLimiter($page, $dataPerPage) {
+        if ($page > 1) {
+            $page = $page - 1;
+            return ($dataPerPage * $page);
+        } else {
+            return 0;
+        }
+    }
+
+    public function index() {
         $this->session->set_userdata('user_id', '1');
         $this->loadView("", 'home', 'home');
     }
 
-    public function myBooks() {
-//        $data['AllBooks'] = (array) $this->select->getAllFromTableWhere('book', 'user_id', '1', '', '');
+    public function myBooks($page = null) {
+        $TotalCount = $this->select->getTotalCount("book");
+        $DataPerPage = 8;
+        $data['num_pages'] = ceil($TotalCount / $DataPerPage);
+        $start = $this->pageDataLimiter($page, $DataPerPage);
+
         $col = array("book.id", "book.name",
             "book.author", "book.year",
             "book.edition", "book.offer",
@@ -36,7 +97,11 @@ class Member extends CI_Controller {
         $table2 = 'category';
         $table1_id = "category_id";
         $table2_id = "id";
-        $data['AllBooks'] = (array) $this->select->getAllRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'user_id', '1');
+
+        $data['AllBooks'] = (array) $this->select->getAllRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'user_id', '1', $DataPerPage, $start);
+        if ($page > 1) {
+            $data['data_count'] = (($page-1) * $DataPerPage) + 1;
+        }
         $this->loadView($data, 'my_books/index', 'My Books');
     }
 
@@ -46,41 +111,21 @@ class Member extends CI_Controller {
     }
 
     public function createBook() {
-        $user_id = $this->session->userdata('user_id');
-        $book_name = $this->input->post('book_name');
-        $image = $this->input->post('imgFile');
-        $category = $this->input->post('category');
-        $author = $this->input->post('author');
-        $year = $this->input->post('year');
-        $edition = $this->input->post('edition');
-        $offer = $this->input->post('offer');
-        $pages = $this->input->post('pages');
-        $price = $this->input->post('price');
-        $condition = $this->input->post('condition');
-        $description = $this->input->post('description');
 
-        $data_book_table = array(
-            "name" => $book_name,
-            "category_id" => $category,
-            "author" => $author,
-            "year" => $year,
-            "edition" => $edition,
-            "offer" => $offer,
-            "price" => $price,
-            "condition" => $condition,
-            "user_id" => $user_id
-        );
+        $this->form_value_init(); // initalize form value
+
+        $data_book_table = $this->array_maker_book_table(); // create array with book
 
         $new_book_id = $this->insert->insert_return_id($data_book_table, "book");
 
         $data_description_table = array(
             "book_id" => $new_book_id,
-            "description" => $description
+            "description" => $this->description
         );
 
         $data_image_table = array(
             "book_id" => $new_book_id,
-            "image_location" => $image
+            "image_location" => $this->image
         );
 
         if ($this->insert->insert_single_row($data_description_table, "description")) {
@@ -96,7 +141,31 @@ class Member extends CI_Controller {
         $data['description'] = (array) $this->select->getSingleRecordWhere('description', 'book_id', $id);
         $data['images'] = (array) $this->select->getSingleRecordWhere('images', 'book_id', $id); // replace this with getAllRecord version of query for multiple image selection
         $data['categories'] = (array) $this->select->getAllFromTable('category', '', '');
+        $data['book_id'] = $id;
         $this->loadView($data, "my_books/edit", "Edit Book");
+    }
+
+    public function updateBook() {
+        $this->form_value_init(); // initalize form value
+
+        $data_book_table = $this->array_maker_book_table(); // create array with book
+
+        $this->update->updateSingleCondition($data_book_table, "book", "id", $this->book_id);
+
+        $data_description_table = array(
+            "description" => $this->description
+        );
+
+        $data_image_table = array(
+            "image_location" => $this->image
+        );
+
+        if ($this->update->updateSingleCondition($data_description_table, "description", "book_id", $this->book_id)) {
+            $this->update->updateSingleCondition($data_image_table, "images", "book_id", $this->book_id);
+            redirect('Member/myBooks', 'refresh');
+        } else {
+            redirect('Member/myBooks', 'refresh');
+        }
     }
 
     public function loadView($data, $page_name, $title) {

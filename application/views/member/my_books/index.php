@@ -28,7 +28,15 @@
                 foreach ($AllBooks as $book) {
                     ?>
                     <tr>
-                        <th scope="row"><?php echo $i++; ?></th>
+                        <th scope="row">
+                            <?php
+                            if (!empty($data_count)) {
+                                echo $data_count++;
+                            } else {
+                                echo $i++;
+                            }
+                            ?>
+                        </th>
                         <td><?php echo $book->name; ?></td>
                         <td><?php echo $book->category_name; ?></td>
                         <td><?php echo $book->author; ?></td>
@@ -49,16 +57,15 @@
 </div>
 
 <div class="pagination_wrap">
-    <hr />
     <ul class="pagination">
         <li>
             <a href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <?php // for ($i = 1; $i <= $num_pages; $i++) { ?>
-        <li><a href="<?php echo base_url(); ?>home/<?php // echo $i;   ?>"><?php // echo $i;   ?>1</a></li>
-        <?php // } ?>
+        <?php for ($i = 1; $i <= $num_pages; $i++) { ?>
+            <li><a href="<?php echo base_url(); ?>member/my-books/<?php echo $i; ?>"><?php echo $i; ?></a></li>
+        <?php } ?>
         <li>
             <a href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>

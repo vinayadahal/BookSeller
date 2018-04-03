@@ -13,11 +13,21 @@ class PublicUser extends CI_Controller {
 //        $this->session_check();
     }
 
+    public function pageDataLimiter($page, $dataPerPage) {
+        if ($page > 1) {
+            $page = $page - 1;
+            return ($dataPerPage * $page);
+        } else {
+            return 0;
+        }
+    }
+
     public function index($page = null) {
-        $data['AllBooks'] = (array) ($this->select->getAllFromTable('book', '', ''));
         $TotalCount = $this->select->getTotalCount("book");
         $DataPerPage = 12;
+        $start = $this->pageDataLimiter($page, $DataPerPage);
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
+        $data['AllBooks'] = (array) ($this->select->getAllFromTable('book', $DataPerPage, $start));
         $this->loadView($data, 'home');
     }
 
