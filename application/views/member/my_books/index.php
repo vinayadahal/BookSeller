@@ -46,9 +46,15 @@
                         <td>Rs. <?php echo $book->price; ?> /-</td>
                         <td><?php echo $book->pages; ?></td>
                         <td><?php echo $book->condition; ?></td>
-                        <td><a href="#">Publish</a></td>
+                        <?php if (empty($book->publish) || $book->publish == 'No') { ?>
+                            <td><a onclick="return confirm('Are you sure to publish <?php echo $book->name; ?>?')" href="<?php echo base_url() ?>member/my-books/publish/<?php echo $book->id; ?>">Publish</a></td>
+                            <?php
+                        } else {
+                            ?>
+                            <td><a onclick="return confirm('Are you sure to hide <?php echo $book->name; ?>?')" href="<?php echo base_url() ?>member/my-books/hide/<?php echo $book->id; ?>">Hide</a></td>
+                        <?php } ?>
                         <td><a href="<?php echo base_url() ?>member/my-books/edit/<?php echo $book->id; ?>">Edit</a></td>
-                        <td><a href="<?php echo base_url() ?>member/my-books/delete">Delete</a></td>
+                        <td><a onclick="return confirm('Are you sure to delete <?php echo $book->name; ?>?')" href="<?php echo base_url() ?>member/my-books/delete/<?php echo $book->id; ?>">Delete</a></td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -59,7 +65,7 @@
 <div class="pagination_wrap">
     <ul class="pagination">
         <li>
-            <a href="#" aria-label="Previous">
+            <a href="<?php echo base_url(); ?>member/my-books/<?php echo 1; ?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
@@ -67,7 +73,7 @@
             <li><a href="<?php echo base_url(); ?>member/my-books/<?php echo $i; ?>"><?php echo $i; ?></a></li>
         <?php } ?>
         <li>
-            <a href="#" aria-label="Next">
+            <a href="<?php echo base_url(); ?>member/my-books/<?php echo --$i; ?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

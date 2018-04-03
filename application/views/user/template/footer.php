@@ -6,7 +6,7 @@ if (isset($AllBooks)) {
         <hr />
         <ul class="pagination">
             <li>
-                <a href="#" aria-label="Previous">
+                <a href="<?php echo base_url(); ?>member/my-books/<?php echo 1;?>" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -14,7 +14,7 @@ if (isset($AllBooks)) {
                 <li><a href="<?php echo base_url(); ?>home/<?php echo $i; ?>"><?php echo $i; ?></a></li>
             <?php } ?>
             <li>
-                <a href="#" aria-label="Next">
+                <a href="<?php echo base_url(); ?>member/my-books/<?php echo --$i;?>" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

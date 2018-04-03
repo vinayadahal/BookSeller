@@ -150,7 +150,6 @@ class Select extends CI_Model {
 
     function dataLimiter($limit, $start) {
         if (isset($limit)) {
-            echo "inside limiter";
             $this->db->limit($limit, $start);
         }
     }

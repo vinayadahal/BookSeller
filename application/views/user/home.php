@@ -2,7 +2,7 @@
     <span style="float: left"><h3 style="display: inline;">All Books</h3></span>
     <span class="custom-dropdown">
         Sort By:
-        <select >
+        <select>
             <option>Lowest Price</option>
             <option>Highest Price</option>
             <option>Newest Book</option>

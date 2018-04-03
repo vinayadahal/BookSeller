@@ -27,7 +27,9 @@ class PublicUser extends CI_Controller {
         $DataPerPage = 12;
         $start = $this->pageDataLimiter($page, $DataPerPage);
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
-        $data['AllBooks'] = (array) ($this->select->getAllFromTable('book', $DataPerPage, $start));
+//        $data['AllBooks'] = (array) ($this->select->getAllFromTable('book', $DataPerPage, $start));
+        $data['AllBooks'] = (array) ($this->select->getAllFromTableWhere('book', 'publish', 'Yes', $DataPerPage, $start));
+
         $this->loadView($data, 'home');
     }
 
