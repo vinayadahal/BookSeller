@@ -148,6 +148,20 @@ class Select extends CI_Model {
         }
     }
 
+    function getSingleRecordWhereMultiValue($table, $cond_col, $cond_val, $cond_col2, $cond_val2) {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->where($cond_col, $cond_val);
+        $this->db->where($cond_col2, $cond_val2);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if ($query->num_rows() == 1) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
+
     function dataLimiter($limit, $start) {
         if (isset($limit)) {
             $this->db->limit($limit, $start);

@@ -9,6 +9,10 @@ $route['home'] = 'PublicUser/index';
 $route['home/(:num)'] = 'PublicUser/index/$1';
 $route['showDetails/(:num)'] = 'PublicUser/showDetails/$1';
 
+$route['login'] = 'Login/index';
+$route['checkLogin'] = 'Login/checkLogin';
+$route['logout'] = 'Login/logout';
+
 $route['member'] = 'Member/index';
 $route['member/home'] = 'Member/index';
 //$route['member/my-books'] = 'Member/myBooks';

@@ -4,19 +4,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Member extends CI_Controller {
 
-    private $user_id;
-    private $book_name;
-    private $image;
-    private $category;
-    private $author;
-    private $year;
-    private $edition;
-    private $offer;
-    private $pages;
-    private $price;
-    private $condition;
-    private $description;
-    private $book_id;
+//    private $user_id;
+//    private $book_name;
+//    private $image;
+//    private $category;
+//    private $author;
+//    private $year;
+//    private $edition;
+//    private $offer;
+//    private $pages;
+//    private $price;
+//    private $condition;
+//    private $description;
+//    private $book_id;
 
     public function __construct() {
         parent:: __construct();
@@ -26,59 +26,56 @@ class Member extends CI_Controller {
         $this->load->model('update');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-//        $this->session_check();
+        $this->session_check();
     }
 
     public function session_check() {
         if (empty($this->session->userdata('user_id'))) {
-            redirect(base_url(), 'refresh');
+            redirect(base_url() . 'login', 'refresh');
         }
     }
 
-    public function form_value_init() {
-        $this->user_id = $this->session->userdata('user_id');
-        $this->book_name = $this->input->post('book_name');
-        $this->image = $this->input->post('imgFile');
-        $this->category = $this->input->post('category');
-        $this->author = $this->input->post('author');
-        $this->year = $this->input->post('year');
-        $this->edition = $this->input->post('edition');
-        $this->offer = $this->input->post('offer');
-        $this->pages = $this->input->post('pages');
-        $this->price = $this->input->post('price');
-        $this->condition = $this->input->post('condition');
-        $this->description = $this->input->post('description');
-        if (!empty($this->input->post('book_id')) && null !== $this->input->post('book_id')) {
-            $this->book_id = $this->input->post('book_id');
-        }
-    }
-
-    public function array_maker_book_table() {
-        return array(
-            "name" => $this->book_name,
-            "category_id" => $this->category,
-            "author" => $this->author,
-            "year" => $this->year,
-            "edition" => $this->edition,
-            "offer" => $this->offer,
-            "pages" => $this->pages,
-            "price" => $this->price,
-            "condition" => $this->condition,
-            "user_id" => $this->user_id
-        );
-    }
-
-    public function pageDataLimiter($page, $dataPerPage) {
-        if ($page > 1) {
-            $page = $page - 1;
-            return ($dataPerPage * $page);
-        } else {
-            return 0;
-        }
-    }
+//    public function form_value_init() {
+//        $this->user_id = $this->session->userdata('user_id');
+//        $this->book_name = $this->input->post('book_name');
+//        $this->image = $this->input->post('imgFile');
+//        $this->category = $this->input->post('category');
+//        $this->author = $this->input->post('author');
+//        $this->year = $this->input->post('year');
+//        $this->edition = $this->input->post('edition');
+//        $this->offer = $this->input->post('offer');
+//        $this->pages = $this->input->post('pages');
+//        $this->price = $this->input->post('price');
+//        $this->condition = $this->input->post('condition');
+//        $this->description = $this->input->post('description');
+//        if (!empty($this->input->post('book_id')) && null !== $this->input->post('book_id')) {
+//            $this->book_id = $this->input->post('book_id');
+//        }
+//    }
+//    public function array_maker_book_table() {
+//        return array(
+//            "name" => $this->book_name,
+//            "category_id" => $this->category,
+//            "author" => $this->author,
+//            "year" => $this->year,
+//            "edition" => $this->edition,
+//            "offer" => $this->offer,
+//            "pages" => $this->pages,
+//            "price" => $this->price,
+//            "condition" => $this->condition,
+//            "user_id" => $this->user_id
+//        );
+//    }
+//    public function pageDataLimiter($page, $dataPerPage) {
+//        if ($page > 1) {
+//            $page = $page - 1;
+//            return ($dataPerPage * $page);
+//        } else {
+//            return 0;
+//        }
+//    }
 
     public function index() {
-        $this->session->set_userdata('user_id', '1');
         $this->loadView("", 'home', 'home');
     }
 
@@ -170,6 +167,7 @@ class Member extends CI_Controller {
 
     public function loadView($data, $page_name, $title) {
         $data['title'] = ucfirst($title);
+        $data['user'] = $this->select->getSingleRecordWhere('user', 'id', $this->session->userdata('user_id'));
         $this->load->view('member/template/header', $data);
         $this->load->view('member/' . $page_name, $data);
         $this->load->view('member/template/footer', $data);

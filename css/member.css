@@ -35,6 +35,31 @@
     color: #aaa;
 }
 
+.navbar-default .navbar-right > li > a:focus, .navbar-default .navbar-right > li > a:hover{
+    color: #aaa;
+}
+
+.dropdown-toggle,.dropdown-menu{
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
+}
+
+.dropdown > a:hover{
+    color: #fff;
+}
+
+.dropdown-menu > li > a{
+    color: #fff;
+}
+
+.dropdown-menu > li > a:hover{
+    background:none;
+    color:#aaa;
+}
+
 /* Nav bar End */
 
 /*User Home Start*/

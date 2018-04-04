@@ -1,0 +1,70 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: arial,helvetica,sans-serif,verdana,'Open Sans';
+    font-size: 13px;
+}
+
+.headings {
+    padding: 8px 0;
+    color:#fff;
+    border-bottom: 1px solid #ccc;
+    font-size: 20px;
+}
+
+.panel_login {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:450px;
+    height:270px;
+    border: none;
+    padding: 0px 15px;
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
+}
+
+.input_wrap {
+    margin:0 auto;
+}
+
+.input_wrap input {
+    margin-top:30px;
+    border:1px solid #aaa;
+    padding:5px;
+    height:40px;
+    position:relative;
+}
+
+.btn_login_override {
+    outline:0;
+    padding:8px 50px;
+    border:0;
+    color:#fff;
+    display:block;
+    margin:30px 0px;
+}
+
+.btn_login_override:hover,
+.btn_login_override:focus {
+    color:#fff;
+}
+
+.footerWrap{
+    width: 100%;
+    border-top: 5px solid #555;
+    padding: 20px; 
+    text-align: center;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#000, #444); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#000, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#000, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#000, #444); /* Standard syntax */
+}

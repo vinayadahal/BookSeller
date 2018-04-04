@@ -27,12 +27,12 @@ class MyBooks extends CI_Controller {
         $this->load->model('delete');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-//        $this->session_check();
+        $this->session_check();
     }
 
     public function session_check() {
         if (empty($this->session->userdata('user_id'))) {
-            redirect(base_url(), 'refresh');
+            redirect(base_url() . 'login', 'refresh');
         }
     }
 
@@ -194,6 +194,7 @@ class MyBooks extends CI_Controller {
 
     public function loadView($data, $page_name, $title) {
         $data['title'] = ucfirst($title);
+        $data['user'] = $this->select->getSingleRecordWhere('user', 'id', $this->session->userdata('user_id'));
         $this->load->view('member/template/header', $data);
         $this->load->view('member/' . $page_name, $data);
         $this->load->view('member/template/footer', $data);
