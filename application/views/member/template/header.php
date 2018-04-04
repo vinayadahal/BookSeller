@@ -19,9 +19,15 @@
                     <ul class="nav navbar-nav">
                         <li><a href="<?php echo base_url(); ?>member">Home</a></li>
                         <li><a href="<?php echo base_url(); ?>member/my-books">My Books</a></li>
-                        <li><a href="#">Posts</a></li>
-                        <li><a href="#">Requested Book</a></li>
-                        <li><a href="#">Order History</a></li>
+                        <li><a href="<?php echo base_url(); ?>member/my-posts">Posts</a></li>
+                        <li>
+                            <a href="<?php echo base_url(); ?>member/matches">Matching Books <?php
+                                if (!empty($books)) {
+                                    echo "<span style='color:#f00;'>(" . count($books) . ")</span>";
+                                }
+                                ?>
+                            </a></li>
+                        <li><a href="#">Settings</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -29,7 +35,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">Settings</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="<?php echo base_url()?>logout">Logout</a></li>
+                                <li><a href="<?php echo base_url() ?>logout">Logout</a></li>
                             </ul>
                         </li>
                     </ul>

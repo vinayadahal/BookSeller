@@ -54,7 +54,7 @@ class MyBooks extends CI_Controller {
         }
     }
 
-    public function array_maker_book_table($update = null) {
+    public function array_maker_book_table() {
         return array(
             "name" => $this->book_name,
             "category_id" => $this->category,
@@ -94,7 +94,7 @@ class MyBooks extends CI_Controller {
         $table1_id = "category_id";
         $table2_id = "id";
 
-        $data['AllBooks'] = (array) $this->select->getAllRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'user_id', '1', $DataPerPage, $start);
+        $data['AllBooks'] = (array) $this->select->getAllRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'user_id', $this->session->userdata('user_id'), $DataPerPage, $start);
         if ($page > 1) {
             $data['data_count'] = (($page - 1) * $DataPerPage) + 1;
         }

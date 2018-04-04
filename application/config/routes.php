@@ -29,3 +29,13 @@ $route['member/my-books/update'] = 'MyBooks/updateBook';
 $route['member/my-books/delete/(:num)'] = 'MyBooks/deleteBook/$1';
 $route['member/my-books/publish/(:num)'] = 'MyBooks/publishBook/$1';
 $route['member/my-books/hide/(:num)'] = 'MyBooks/hideBook/$1';
+
+$route['member/my-posts'] = 'Posts/index';
+$route['member/my-posts/(:num)'] = 'Posts/index/$1';
+$route['member/my-posts/add'] = 'Posts/addPost';
+$route['member/my-posts/create'] = 'Posts/createPost';
+$route['member/my-posts/edit/(:num)'] = 'Posts/editPost/$1';
+$route['member/my-posts/update'] = 'Posts/updatePost';
+$route['member/my-posts/delete/(:num)'] = 'Posts/deletePost/$1';
+
+$route['member/matches'] = 'Matches/index';

@@ -55,7 +55,8 @@ class PublicUser extends CI_Controller {
         $table1_id = "category_id";
         $table2_id = "id";
         $table3_id = "id";
-        return (array) $this->select->getSingleRecordInnerJoinThreeTbl($col, $table1, $table2, $table3, $table1_id, $table2_id, $table3_id, 'id', $book_id);
+        $table1_user_id = "user_id";
+        return (array) $this->select->getSingleRecordInnerJoinThreeTbl($col, $table1, $table2, $table3, $table1_id, $table2_id, $table3_id, $table1_user_id, 'id', $book_id);
     }
 
     public function UserReview($book_id) {

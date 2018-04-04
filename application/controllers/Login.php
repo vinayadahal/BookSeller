@@ -39,10 +39,12 @@ class Login extends CI_Controller {
 
     public function checkRole($role) {
         $role_value = $this->select->getSingleRecordWhere('role', 'id', $role);
-        if ($role_value->role == 'role_admin') {
-            echo "redirect to admin";
-        } else {
-            redirect(base_url() . 'member', 'refresh');
+        if (!empty($role_value->role)) {
+            if ($role_value->role == 'role_admin') {
+                echo "redirect to admin";
+            } else {
+                redirect(base_url() . 'member', 'refresh');
+            }
         }
     }
 

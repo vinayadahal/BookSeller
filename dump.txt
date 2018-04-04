@@ -1,43 +1,42 @@
-/*
-SQLyog Professional v12.09 (32 bit)
-MySQL - 5.7.19-0ubuntu0.16.04.1 : Database - book_deals
-*********************************************************************
-*/
+-- phpMyAdmin SQL Dump
+-- version 4.1.14
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 04, 2018 at 08:07 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
-/*!40101 SET NAMES utf8 */;
+--
+-- Database: `book_deals`
+--
 
-/*!40101 SET SQL_MODE=''*/;
+-- --------------------------------------------------------
 
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`book_deals` /*!40100 DEFAULT CHARACTER SET latin1 */;
+--
+-- Table structure for table `bidding`
+--
 
-USE `book_deals`;
-
-/*Table structure for table `bidding` */
-
-DROP TABLE IF EXISTS `bidding`;
-
-CREATE TABLE `bidding` (
+CREATE TABLE IF NOT EXISTS `bidding` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `bidding` longtext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `book_id` (`book_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `bidding_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
-  CONSTRAINT `bidding_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Table structure for table `book` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `book`;
+--
+-- Table structure for table `book`
+--
 
-CREATE TABLE `book` (
+CREATE TABLE IF NOT EXISTS `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `category_id` int(11) NOT NULL,
@@ -52,65 +51,85 @@ CREATE TABLE `book` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `book_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
-  CONSTRAINT `book_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
-/*Table structure for table `category` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `category`;
+--
+-- Table structure for table `category`
+--
 
-CREATE TABLE `category` (
+CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
-/*Table structure for table `content` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `content`;
+--
+-- Table structure for table `content`
+--
 
-CREATE TABLE `content` (
+CREATE TABLE IF NOT EXISTS `content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
   `desc` varchar(255) DEFAULT NULL,
   `keyword` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Table structure for table `description` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `description`;
+--
+-- Table structure for table `description`
+--
 
-CREATE TABLE `description` (
+CREATE TABLE IF NOT EXISTS `description` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `description` longtext NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `book_id` (`book_id`),
-  CONSTRAINT `description_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  KEY `book_id` (`book_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
-/*Table structure for table `images` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `images`;
+--
+-- Table structure for table `images`
+--
 
-CREATE TABLE `images` (
+CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `image_location` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `book_id` (`book_id`),
-  CONSTRAINT `images_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  KEY `book_id` (`book_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
-/*Table structure for table `review` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `review`;
+--
+-- Table structure for table `posts`
+--
 
-CREATE TABLE `review` (
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `book_name` varchar(256) NOT NULL,
+  `author` varchar(256) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review`
+--
+
+CREATE TABLE IF NOT EXISTS `review` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -118,26 +137,28 @@ CREATE TABLE `review` (
   `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `book_id` (`book_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `review_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
-  CONSTRAINT `review_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-/*Table structure for table `role` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `role`;
+--
+-- Table structure for table `role`
+--
 
-CREATE TABLE `role` (
+CREATE TABLE IF NOT EXISTS `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
-/*Table structure for table `user` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `user`;
+--
+-- Table structure for table `user`
+--
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -148,24 +169,63 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-/*Table structure for table `user_role` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `user_role`;
+--
+-- Table structure for table `user_role`
+--
 
-CREATE TABLE `user_role` (
+CREATE TABLE IF NOT EXISTS `user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  KEY `role_id` (`role_id`),
-  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  KEY `role_id` (`role_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `bidding`
+--
+ALTER TABLE `bidding`
+  ADD CONSTRAINT `bidding_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
+  ADD CONSTRAINT `bidding_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `book`
+--
+ALTER TABLE `book`
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  ADD CONSTRAINT `book_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `description`
+--
+ALTER TABLE `description`
+  ADD CONSTRAINT `description_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`);
+
+--
+-- Constraints for table `images`
+--
+ALTER TABLE `images`
+  ADD CONSTRAINT `images_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`);
+
+--
+-- Constraints for table `review`
+--
+ALTER TABLE `review`
+  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
+  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `user_role`
+--
+ALTER TABLE `user_role`
+  ADD CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
