@@ -6,7 +6,7 @@
     <div class="showDetailsImage">
         <div id="image_main_preview">
             <?php if (!empty($images[0]->image_location)) { ?>
-                <img src="<?php echo base_url() . $images[0]->image_location; ?>" alt="item image"/>
+                <img src="<?php echo base_url().'images/icons/' . $images[0]->image_location; ?>" alt="item image"/>
                 <?php
             } else {
                 ?>

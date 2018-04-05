@@ -27,6 +27,7 @@ class MyBooks extends CI_Controller {
         $this->load->model('delete');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
+        $this->load->library('upload');
         $this->session_check();
     }
 
@@ -40,7 +41,7 @@ class MyBooks extends CI_Controller {
     public function form_value_init() {
         $this->user_id = $this->session->userdata('user_id');
         $this->book_name = $this->input->post('book_name');
-        $this->image = $this->input->post('imgFile');
+//        $this->image = $this->input->post('imgFile');
         $this->category = $this->input->post('category');
         $this->author = $this->input->post('author');
         $this->year = $this->input->post('year');
@@ -52,6 +53,24 @@ class MyBooks extends CI_Controller {
         $this->description = $this->input->post('description');
         if (!empty($this->input->post('book_id')) && null !== $this->input->post('book_id')) {
             $this->book_id = $this->input->post('book_id');
+        }
+    }
+
+    public function file_uploader() {
+        $config['upload_path'] = './images/icons/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_width'] = 0;
+        $config['max_height'] = 0;
+        $config['max_size'] = 0;
+        $config['encrypt_name'] = FALSE;
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if (!$this->upload->do_upload('imgFile')) {
+//            $error = array('error' => $this->upload->display_errors());
+            return false;
+        } else {
+            $data = ($this->upload->data());
+            return $data['file_name'];
         }
     }
 
@@ -139,6 +158,7 @@ class MyBooks extends CI_Controller {
 
         if ($this->insert->insert_single_row($data_description_table, "description")) {
             $this->insert->insert_single_row($data_image_table, "images");
+            $this->file_uploader();
             $this->session->set_flashdata('message', ucfirst($this->book_name) . " added successfully!!!");
             redirect(base_url() . 'member/my-books', 'refresh');
         } else {
@@ -158,20 +178,11 @@ class MyBooks extends CI_Controller {
 
     public function updateBook() {
         $this->form_value_init(); // initalize form value
-
         $data_book_table = $this->array_maker_book_table(); // create array with book
-
         $this->update->updateSingleCondition($data_book_table, "book", "id", $this->book_id);
-
-        $data_description_table = array(
-            "description" => $this->description
-        );
-
-        $data_image_table = array(
-            "image_location" => $this->image
-        );
-
+        $data_description_table = array("description" => $this->description);
         if ($this->update->updateSingleCondition($data_description_table, "description", "book_id", $this->book_id)) {
+            $data_image_table = array("image_location" => $this->file_uploader());
             $this->update->updateSingleCondition($data_image_table, "images", "book_id", $this->book_id);
             $this->session->set_flashdata('message', ucfirst($this->book_name) . " updated successfully!!!");
             redirect(base_url() . 'member/my-books', 'refresh');

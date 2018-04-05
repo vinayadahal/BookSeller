@@ -10,7 +10,6 @@ class PublicUser extends CI_Controller {
         $this->load->model('select');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-//        $this->session_check();
     }
 
     public function pageDataLimiter($page, $dataPerPage) {
@@ -27,9 +26,15 @@ class PublicUser extends CI_Controller {
         $DataPerPage = 12;
         $start = $this->pageDataLimiter($page, $DataPerPage);
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
-//        $data['AllBooks'] = (array) ($this->select->getAllFromTable('book', $DataPerPage, $start));
-        $data['AllBooks'] = (array) ($this->select->getAllFromTableWhere('book', 'publish', 'Yes', $DataPerPage, $start));
-
+        $col = array("book.id", "book.name",
+            "book.author", "book.year",
+            "book.edition", "book.offer",
+            "book.price", "images.image_location as image_location");
+        $table1 = 'book';
+        $table2 = 'images';
+        $table1_id = "id";
+        $table2_id = "book_id";
+        $data['AllBooks'] = (array) $this->select->getAllRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'publish', 'Yes', $DataPerPage, $start);
         $this->loadView($data, 'home');
     }
 

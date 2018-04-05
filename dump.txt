@@ -61,7 +61,7 @@ CREATE TABLE `book` (
 
 /*Data for the table `book` */
 
-insert  into `book`(`id`,`name`,`category_id`,`author`,`year`,`edition`,`offer`,`price`,`pages`,`condition`,`publish`,`user_id`) values (1,'Jindagi Yestai Cha1',1,'Raja Ram Giri','2017-11-01','First','Get a free ticket to chandragiri hills',2000,200,'Used','Yes',1),(2,'Maya Ma Payeko Dhoka2',1,'Rajan Raj Bastola','2015-11-01','First','',3000,500,'Brand New','No',1),(3,'Jindagi Yestai Cha3',1,'Raja Ram Giri','2017-11-01','First','Get a free ticket to chandragiri hills',0,200,'Brand New','Yes',1),(4,'Maya Ma Payeko Dhoka4',1,'Rajan Raj Bastola','2015-11-01','First','',3000,500,'Brand New',NULL,1),(5,'Jindagi Yestai Cha5',1,'Raja Ram Giri','2017-11-01','First','Get a free ticket to chandragiri hills',2000,200,'Brand New',NULL,1),(6,'Maya Ma Payeko Dhoka6',1,'Rajan Raj Bastola','2015-11-01','First','',3000,500,'Brand New',NULL,1),(10,'Mero Man Ko Betha',1,'Some Random Guy','2017-08-09','Second','',500,150,'Brand New',NULL,1),(11,'Adhuro Prem',1,'Some Broken Person','2017-04-09','Third','',251,253,'Brand New','Yes',1),(12,'Birsidinchu Timilai',2,'Koi Dukhi Aatma','2018-02-23','First','',800,125,'Brand New',NULL,1),(13,'asdasd12',1,'qwwqeqw','2018-09-06','First','',1234,10,'Brand New',NULL,1);
+insert  into `book`(`id`,`name`,`category_id`,`author`,`year`,`edition`,`offer`,`price`,`pages`,`condition`,`publish`,`user_id`) values (1,'Jindagi Yestai Cha1',1,'Raja Ram Giri','2017-11-01','First','Get a free ticket to chandragiri hills',2000,200,'Used','No',1),(2,'Maya Ma Payeko Dhoka2',1,'Rajan Raj Bastola','2015-11-01','First','',3000,500,'Brand New','No',1),(3,'Jindagi Yestai Cha3',1,'Raja Ram Giri','2017-11-01','First','Get a free ticket to chandragiri hills',0,200,'Brand New','No',1),(4,'Maya Ma Payeko Dhoka4',1,'Rajan Raj Bastola','2015-11-01','First','',3000,500,'Brand New',NULL,1),(5,'Jindagi Yestai Cha5',1,'Raja Ram Giri','2017-11-01','First','Get a free ticket to chandragiri hills',2000,200,'Brand New',NULL,1),(6,'Maya Ma Payeko Dhoka6',1,'Rajan Raj Bastola','2015-11-01','First','',3000,500,'Brand New',NULL,1),(10,'Mero Man Ko Betha',1,'Some Random Guy','2017-08-09','Second','',500,150,'Brand New',NULL,1),(11,'Adhuro Prem',1,'Some Broken Person','2017-04-09','Third','',251,253,'Brand New','Yes',1),(12,'Birsidinchu Timilai',2,'Koi Dukhi Aatma','2018-02-23','First','',800,125,'Brand New',NULL,1),(13,'asdasd12',1,'qwwqeqw','2018-09-06','First','',1234,10,'Brand New','Yes',1);
 
 /*Table structure for table `category` */
 
@@ -124,7 +124,7 @@ CREATE TABLE `images` (
 
 /*Data for the table `images` */
 
-insert  into `images`(`id`,`book_id`,`image_location`) values (1,1,''),(2,1,''),(5,10,''),(6,11,''),(7,12,''),(8,13,'');
+insert  into `images`(`id`,`book_id`,`image_location`) values (1,1,''),(2,1,''),(5,10,''),(6,11,'sb3-smashing-book-3-redesign-the-web1.png'),(7,12,''),(8,13,'Book_placeholder.png');
 
 /*Table structure for table `posts` */
 
