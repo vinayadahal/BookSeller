@@ -37,3 +37,12 @@ $route['member/matches'] = 'Matches/index';
 
 $route['member/settings'] = 'Settings/index';
 $route['member/settings/updateUser'] = 'Settings/updateUser';
+
+$route['admin'] = 'Admin/index';
+$route['admin/category'] = 'Category/index';
+$route['admin/category/(:num)'] = 'Category/index/$1';
+$route['admin/category/add'] = 'Category/addCategory';
+$route['admin/category/create'] = 'Category/createCategory';
+$route['admin/category/edit/(:num)'] = 'Category/editCategory/$1';
+$route['admin/category/update'] = 'Category/updateCategory';
+$route['admin/category/delete/(:num)'] = 'Category/deleteCategory/$1';

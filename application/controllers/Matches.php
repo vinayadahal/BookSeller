@@ -15,6 +15,7 @@ class Matches extends CI_Controller {
 
     public function session_check() {
         if (empty($this->session->userdata('user_id'))) {
+            $this->session->set_flashdata('message', 'Invaild credentials!!!');
             redirect(base_url() . 'login', 'refresh');
         }
     }

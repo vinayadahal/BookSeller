@@ -17,21 +17,11 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="<?php echo base_url(); ?>member">Home</a></li>
-                        <li><a href="<?php echo base_url(); ?>member/my-books">My Books</a></li>
-                        <li><a href="<?php echo base_url(); ?>member/my-posts">Posts</a></li>
-                        <li>
-                            <a href="<?php echo base_url(); ?>member/matches">Matching Books <?php
-                                if (!empty($books)) {
-                                    $count = 0;
-                                    foreach ($books as $book) {
-                                        $count += count($book);
-                                    }
-                                    echo "<span>(" . $count . ")</span>";
-                                }
-                                ?>
-                            </a></li>
-                        <li><a href="<?php echo base_url(); ?>member/settings">Settings</a></li>
+                        <li><a href="<?php echo base_url(); ?>admin">Home</a></li>
+                        <li><a href="<?php echo base_url(); ?>admin/slider">Manage Slider</a></li>
+                        <li><a href="<?php echo base_url(); ?>admin/category">Category</a></li>
+                        <li><a href="<?php echo base_url(); ?>admin/users">Users</a></li>
+                        <li><a href="<?php echo base_url(); ?>admin/roles">Roles</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
