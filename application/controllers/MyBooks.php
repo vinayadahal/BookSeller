@@ -32,6 +32,7 @@ class MyBooks extends CI_Controller {
 
     public function session_check() {
         if (empty($this->session->userdata('user_id'))) {
+            $this->session->set_flashdata('message', 'Invaild credentials!!!');
             redirect(base_url() . 'login', 'refresh');
         }
     }
@@ -69,6 +70,16 @@ class MyBooks extends CI_Controller {
         );
     }
 
+    public function matchingBooks() {
+        $posted_books = (array) $this->select->getAllFromTable('posts', '', '');
+        $data = array();
+        $i = 0;
+        foreach ($posted_books as $posted_book) {
+            $data[$i++] = (array) $this->select->searchAllRecords(array($posted_book->book_name, $posted_book->author), array('name', 'author'), 'book');
+        }
+        return $data;
+    }
+
     public function pageDataLimiter($page, $dataPerPage) {
         if ($page > 1) {
             $page = $page - 1;
@@ -79,6 +90,8 @@ class MyBooks extends CI_Controller {
     }
 
     public function index($page = null) {
+        $data['message'] = $this->session->flashdata('message');
+        $data['books'] = $this->matchingBooks();
         $TotalCount = $this->select->getTotalCount("book");
         $DataPerPage = 8;
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
@@ -126,8 +139,10 @@ class MyBooks extends CI_Controller {
 
         if ($this->insert->insert_single_row($data_description_table, "description")) {
             $this->insert->insert_single_row($data_image_table, "images");
+            $this->session->set_flashdata('message', ucfirst($this->book_name) . " added successfully!!!");
             redirect(base_url() . 'member/my-books', 'refresh');
         } else {
+            $this->session->set_flashdata('message', 'Unable to add ' . ucfirst($this->book_name) . '!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
         }
     }
@@ -158,36 +173,47 @@ class MyBooks extends CI_Controller {
 
         if ($this->update->updateSingleCondition($data_description_table, "description", "book_id", $this->book_id)) {
             $this->update->updateSingleCondition($data_image_table, "images", "book_id", $this->book_id);
+            $this->session->set_flashdata('message', ucfirst($this->book_name) . " updated successfully!!!");
             redirect(base_url() . 'member/my-books', 'refresh');
         } else {
+            $this->session->set_flashdata('message', 'Unable to update ' . ucfirst($this->book_name) . '!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
         }
     }
 
     public function deleteBook($id) {
+        $book = (array) $this->select->getSingleRecord('book', $id);
         $this->delete->deleteSingleCondition("images", "book_id", $id);
         $this->delete->deleteSingleCondition("description", "book_id", $id);
         if ($this->delete->deleteSingleCondition("book", "id", $id)) {
+            $this->session->set_flashdata('message', ucfirst($book['name']) . ' deleted successfully!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
         } else {
+            $this->session->set_flashdata('message', 'Unable to delete ' . ucfirst($book['name']) . '!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
         }
     }
 
     public function publishBook($id) {
         $data_book_table = array("publish" => "Yes");
+        $book = (array) $this->select->getSingleRecord('book', $id);
         if ($this->update->updateSingleCondition($data_book_table, "book", "id", $id)) {
+            $this->session->set_flashdata('message', ucfirst($book['name']) . ' published successfully!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
         } else {
+            $this->session->set_flashdata('message', 'Unable to piblish ' . ucfirst($book['name']) . '!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
         }
     }
 
     public function hideBook($id) {
         $data_book_table = array("publish" => "No");
+        $book = (array) $this->select->getSingleRecord('book', $id);
         if ($this->update->updateSingleCondition($data_book_table, "book", "id", $id)) {
+            $this->session->set_flashdata('message', ucfirst($book['name']) . ' hidden successfully!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
         } else {
+            $this->session->set_flashdata('message', 'Unable to hidden ' . ucfirst($book['name']) . '!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
         }
     }

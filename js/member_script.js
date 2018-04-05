@@ -11,7 +11,15 @@ $(document).ready(function () {
             showImg(this);
         }
     });
+
 });
+
+function showPopup() {
+    $("#popup").fadeIn('slow');
+    setInterval(function () {
+        $("#popup").fadeOut('slow');
+    }, 5000);
+}
 
 function setFooter(container_height) {
     if (container_height < 500) {

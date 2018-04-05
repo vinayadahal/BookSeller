@@ -15,11 +15,6 @@ $route['logout'] = 'Login/logout';
 
 $route['member'] = 'Member/index';
 $route['member/home'] = 'Member/index';
-//$route['member/my-books'] = 'Member/myBooks';
-//$route['member/my-books/(:num)'] = 'Member/myBooks/$1';
-//$route['member/my-books/add'] = 'Member/addBook';
-//$route['member/my-books/create'] = 'Member/createBook';
-//$route['member/my-books/edit/(:num)'] = 'Member/editBook/$1';
 $route['member/my-books'] = 'MyBooks/index';
 $route['member/my-books/(:num)'] = 'MyBooks/index/$1';
 $route['member/my-books/add'] = 'MyBooks/addBook';
@@ -39,3 +34,6 @@ $route['member/my-posts/update'] = 'Posts/updatePost';
 $route['member/my-posts/delete/(:num)'] = 'Posts/deletePost/$1';
 
 $route['member/matches'] = 'Matches/index';
+
+$route['member/settings'] = 'Settings/index';
+$route['member/settings/updateUser'] = 'Settings/updateUser';

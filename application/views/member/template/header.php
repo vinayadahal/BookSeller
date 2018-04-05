@@ -23,17 +23,21 @@
                         <li>
                             <a href="<?php echo base_url(); ?>member/matches">Matching Books <?php
                                 if (!empty($books)) {
-                                    echo "<span style='color:#f00;'>(" . count($books) . ")</span>";
+                                    $count = 0;
+                                    foreach ($books as $book) {
+                                        $count += count($book);
+                                    }
+                                    echo "<span>(" . $count . ")</span>";
                                 }
                                 ?>
                             </a></li>
-                        <li><a href="#">Settings</a></li>
+                        <li><a href="<?php echo base_url(); ?>member/settings">Settings</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi, <?php echo ucwords($user->name); ?> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Settings</a></li>
+                                <li><a href="<?php echo base_url(); ?>member/settings">Settings</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="<?php echo base_url() ?>logout">Logout</a></li>
                             </ul>
@@ -43,3 +47,11 @@
             </div>
         </nav>
         <div class="container" id="container">
+            <?php if (isset($message) && !empty($message)) { ?>
+                <div class="popup_wrap" id="popup">
+                    <div class="popup_box">
+                        <?php echo $message; ?>
+                    </div>
+                </div>
+                <?php
+            }

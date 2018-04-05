@@ -23,6 +23,7 @@ class Posts extends CI_Controller {
 
     public function session_check() {
         if (empty($this->session->userdata('user_id'))) {
+            $this->session->set_flashdata('message', 'Invaild credentials!!!');
             redirect(base_url() . 'login', 'refresh');
         }
     }
@@ -53,7 +54,19 @@ class Posts extends CI_Controller {
         }
     }
 
+    public function matchingBooks() {
+        $posted_books = (array) $this->select->getAllFromTable('posts', '', '');
+        $data = array();
+        $i = 0;
+        foreach ($posted_books as $posted_book) {
+            $data[$i++] = (array) $this->select->searchAllRecords(array($posted_book->book_name, $posted_book->author), array('name', 'author'), 'book');
+        }
+        return $data;
+    }
+
     public function index($page = null) {
+        $data['books'] = $this->matchingBooks();
+        $data['message'] = $this->session->flashdata('message');
         $TotalCount = $this->select->getTotalCount("posts");
         $DataPerPage = 8;
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
@@ -74,8 +87,10 @@ class Posts extends CI_Controller {
         $this->form_value_init(); // initalize form value
         $data_post_table = $this->array_maker_post_table(); // create array with book
         if ($this->insert->insert_single_row($data_post_table, "posts")) {
+            $this->session->set_flashdata('message', 'Added post for ' . ucfirst($this->book_name) . '!!!');
             redirect(base_url() . 'member/my-posts', 'refresh');
         } else {
+            $this->session->set_flashdata('message', 'Unable to add post for ' . ucfirst($this->book_name) . '!!!');
             redirect(base_url() . 'member/my-posts', 'refresh');
         }
     }
@@ -90,16 +105,21 @@ class Posts extends CI_Controller {
         $this->form_value_init(); // initalize form value
         $data_post_table = $this->array_maker_post_table(); // create array with book
         if ($this->update->updateSingleCondition($data_post_table, "posts", "id", $this->post_id)) {
+            $this->session->set_flashdata('message', 'Updated post for ' . ucfirst($this->book_name) . '!!!');
             redirect(base_url() . 'member/my-posts', 'refresh');
         } else {
+            $this->session->set_flashdata('message', 'Unable to update post for ' . ucfirst($this->book_name) . '!!!');
             redirect(base_url() . 'member/my-posts', 'refresh');
         }
     }
 
     public function deletePost($id) {
+        $post = (array) $this->select->getSingleRecord('posts', $id);
         if ($this->delete->deleteSingleCondition("posts", "id", $id)) {
+            $this->session->set_flashdata('message', 'Post for ' . ucfirst($post['book_name']) . ' deleted successfully!!!');
             redirect(base_url() . 'member/my-posts', 'refresh');
         } else {
+            $this->session->set_flashdata('message', 'Unable to delete post for ' . ucfirst($post['book_name']) . '!!!');
             redirect(base_url() . 'member/my-posts', 'refresh');
         }
     }

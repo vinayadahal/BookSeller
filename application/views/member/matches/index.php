@@ -31,15 +31,15 @@
                             }
                             ?>
                         </th>
-                        <td><?php echo $book->name; ?></td>
-                        <td><?php echo $book->author; ?></td>
-                        <td><?php echo date('Y', strtotime($book->year)); ?></td>
-                        <td><?php echo $book->edition; ?></td>
-                        <td><?php echo $book->offer; ?></td>
-                        <td>Rs. <?php echo $book->price; ?> /-</td>
-                        <td><?php echo $book->pages; ?></td>
-                        <td><?php echo $book->condition; ?></td>
-                        <td><a href="<?php echo base_url() ?>showDetails/<?php echo $book->id; ?>" target="_blank">View</a></td>
+                        <td><?php echo $book['name']; ?></td>
+                        <td><?php echo $book['author']; ?></td>
+                        <td><?php echo date('Y', strtotime($book['year'])); ?></td>
+                        <td><?php echo $book['edition']; ?></td>
+                        <td><?php echo $book['offer']; ?></td>
+                        <td>Rs. <?php echo $book['price']; ?> /-</td>
+                        <td><?php echo $book['pages']; ?></td>
+                        <td><?php echo $book['condition']; ?></td>
+                        <td><a href="<?php echo base_url() ?>showDetails/<?php echo $book['id']; ?>" target="_blank">View</a></td>
                     </tr>
                 <?php } ?>
             </tbody>

@@ -10,7 +10,11 @@
             <div class="dashboard_icons">
                 <i class="fa fa-copy" style="font-size: 128px;"></i>Matching Books <?php
                 if (!empty($books)) {
-                    echo "<span style='color:#f00;'>(" . count($books) . ")</span>";
+                    $count = 0;
+                    foreach ($books as $book) {
+                        $count += count($book);
+                    }
+                    echo "<span>(" . $count . ")</span>";
                 }
                 ?>
             </div>

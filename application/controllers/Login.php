@@ -21,15 +21,17 @@ class Login extends CI_Controller {
     }
 
     public function index() {
+        $data['message'] = $this->session->flashdata('message');
         $page_name = "index";
         $title = 'login';
-        $this->loadView("", $page_name, $title);
+        $this->loadView($data, $page_name, $title);
     }
 
     public function checkLogin() {
         $this->form_value_init();
         $result = $this->select->getSingleRecordWhereMultiValue('user', 'username', $this->username, 'password', sha1($this->password));
         if (!isset($result) || empty($result)) {
+            $this->session->set_flashdata('message', 'Invaild credentials!!!');
             redirect(base_url() . 'login', 'refresh');
         } else {
             $this->session->set_userdata('user_id', $result->id);

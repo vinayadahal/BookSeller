@@ -22,9 +22,8 @@ class Member extends CI_Controller {
     }
 
     public function index() {
-        $cols = array('name', 'author');
-        $table = 'book';
-        $data['books'] = (array) $this->select->search("dukhi attma2", $cols, $table);
+        $data['message'] = $this->session->flashdata('message');
+        $data['books'] = $this->matchingBooks();
         $this->loadView($data, 'home', 'home');
     }
 
@@ -34,6 +33,16 @@ class Member extends CI_Controller {
         $this->load->view('member/template/header', $data);
         $this->load->view('member/' . $page_name, $data);
         $this->load->view('member/template/footer', $data);
+    }
+
+    public function matchingBooks() {
+        $posted_books = (array) $this->select->getAllFromTable('posts', '', '');
+        $data = array();
+        $i = 0;
+        foreach ($posted_books as $posted_book) {
+            $data[$i++] = (array) $this->select->searchAllRecords(array($posted_book->book_name, $posted_book->author), array('name', 'author'), 'book');
+        }
+        return $data;
     }
 
 }

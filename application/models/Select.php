@@ -121,6 +121,26 @@ class Select extends CI_Model {
         return $query->result();
     }
 
+    function searchAllRecords($keyword, $cols, $tablename) {
+        $this->db->select('*');
+        $this->db->from($tablename);
+        $i = 1;
+        $j = 0;
+        $where_query = "";
+        foreach ($cols as $col) {
+            if (count($cols) == $i) {
+                $where_query .= "`" . $col . "` LIKE '%" . $keyword[$j] . "%';";
+            } else {
+                $where_query .= "`" . $col . "` LIKE '%" . $keyword[$j] . "%' AND ";
+            }
+            $i++;
+            $j++;
+        }
+        $this->db->where($where_query);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function getSingleRecord($table, $id) {
         $this->db->select('*');
         $this->db->from($table);
@@ -128,7 +148,6 @@ class Select extends CI_Model {
         $this->db->limit(1);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
-//            return $query->result();
             return $query->row();
         } else {
             return false;
