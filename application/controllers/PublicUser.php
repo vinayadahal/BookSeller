@@ -4,10 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class PublicUser extends CI_Controller {
 
+    private $name, $email, $phone, $address, $role, $username, $password, $con_password, $user_id;
+
     public function __construct() {
         parent:: __construct();
         $this->load->database();
         $this->load->model('select');
+        $this->load->model('insert');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
     }
@@ -128,9 +131,46 @@ class PublicUser extends CI_Controller {
         $i = 0;
         foreach ($posts as $post) {
             $user = (array) ($this->select->getSingleRecordWhere('user', 'id', $post->user_id));
-            $data['AllPosts'][$i++] = array("book_name" => $post->book_name, "author" => $post->author, "username" => $user['username'],"email" => $user['email']);
+            $data['AllPosts'][$i++] = array("book_name" => $post->book_name, "author" => $post->author, "username" => $user['username'], "email" => $user['email']);
         }
         $this->loadView($data, 'request');
+    }
+
+    public function register() {
+        $data['message'] = $this->session->flashdata('message');
+        $data['AllCategories'] = (array) $this->select->getAllFromTable('category', '', '');
+        $this->loadView($data, 'register');
+    }
+
+    public function form_value_init() {
+        $this->name = $this->input->post('name');
+        $this->email = $this->input->post('email');
+        $this->phone = $this->input->post('phone');
+        $this->address = $this->input->post('address');
+        $this->role = '2';
+        $this->username = $this->input->post('username');
+        $this->password = $this->input->post('password');
+        $this->con_password = $this->input->post('con_password');
+    }
+
+    public function array_maker_user_table() {
+        return array("name" => $this->name, "email" => $this->email, "phone" => $this->phone, "address" => $this->address, "role" => $this->role, "username" => $this->username, "password" => sha1($this->password));
+    }
+
+    public function signup() {
+        $this->form_value_init(); // initalize form value
+        $data_user_table = $this->array_maker_user_table(); // create array with book
+        if ($this->password != $this->con_password) {
+            $this->session->set_flashdata('message', "Passwords are not equal!!!");
+            redirect(base_url() . 'register', 'refresh');
+        }
+        if ($this->insert->insert_single_row($data_user_table, "user")) {
+            $this->session->set_flashdata('message', ucwords($this->name) . " registered successfully. Please check your email for verification code!!!");
+            redirect(base_url() . 'register', 'refresh');
+        } else {
+            $this->session->set_flashdata('message', 'Unable to register ' . ucwords($this->name) . '!!!');
+            redirect(base_url() . 'register', 'refresh');
+        }
     }
 
     public function loadView($data, $page_name) {

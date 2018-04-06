@@ -29,9 +29,9 @@
                             ?>
                         </div>
                     </li>
-                    <a href="<?php echo base_url()?>request"><li>User's Request</li></a>
-                    <a href="<?php echo base_url()?>login"><li>Login</li></a>
-                    <a href="<?php echo base_url()?>register"><li>Register</li></a>
+                    <a href="<?php echo base_url() ?>request"><li>User's Request</li></a>
+                    <a href="<?php echo base_url() ?>login"><li>Login</li></a>
+                    <a href="<?php echo base_url() ?>register"><li>Register</li></a>
                 </ul>
                 <div class="search_area">
                     <form method="get" action="<?php echo base_url() ?>search/">
@@ -45,3 +45,11 @@
 
         </div>
         <div class="container" id="container">
+            <?php if (isset($message) && !empty($message)) { ?>
+                <div class="popup_wrap" id="popup">
+                    <div class="popup_box">
+                        <?php echo $message; ?>
+                    </div>
+                </div>
+                <?php
+            }

@@ -34,8 +34,20 @@ class Login extends CI_Controller {
             $this->session->set_flashdata('message', 'Invaild credentials!!!');
             redirect(base_url() . 'login', 'refresh');
         } else {
-            $this->session->set_userdata('user_id', $result->id);
-            $this->checkRole($result->role); // checks which panel to redirect to
+            if ($this->checkActivated($result->active)) {
+                $this->session->set_userdata('user_id', $result->id);
+                $this->checkRole($result->role); // checks which panel to redirect to
+            }
+        }
+    }
+
+    public function checkActivated($active) {
+        if ($active != TRUE) {
+            $this->session->set_flashdata('message', 'Account not activated!!!');
+            redirect(base_url() . 'login', 'refresh');
+            return false;
+        } else {
+            return true;
         }
     }
 

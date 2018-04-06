@@ -76,6 +76,8 @@ if (isset($AllBooks)) {
         </div>
     </div>
 </div>
-
+<script type="text/javascript">
+    showPopup();
+</script>
 </body>
 </html>

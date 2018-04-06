@@ -56,3 +56,35 @@ function showDescription() {
 function loadMainPreview(id) {
     $("#image_main_preview img").attr("src", $(id).attr("src"));
 }
+
+function validate(idArray) {
+    var count = idArray.length;
+    for (var i = 0; i <= count; i++) {
+        if (idArray[i] === 'title') {
+            countChars();
+        }
+        if (checkNull(idArray[i])) {
+            continue;
+        } else {
+            alert('Please fill every fields.');
+            return false;
+        }
+    }
+    return true;
+}
+
+function checkNull(idName) {
+    var id = $("#" + idName).val();
+    if (id === '') {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function showPopup() {
+    $("#popup").fadeIn('slow');
+    setInterval(function () {
+        $("#popup").fadeOut('slow');
+    }, 7000);
+}
