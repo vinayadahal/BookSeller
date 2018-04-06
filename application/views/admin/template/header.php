@@ -23,13 +23,13 @@
                         <li><a href="<?php echo base_url(); ?>admin/slider">Manage Slider</a></li>
                         <li><a href="<?php echo base_url(); ?>admin/category">Category</a></li>
                         <li><a href="<?php echo base_url(); ?>admin/users">Users</a></li>
-                        <li><a href="<?php echo base_url(); ?>admin/roles">Roles</a></li>
+                        <li><a href="<?php echo base_url(); ?>admin/settings">Settings</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi, <?php echo ucwords($user->name); ?> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo base_url(); ?>member/settings">Settings</a></li>
+                                <li><a href="<?php echo base_url(); ?>admin/settings">Settings</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="<?php echo base_url() ?>logout">Logout</a></li>
                             </ul>

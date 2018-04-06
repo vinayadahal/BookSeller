@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Settings extends CI_Controller {
+class SettingsAdmin extends CI_Controller {
 
     private $username;
     private $password;
@@ -33,7 +33,7 @@ class Settings extends CI_Controller {
             $this->password = $this->input->post('new_password');
         } else {
             $this->session->set_flashdata('message', 'Passwords do not match!!!');
-            redirect(base_url() . 'member/settings', 'refresh');
+            redirect(base_url() . 'admin/settings', 'refresh');
         }
     }
 
@@ -44,18 +44,7 @@ class Settings extends CI_Controller {
         );
     }
 
-    public function matchingBooks() {
-        $posted_books = (array) $this->select->getAllFromTable('posts', '', '');
-        $data = array();
-        $i = 0;
-        foreach ($posted_books as $posted_book) {
-            $data[$i++] = (array) $this->select->searchAllRecords(array($posted_book->book_name, $posted_book->author), array('name', 'author'), 'book');
-        }
-        return $data;
-    }
-
     public function index() {
-        $data['books'] = $this->matchingBooks();
         $data['user'] = (array) $this->select->getSingleRecord('user', $this->user_id);
         $data['message'] = $this->session->flashdata('message');
         $this->loadView($data, 'settings/index', 'Settings');
@@ -68,23 +57,23 @@ class Settings extends CI_Controller {
             $data_post_table = $this->array_maker_post_table(); // create array with book
             if ($this->update->updateSingleCondition($data_post_table, "user", "id", $this->user_id)) {
                 $this->session->set_flashdata('message', 'User credential updated!!!');
-                redirect(base_url() . 'member', 'refresh');
+                redirect(base_url() . 'admin', 'refresh');
             } else {
                 $this->session->set_flashdata('message', 'Unable to update user credentials!!!');
-                redirect(base_url() . 'member', 'refresh');
+                redirect(base_url() . 'admin', 'refresh');
             }
         } else {
             $this->session->set_flashdata('message', 'Old password do not match!!!');
-            redirect(base_url() . 'member/settings', 'refresh');
+            redirect(base_url() . 'admin/settings', 'refresh');
         }
     }
 
     public function loadView($data, $page_name, $title) {
         $data['title'] = ucfirst($title);
         $data['user'] = $this->select->getSingleRecordWhere('user', 'id', $this->session->userdata('user_id'));
-        $this->load->view('member/template/header', $data);
-        $this->load->view('member/' . $page_name, $data);
-        $this->load->view('member/template/footer', $data);
+        $this->load->view('admin/template/header', $data);
+        $this->load->view('admin/' . $page_name, $data);
+        $this->load->view('admin/template/footer', $data);
     }
 
 }

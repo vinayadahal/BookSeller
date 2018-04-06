@@ -9,8 +9,8 @@
         <a href="<?php echo base_url(); ?>admin/users">
             <div class="dashboard_icons"><i class="fa fa-users" style="font-size: 128px;"></i>Users</div>
         </a>
-        <a href="<?php echo base_url(); ?>admin/roles">
-            <div class="dashboard_icons"><i class="fa fa-life-bouy" style="font-size: 128px;"></i>Roles</div>
+        <a href="<?php echo base_url(); ?>admin/settings">
+            <div class="dashboard_icons"><i class="fa fa-cog" style="font-size: 128px;"></i>Settings</div>
         </a>
     </div>
 </div>

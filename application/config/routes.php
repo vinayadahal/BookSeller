@@ -58,3 +58,13 @@ $route['admin/slider/activeSlider'] = 'Slider/activeSlider';
 $route['admin/slider/addSliderImage'] = 'Slider/addSliderImage';
 $route['admin/slider/uploadSliderImage'] = 'Slider/file_uploader';
 $route['admin/slider/deleteImage/(:any)'] = 'Slider/deleteImage/$1';
+
+$route['admin/users'] = 'Users/index';
+$route['admin/users/add'] = 'Users/addUser';
+$route['admin/users/create'] = 'Users/createUser';
+$route['admin/users/edit/(:num)'] = 'Users/editUser/$1';
+$route['admin/users/update'] = 'Users/updateUser';
+$route['admin/users/delete/(:num)'] = 'Users/deleteUser/$1';
+
+$route['admin/settings'] = 'SettingsAdmin/index';
+$route['admin/settings/updateUser'] = 'SettingsAdmin/updateUser';

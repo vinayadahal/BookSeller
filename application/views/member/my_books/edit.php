@@ -1,12 +1,12 @@
 <div class="list_details_wrap">
     <h3>Edit Book</h3>
     <div class="form_wrap">
-        <form method="post" enctype="multipart/form-data" action="<?php echo base_url() ?>member/my-books/update">
+        <form method="post" enctype="multipart/form-data" action="<?php echo base_url() ?>member/my-books/update" onsubmit="return validate(['book_name', 'img', 'category', 'author', 'year', 'edition', 'pages','desc'])">
             <input type="hidden" value="<?php echo $book_id; ?>" name="book_id" />
             <table border="0">
                 <tr>
                     <td>Book Name:</td>
-                    <td><input type="text" value="<?php echo $book['name']; ?>" class="form-control" name="book_name" /></td>
+                    <td><input type="text" value="<?php echo $book['name']; ?>" class="form-control" name="book_name" id='book_name'/></td>
                 </tr>
                 <tr>
                     <td>Image:</td>
@@ -24,7 +24,7 @@
                 <tr>
                     <td>Category:</td>
                     <td>
-                        <select class="form-control" name="category">
+                        <select class="form-control" name="category" id='category'>
                             <?php
                             foreach ($categories as $category) {
                                 if ($category->id == $book['category_id']) {
@@ -41,15 +41,15 @@
                 </tr>
                 <tr>
                     <td>Author:</td>
-                    <td><input type="text" value="<?php echo $book['author']; ?>" class="form-control" name="author" /></td>
+                    <td><input type="text" value="<?php echo $book['author']; ?>" class="form-control" name="author" id='author'/></td>
                 </tr>
                 <tr>
                     <td>Year:</td>
-                    <td><input type="text" value="<?php echo $book['year']; ?>" class="form-control" name="year" /></td>
+                    <td><input type="text" value="<?php echo $book['year']; ?>" class="form-control" name="year" id='year'/></td>
                 </tr>
                 <tr>
                     <td>Edition:</td>
-                    <td><input type="text" value="<?php echo $book['edition']; ?>" class="form-control" name="edition" /></td>
+                    <td><input type="text" value="<?php echo $book['edition']; ?>" class="form-control" name="edition" id='edition'/></td>
                 </tr>
                 <tr>
                     <td>Offer:</td>
@@ -61,7 +61,7 @@
                 </tr>
                 <tr>
                     <td>Pages:</td>
-                    <td><input type="text" value="<?php echo $book['pages']; ?>" class="form-control" name="pages" /></td>
+                    <td><input type="text" value="<?php echo $book['pages']; ?>" class="form-control" name="pages" id='pages'/></td>
                 </tr>
                 <tr>
                     <td>Condition:</td>
@@ -75,7 +75,7 @@
                 <tr>
                     <td>Description:</td>
                     <td>
-                        <textarea class="form-control" name="description" rows="6"><?php
+                        <textarea class="form-control" name="description" rows="6" id="desc"><?php
                             if (!empty($description['description'])) {
                                 echo $description['description'];
                             }

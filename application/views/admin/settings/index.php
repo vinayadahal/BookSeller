@@ -1,7 +1,7 @@
 <div class="list_details_wrap">
     <h3>Change Credentials</h3>
     <div class="form_wrap">
-        <form method="post" action="<?php echo base_url() ?>member/settings/updateUser" onsubmit="return validate(['username', 'old_password','new_password','con_password'])">
+        <form method="post" action="<?php echo base_url() ?>admin/settings/updateUser" onsubmit="return validate(['username', 'old_password','new_password','con_password'])">
             <table border="0">
                 <tr>
                     <td>Username:</td>

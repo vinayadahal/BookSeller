@@ -37,3 +37,47 @@ function showImg(img) {
                 reader.readAsDataURL(img.files[0]);
     }
 }
+
+function countChars() {
+    var val = $('#title').val().length;
+    if (val > 40) {
+        alert('Only 40 characters are allowed in title.');
+        $('#title').css({
+            'color': '#f00'
+        });
+        return false;
+    } else if ($('#title').val() === '') {
+        return false;
+    } else {
+        $('#title').css({
+            'color': '#555'
+        });
+        return true;
+    }
+
+}
+
+function validate(idArray) {
+    var count = idArray.length;
+    for (var i = 0; i <= count; i++) {
+        if (idArray[i] === 'title') {
+            countChars();
+        }
+        if (checkNull(idArray[i])) {
+            continue;
+        } else {
+            alert('Please fill every fields.');
+            return false;
+        }
+    }
+    return true;
+}
+
+function checkNull(idName) {
+    var id = $("#" + idName).val();
+    if (id === '') {
+        return false;
+    } else {
+        return true;
+    }
+}
