@@ -1,6 +1,6 @@
 <div class="search_area_dropdown">
     <span style="float: left"><h3 style="display: inline;">All Books</h3></span>
-    <span class="custom-dropdown">
+<!--    <span class="custom-dropdown">
         Sort By:
         <select>
             <option>Lowest Price</option>
@@ -11,7 +11,7 @@
             <option>For Rent</option>
             <option>For Free</option>
         </select>
-    </span>
+    </span>-->
 </div>
 <hr/>
 <?php foreach ($AllBooks as $book) { ?>

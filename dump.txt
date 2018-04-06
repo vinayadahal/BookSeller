@@ -1,45 +1,42 @@
-/*
-SQLyog Professional v12.09 (32 bit)
-MySQL - 5.7.19-0ubuntu0.16.04.1 : Database - book_deals
-*********************************************************************
-*/
+-- phpMyAdmin SQL Dump
+-- version 4.1.14
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 06, 2018 at 06:04 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
-/*!40101 SET NAMES utf8 */;
+--
+-- Database: `book_deals`
+--
 
-/*!40101 SET SQL_MODE=''*/;
+-- --------------------------------------------------------
 
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`book_deals` /*!40100 DEFAULT CHARACTER SET latin1 */;
+--
+-- Table structure for table `bidding`
+--
 
-USE `book_deals`;
-
-/*Table structure for table `bidding` */
-
-DROP TABLE IF EXISTS `bidding`;
-
-CREATE TABLE `bidding` (
+CREATE TABLE IF NOT EXISTS `bidding` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `bidding` longtext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `book_id` (`book_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `bidding_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
-  CONSTRAINT `bidding_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Data for the table `bidding` */
+-- --------------------------------------------------------
 
-/*Table structure for table `book` */
+--
+-- Table structure for table `book`
+--
 
-DROP TABLE IF EXISTS `book`;
-
-CREATE TABLE `book` (
+CREATE TABLE IF NOT EXISTS `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `category_id` int(11) NOT NULL,
@@ -54,101 +51,143 @@ CREATE TABLE `book` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `book_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
-  CONSTRAINT `book_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
-/*Data for the table `book` */
+--
+-- Dumping data for table `book`
+--
 
-insert  into `book`(`id`,`name`,`category_id`,`author`,`year`,`edition`,`offer`,`price`,`pages`,`condition`,`publish`,`user_id`) values (1,'Jindagi Yestai Cha1',1,'Raja Ram Giri','2017-11-01','First','Get a free ticket to chandragiri hills',2000,200,'Used','No',1),(2,'Maya Ma Payeko Dhoka2',1,'Rajan Raj Bastola','2015-11-01','First','',3000,500,'Brand New','No',1),(3,'Jindagi Yestai Cha3',1,'Raja Ram Giri','2017-11-01','First','Get a free ticket to chandragiri hills',0,200,'Brand New','No',1),(4,'Maya Ma Payeko Dhoka4',1,'Rajan Raj Bastola','2015-11-01','First','',3000,500,'Brand New',NULL,1),(5,'Jindagi Yestai Cha5',1,'Raja Ram Giri','2017-11-01','First','Get a free ticket to chandragiri hills',2000,200,'Brand New',NULL,1),(6,'Maya Ma Payeko Dhoka6',1,'Rajan Raj Bastola','2015-11-01','First','',3000,500,'Brand New',NULL,1),(10,'Mero Man Ko Betha',1,'Some Random Guy','2017-08-09','Second','',500,150,'Brand New',NULL,1),(11,'Adhuro Prem',1,'Some Broken Person','2017-04-09','Third','',251,253,'Brand New','Yes',1),(12,'Birsidinchu Timilai',2,'Koi Dukhi Aatma','2018-02-23','First','',800,125,'Brand New',NULL,1),(13,'asdasd12',1,'qwwqeqw','2018-09-06','First','',1234,10,'Brand New','Yes',1);
+INSERT INTO `book` (`id`, `name`, `category_id`, `author`, `year`, `edition`, `offer`, `price`, `pages`, `condition`, `publish`, `user_id`) VALUES
+(1, 'Jindagi Yestai Cha1', 1, 'Raja Ram Giri', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 2000, 200, 'Brand New', 'Yes', 1),
+(2, 'Maya Ma Payeko Dhoka2', 1, 'Rajan Raj Bastola', '2015-11-01', 'First', '', 3000, 500, 'Brand New', 'No', 1),
+(3, 'Jindagi Yestai Cha3', 1, 'Raja Ram Giri', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 0, 200, 'Brand New', 'No', 1),
+(4, 'Maya Ma Payeko Dhoka4', 1, 'Rajan Raj Bastola', '2015-11-01', 'First', '', 3000, 500, 'Brand New', NULL, 1),
+(5, 'Jindagi Yestai Cha5', 1, 'Raja Ram Giri', '2017-11-01', 'First', 'Get a free ticket to chandragiri hills', 2000, 200, 'Brand New', NULL, 1),
+(6, 'Maya Ma Payeko Dhoka6', 1, 'Rajan Raj Bastola', '2015-11-01', 'First', '', 3000, 500, 'Brand New', NULL, 1),
+(10, 'Mero Man Ko Betha', 1, 'Some Random Guy', '2017-08-09', 'Second', '', 500, 150, 'Brand New', NULL, 1),
+(11, 'Adhuro Prem', 1, 'Some Broken Person', '2017-04-09', 'Third', '', 251, 253, 'Brand New', 'Yes', 1),
+(12, 'Birsidinchu Timilai', 2, 'Koi Dukhi Aatma', '2018-02-23', 'First', '', 800, 125, 'Brand New', NULL, 1),
+(13, 'asdasd12', 1, 'qwwqeqw', '2018-09-06', 'First', '', 1234, 10, 'Brand New', 'Yes', 1);
 
-/*Table structure for table `category` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `category`;
+--
+-- Table structure for table `category`
+--
 
-CREATE TABLE `category` (
+CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
-/*Data for the table `category` */
+--
+-- Dumping data for table `category`
+--
 
-insert  into `category`(`id`,`name`) values (1,'Aatma Katha'),(2,'Jeevan Katha');
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'Aatma Katha'),
+(2, 'Jeevan Katha'),
+(3, 'Upanyaas');
 
-/*Table structure for table `content` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `content`;
+--
+-- Table structure for table `content`
+--
 
-CREATE TABLE `content` (
+CREATE TABLE IF NOT EXISTS `content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
   `desc` varchar(255) DEFAULT NULL,
   `keyword` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-/*Data for the table `content` */
+-- --------------------------------------------------------
 
-/*Table structure for table `description` */
+--
+-- Table structure for table `description`
+--
 
-DROP TABLE IF EXISTS `description`;
-
-CREATE TABLE `description` (
+CREATE TABLE IF NOT EXISTS `description` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `description` longtext NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `book_id` (`book_id`),
-  CONSTRAINT `description_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+  KEY `book_id` (`book_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
-/*Data for the table `description` */
+--
+-- Dumping data for table `description`
+--
 
-insert  into `description`(`id`,`book_id`,`description`) values (1,1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. '),(2,2,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. '),(3,3,'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. '),(6,10,'Khai kun chai damno le lekheko ho tha chaina'),(7,11,'bla bla bla1'),(8,12,'Marna na sakeko'),(9,13,'adaqweqe');
+INSERT INTO `description` (`id`, `book_id`, `description`) VALUES
+(1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. '),
+(2, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. '),
+(3, 3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta lorem ac neque suscipit maximus. Nulla velit nibh, pharetra non porttitor et, rhoncus in magna. Aliquam vel dolor ac sapien lobortis rutrum. Etiam vitae molestie turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sed congue mi. Mauris eget leo et justo semper tincidunt vel vel lectus. Morbi eleifend nisi et pretium porttitor. Mauris luctus pulvinar nunc eu sollicitudin. In ut lobortis tellus, eget pulvinar ante. Aenean sollicitudin nunc at tempor consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam mollis, leo laoreet tristique semper, eros risus molestie lorem, ac tincidunt ante mi a diam. Donec fringilla dapibus interdum. Fusce a sagittis augue. Ut auctor, elit at pharetra egestas, lorem augue tristique ante, posuere aliquam ipsum enim imperdiet massa.\r\n\r\nNullam efficitur, mauris et dignissim ullamcorper, nulla ipsum accumsan mi, vitae aliquam est augue sit amet augue. Mauris imperdiet, dolor vel cursus pulvinar, mauris tellus accumsan ipsum, ut porttitor ante est quis quam. Vestibulum sit amet lacinia arcu. Nunc in libero consequat, rutrum eros eu, feugiat diam. In sagittis consequat ex, a faucibus nisl varius at. Suspendisse rhoncus tellus vitae mauris faucibus eleifend. Sed nec orci nisi. Integer neque dolor, malesuada sit amet nibh vel, mattis condimentum ipsum. Nulla id nibh vitae lacus tincidunt placerat vitae a sapien. Donec ultrices nisl a ipsum cursus vehicula. Maecenas vel ex felis. Phasellus feugiat lorem id diam convallis dictum. Etiam consequat, nibh at semper luctus, nulla magna pharetra ante, in pharetra sem enim id neque.\r\n\r\nSuspendisse malesuada eget velit a congue. Aenean lacinia varius sodales. Suspendisse laoreet magna et luctus venenatis. Duis bibendum dapibus dui, non lobortis lacus finibus ut. Quisque leo lorem, egestas at efficitur non, pretium eu massa. Morbi sem nibh, scelerisque in dignissim vel, mollis at risus. Pellentesque cursus velit in velit tempor placerat. Ut eu est at diam gravida pellentesque. Morbi nunc velit, euismod in quam at, molestie auctor felis. Cras sodales euismod dolor id semper. Sed ut mi rutrum, elementum massa ac, facilisis arcu. Nam eu orci eget eros egestas interdum quis eget orci. Suspendisse a risus quis leo consectetur mattis.\r\n\r\nNullam dictum, diam vitae feugiat aliquet, magna urna malesuada sem, vel eleifend diam ligula sed lorem. In imperdiet augue vel porttitor eleifend. Fusce pharetra semper aliquam. Sed facilisis lectus ipsum, et gravida massa laoreet eu. Ut dui enim, mattis vitae ligula non, mollis tristique nunc. Praesent faucibus aliquam ligula quis condimentum. Ut ac ipsum nec nisl vehicula posuere ac in dui. Nullam pellentesque eros at felis finibus eleifend. Aliquam erat volutpat. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce semper bibendum turpis sagittis imperdiet.\r\n\r\nNunc consectetur sapien ligula, aliquam lobortis enim sodales sit amet. Praesent facilisis risus id malesuada dapibus. In ut pulvinar enim. In consequat, turpis nec accumsan volutpat, massa diam euismod nisi, at auctor metus orci nec eros. Nunc rhoncus fermentum placerat. Vivamus sed urna odio. Vestibulum elementum, justo ac tempor placerat, erat mauris facilisis libero, nec tempus tortor neque ut ex. Nam vitae odio fringilla, imperdiet ligula nec, mollis nisl. Aenean et neque purus. '),
+(6, 10, 'Khai kun chai damno le lekheko ho tha chaina'),
+(7, 11, 'bla bla bla1'),
+(8, 12, 'Marna na sakeko'),
+(9, 13, 'adaqweqe');
 
-/*Table structure for table `images` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `images`;
+--
+-- Table structure for table `images`
+--
 
-CREATE TABLE `images` (
+CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `image_location` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `book_id` (`book_id`),
-  CONSTRAINT `images_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  KEY `book_id` (`book_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
-/*Data for the table `images` */
+--
+-- Dumping data for table `images`
+--
 
-insert  into `images`(`id`,`book_id`,`image_location`) values (1,1,''),(2,1,''),(5,10,''),(6,11,'sb3-smashing-book-3-redesign-the-web1.png'),(7,12,''),(8,13,'Book_placeholder.png');
+INSERT INTO `images` (`id`, `book_id`, `image_location`) VALUES
+(1, 1, 'book_glasses_lenses_frames_67559_1920x1080.jpg'),
+(5, 10, ''),
+(6, 11, 'sb3-smashing-book-3-redesign-the-web1.png'),
+(7, 12, ''),
+(8, 13, 'Book_placeholder.png');
 
-/*Table structure for table `posts` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `posts`;
+--
+-- Table structure for table `posts`
+--
 
-CREATE TABLE `posts` (
+CREATE TABLE IF NOT EXISTS `posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_name` varchar(256) NOT NULL,
   `author` varchar(256) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `posts_ibfk_1` (`user_id`),
-  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+  KEY `posts_ibfk_1` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
-/*Data for the table `posts` */
+--
+-- Dumping data for table `posts`
+--
 
-insert  into `posts`(`id`,`book_name`,`author`,`user_id`) values (9,'Jindagi Yestai Cha','Raja Ram Giri',1),(10,'Maya Ma Payeko Dhoka','Rajan Raj Bastola',1);
+INSERT INTO `posts` (`id`, `book_name`, `author`, `user_id`) VALUES
+(9, 'Jindagi Yestai Cha', 'Raja Ram Giri', 1),
+(10, 'Maya Ma Payeko Dhoka', 'Rajan Raj Bastola', 1);
 
-/*Table structure for table `review` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `review`;
+--
+-- Table structure for table `review`
+--
 
-CREATE TABLE `review` (
+CREATE TABLE IF NOT EXISTS `review` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -156,34 +195,43 @@ CREATE TABLE `review` (
   `title` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `book_id` (`book_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `review_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
-  CONSTRAINT `review_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-/*Data for the table `review` */
+--
+-- Dumping data for table `review`
+--
 
-insert  into `review`(`id`,`book_id`,`user_id`,`review`,`title`) values (1,2,1,'This is a really bad book. Please don\'t consider buying it. Its a waste of time and money. ','Worst book ever');
+INSERT INTO `review` (`id`, `book_id`, `user_id`, `review`, `title`) VALUES
+(1, 2, 1, 'This is a really bad book. Please don''t consider buying it. Its a waste of time and money. ', 'Worst book ever');
 
-/*Table structure for table `role` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `role`;
+--
+-- Table structure for table `role`
+--
 
-CREATE TABLE `role` (
+CREATE TABLE IF NOT EXISTS `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-/*Data for the table `role` */
+--
+-- Dumping data for table `role`
+--
 
-insert  into `role`(`id`,`role`) values (1,'role_admin'),(2,'role_user');
+INSERT INTO `role` (`id`, `role`) VALUES
+(1, 'role_admin'),
+(2, 'role_user');
 
-/*Table structure for table `user` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `user`;
+--
+-- Table structure for table `user`
+--
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -194,32 +242,84 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-/*Data for the table `user` */
+--
+-- Dumping data for table `user`
+--
 
-insert  into `user`(`id`,`name`,`email`,`phone`,`address`,`created`,`role`,`username`,`password`) values (1,'vinaya dahal','myemail@mail.com','12312434234','country of mountains','2017-11-14 19:24:23',2,'admin','d033e22ae348aeb5660fc2140aec35850c4da997');
+INSERT INTO `user` (`id`, `name`, `email`, `phone`, `address`, `created`, `role`, `username`, `password`) VALUES
+(1, 'vinaya dahal', 'myemail@mail.com', '12312434234', 'country of mountains', '2017-11-14 19:24:23', 2, 'user', 'd033e22ae348aeb5660fc2140aec35850c4da997'),
+(2, 'admin', 'admin@gmail.com', '12345', 'admin home', '2018-04-05 00:00:00', 1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997');
 
-/*Table structure for table `user_role` */
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `user_role`;
+--
+-- Table structure for table `user_role`
+--
 
-CREATE TABLE `user_role` (
+CREATE TABLE IF NOT EXISTS `user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  KEY `role_id` (`role_id`),
-  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  KEY `role_id` (`role_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-/*Data for the table `user_role` */
+--
+-- Dumping data for table `user_role`
+--
 
-insert  into `user_role`(`id`,`user_id`,`role_id`) values (1,1,2);
+INSERT INTO `user_role` (`id`, `user_id`, `role_id`) VALUES
+(1, 1, 2);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `bidding`
+--
+ALTER TABLE `bidding`
+  ADD CONSTRAINT `bidding_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
+  ADD CONSTRAINT `bidding_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `book`
+--
+ALTER TABLE `book`
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  ADD CONSTRAINT `book_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `description`
+--
+ALTER TABLE `description`
+  ADD CONSTRAINT `description_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`);
+
+--
+-- Constraints for table `images`
+--
+ALTER TABLE `images`
+  ADD CONSTRAINT `images_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`);
+
+--
+-- Constraints for table `posts`
+--
+ALTER TABLE `posts`
+  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `review`
+--
+ALTER TABLE `review`
+  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
+  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `user_role`
+--
+ALTER TABLE `user_role`
+  ADD CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);

@@ -27,17 +27,7 @@ class Matches extends CI_Controller {
         foreach ($posted_books as $posted_book) {
             $match = (array) $this->select->searchAllRecords(array($posted_book->book_name, $posted_book->author), array('name', 'author'), 'book');
             foreach ($match as $matches) {
-                $array_each_record = array(
-                    "id" => $matches->id,
-                    "name" => $matches->name,
-                    "author" => $matches->author,
-                    "year" => $matches->year,
-                    "edition" => $matches->edition,
-                    "offer" => $matches->offer,
-                    "price" => $matches->price,
-                    "pages" => $matches->pages,
-                    "condition" => $matches->condition,
-                );
+                $array_each_record = array("id" => $matches->id, "name" => $matches->name, "author" => $matches->author, "year" => $matches->year, "edition" => $matches->edition, "offer" => $matches->offer, "price" => $matches->price, "pages" => $matches->pages, "condition" => $matches->condition,);
                 $data['AllBooks'][$i++] = $array_each_record;
             }
         }

@@ -8,6 +8,10 @@ $route['default_controller'] = 'PublicUser';
 $route['home'] = 'PublicUser/index';
 $route['home/(:num)'] = 'PublicUser/index/$1';
 $route['showDetails/(:num)'] = 'PublicUser/showDetails/$1';
+$route['search'] = 'PublicUser/searchBook';
+$route['searchByCategory/(:any)'] = 'PublicUser/searchByCategory/$1';
+$route['request'] = 'PublicUser/request';
+
 
 $route['login'] = 'Login/index';
 $route['checkLogin'] = 'Login/checkLogin';
@@ -46,3 +50,11 @@ $route['admin/category/create'] = 'Category/createCategory';
 $route['admin/category/edit/(:num)'] = 'Category/editCategory/$1';
 $route['admin/category/update'] = 'Category/updateCategory';
 $route['admin/category/delete/(:num)'] = 'Category/deleteCategory/$1';
+
+$route['admin/slider'] = 'Slider/index';
+$route['admin/slider/edit/(:any)'] = 'Slider/editImage/$1';
+$route['admin/slider/cropUploadImage'] = 'Slider/cropUploadImage';
+$route['admin/slider/activeSlider'] = 'Slider/activeSlider';
+$route['admin/slider/addSliderImage'] = 'Slider/addSliderImage';
+$route['admin/slider/uploadSliderImage'] = 'Slider/file_uploader';
+$route['admin/slider/deleteImage/(:any)'] = 'Slider/deleteImage/$1';

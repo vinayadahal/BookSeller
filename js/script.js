@@ -5,7 +5,25 @@ $(document).ready(function () {
 //    console.log($("#overview").height());
     $("#review_count").html('(' + $("#review .reviewBox").length + ')');
     $("#bidding_count").html('(' + $("#bidding .reviewBox").length + ')');
+    $('#dropDownCategory, #dropDownItemCategory').mouseover(function () {
+        menuListOn();
+    });
+    $('#dropDownCategory, #dropDownItemCategory').mouseout(function () {
+        menuListOff();
+    });
 });
+
+function menuListOn() {
+    $('#dropDownItemCategory').css({
+        "display": "block"
+    });
+}
+
+function menuListOff() {
+    $('#dropDownItemCategory').css({
+        "display": "none"
+    });
+}
 
 function showOverView() {
     $("#overview").fadeIn(600);

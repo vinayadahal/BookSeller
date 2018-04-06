@@ -3,44 +3,19 @@
         <img class="loading_image" src="images/slider/spin.svg" />
     </div>
     <div data-u="slides" class="slider_area">
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/001.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/002.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/003.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/004.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/005.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/006.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/007.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/008.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/009.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/010.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/011.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="<?php echo base_url() ?>images/slider/012.jpg" />
-        </div>
+        <?php
+        foreach (glob('images/slider/*.*') as $file) {
+            if (strpos($file, 'svg') != TRUE) {
+                ?>
+                <div>
+                    <img data-u="image" src="<?php echo base_url() . $file ?>" />
+                </div>
+                <?php
+            }
+        }
+        ?>
     </div>
-    
+
     <div data-u="navigator" class="bullet_nav_wrap"  data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
         <div data-u="prototype" class="i">
             <svg viewbox="0 0 16000 16000">
@@ -48,7 +23,7 @@
             </svg>
         </div>
     </div>
-    
+
     <div data-u="arrowleft" class="arrow_nav_common arrow-left" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
         <svg viewbox="0 0 16000 16000">
         <polyline class="a" points="11040,1920 4960,8000 11040,14080 "></polyline>

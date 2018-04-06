@@ -4,19 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MyBooks extends CI_Controller {
 
-    private $user_id;
-    private $book_name;
-    private $image;
-    private $category;
-    private $author;
-    private $year;
-    private $edition;
-    private $offer;
-    private $pages;
-    private $price;
-    private $condition;
-    private $description;
-    private $book_id;
+    private $user_id, $book_name, $image, $category, $author, $year, $edition, $offer, $pages, $price, $condition, $description, $book_id;
 
     public function __construct() {
         parent:: __construct();
@@ -41,7 +29,6 @@ class MyBooks extends CI_Controller {
     public function form_value_init() {
         $this->user_id = $this->session->userdata('user_id');
         $this->book_name = $this->input->post('book_name');
-//        $this->image = $this->input->post('imgFile');
         $this->category = $this->input->post('category');
         $this->author = $this->input->post('author');
         $this->year = $this->input->post('year');
@@ -66,27 +53,68 @@ class MyBooks extends CI_Controller {
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
         if (!$this->upload->do_upload('imgFile')) {
-//            $error = array('error' => $this->upload->display_errors());
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
             return false;
         } else {
             $data = ($this->upload->data());
+            $this->resizeImage("./images/icons/" . $data['file_name']);
             return $data['file_name'];
         }
     }
 
+    public function resizeImage($imgPath) {
+        $data = $this->getMime($imgPath);
+        $src_img = $data[0];
+        $mime = $data [1];
+        $img_width = imageSX($src_img);
+        $img_height = imageSY($src_img);
+        $new_size = $img_width / $img_height;
+        $img_height_new = 225;
+        $img_width_new = $img_height_new * $new_size;
+        $new_image = ImageCreateTrueColor($img_width_new, $img_height_new);
+        $background = imagecolorallocate($new_image, 0, 0, 0);
+        imagecolortransparent($new_image, $background);
+        imagealphablending($new_image, false);
+        imagesavealpha($new_image, true);
+        imagecopyresampled($new_image, $src_img, 0, 0, 0, 0, $img_width_new, $img_height_new, $img_width, $img_height); // New save location
+        $new_file_path = './images/icons/' . basename($imgPath);
+        return $this->create_image($new_image, $new_file_path, $mime, 'upload');
+    }
+
+    public function getMime($imgPath) {
+        $mime = getimagesize($imgPath);
+        if ($mime['mime'] == 'image/png') {
+            $src_img = imagecreatefrompng($imgPath);
+        } elseif ($mime['mime'] == 'image/jpg') {
+            $src_img = imagecreatefromjpeg($imgPath);
+        } elseif ($mime['mime'] == 'image/jpeg') {
+            $src_img = imagecreatefromjpeg($imgPath);
+        } elseif ($mime['mime'] == 'image/pjpeg') {
+            $src_img = imagecreatefromjpeg($imgPath);
+        }
+        return array($src_img, $mime);
+    }
+
+    public function create_image($new_image, $new_file_path, $mime, $filename, $folder = NULL) {
+        if ($mime['mime'] == 'image/png') {
+            $result = imagepng($new_image, $new_file_path, 9);
+        } elseif ($mime['mime'] == 'image/jpg') {
+            $result = imagejpeg($new_image, $new_file_path, 80);
+        } elseif ($mime['mime'] == 'image/jpeg') {
+            $result = imagejpeg($new_image, $new_file_path, 80);
+        } elseif ($mime['mime'] == 'image/pjpeg') {
+            $result = imagejpeg($new_image, $new_file_path, 80);
+        }
+        if ($folder == 'slide') {
+            return './images/slider/' . $filename;
+        } else {
+            return './images/uploads/' . $filename;
+        }
+    }
+
     public function array_maker_book_table() {
-        return array(
-            "name" => $this->book_name,
-            "category_id" => $this->category,
-            "author" => $this->author,
-            "year" => $this->year,
-            "edition" => $this->edition,
-            "offer" => $this->offer,
-            "pages" => $this->pages,
-            "price" => $this->price,
-            "condition" => $this->condition,
-            "user_id" => $this->user_id,
-        );
+        return array("name" => $this->book_name, "category_id" => $this->category, "author" => $this->author, "year" => $this->year, "edition" => $this->edition, "offer" => $this->offer, "pages" => $this->pages, "price" => $this->price, "condition" => $this->condition, "user_id" => $this->user_id);
     }
 
     public function matchingBooks() {
@@ -115,17 +143,11 @@ class MyBooks extends CI_Controller {
         $DataPerPage = 8;
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
         $start = $this->pageDataLimiter($page, $DataPerPage);
-
-        $col = array("book.id", "book.name",
-            "book.author", "book.year",
-            "book.edition", "book.offer",
-            "book.price", "book.pages",
-            "book.condition", "book.publish", "category.name as category_name");
+        $col = array("book.id", "book.name", "book.author", "book.year", "book.edition", "book.offer", "book.price", "book.pages", "book.condition", "book.publish", "category.name as category_name");
         $table1 = 'book';
         $table2 = 'category';
         $table1_id = "category_id";
         $table2_id = "id";
-
         $data['AllBooks'] = (array) $this->select->getAllRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'user_id', $this->session->userdata('user_id'), $DataPerPage, $start);
         if ($page > 1) {
             $data['data_count'] = (($page - 1) * $DataPerPage) + 1;
@@ -139,23 +161,11 @@ class MyBooks extends CI_Controller {
     }
 
     public function createBook() {
-
         $this->form_value_init(); // initalize form value
-
         $data_book_table = $this->array_maker_book_table(); // create array with book
-
         $new_book_id = $this->insert->insert_return_id($data_book_table, "book");
-
-        $data_description_table = array(
-            "book_id" => $new_book_id,
-            "description" => $this->description
-        );
-
-        $data_image_table = array(
-            "book_id" => $new_book_id,
-            "image_location" => $this->image
-        );
-
+        $data_description_table = array("book_id" => $new_book_id, "description" => $this->description);
+        $data_image_table = array("book_id" => $new_book_id, "image_location" => $this->image);
         if ($this->insert->insert_single_row($data_description_table, "description")) {
             $this->insert->insert_single_row($data_image_table, "images");
             $this->file_uploader();

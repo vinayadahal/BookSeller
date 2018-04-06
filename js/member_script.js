@@ -11,7 +11,6 @@ $(document).ready(function () {
             showImg(this);
         }
     });
-
 });
 
 function showPopup() {
