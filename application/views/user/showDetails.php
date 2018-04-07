@@ -113,7 +113,7 @@
                             <?php echo $review['review']; ?>
                         </div>
                         <h6 style="text-align: right">
-                            <b><?php echo $review['username']; ?></b>
+                            <b><?php echo ucwords($review['name']); ?></b>
                             <br><br>
                             Member Since: <?php echo date('M j, Y', strtotime($review['member_since'])); ?>
                         </h6>
@@ -130,14 +130,13 @@
                 foreach ($biddings as $bidding) {
                     ?>
                     <div class="reviewBox">
-                        <h4><?php echo $bidding['title']; ?></h4>
                         <div class="review">
                             <?php echo $bidding['bidding']; ?>
                         </div>
                         <h6 style="text-align: right">
-                            <b><?php echo $bidding['username']; ?></b>
+                            <b><?php echo ucwords($bidding['name']); ?></b>
                             <br><br>
-                            Member Since: <?php echo date('M j, Y', strtotime($review['member_since'])); ?>
+                            Member Since: <?php echo date('M j, Y', strtotime($bidding['member_since'])); ?>
                         </h6>
                     </div>
                 <?php } ?>
@@ -157,12 +156,10 @@
     <div class="reviewBidBox">
         <h4>Post A Review</h4>
         <?php if (!empty($user_id) && isset($user_id)) { ?>
-            <form>
+            <form method="post" action="<?php echo base_url() ?>postReview">
+                <input type="hidden" value="<?php echo $user_id; ?>" name="user_id" />
+                <input type="hidden" value="<?php echo $book_category['id']; ?>" name="book_id" />
                 <table class="table">
-    <!--                <tr>
-                        <td>Name:</td>
-                        <td><input type="text" name="name" class="form-control" /></td>
-                    </tr>-->
                     <tr>
                         <td>Title:</td>
                         <td><input type="text" name="title" class="form-control" /></td>
@@ -183,21 +180,23 @@
     <?php if ($book_category['condition'] != "Brand New" && !empty($book_category['price'])) { ?>
         <div class="reviewBidBox">
             <h4>Post A Bidding</h4>
-            <form>
-                <table class="table">
-    <!--                    <tr>
-                        <td>Username:</td>
-                        <td><input type="text" name="name" class="form-control" /></td>
-                    </tr>-->
-                    <tr>
-                        <td>Review:</td>
-                        <td><textarea name="review" class="form-control"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="submit" value="Post Your Bid" class="btn btn-info" /></td>
-                    </tr>
-                </table>
-            </form>
+            <?php if (!empty($user_id) && isset($user_id)) { ?>
+                <form method="post" action="<?php echo base_url(); ?>postBid">
+                    <input type="hidden" value="<?php echo $user_id; ?>" name="user_id" />
+                    <input type="hidden" value="<?php echo $book_category['id']; ?>" name="book_id" />
+                    <table class="table">
+                        <tr>
+                            <td>Your Offer:</td>
+                            <td><textarea class="form-control" name="bid"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="submit" value="Post Your Bid" class="btn btn-info" /></td>
+                        </tr>
+                    </table>
+                </form>
+            <?php } else { ?>
+                Please <a href="<?php echo base_url() ?>loginUser/<?php echo $book_category['id']; ?>">login</a> to post bid for this book.
+            <?php } ?>
         </div>
     <?php } ?>
 </div>

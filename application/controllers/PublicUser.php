@@ -76,7 +76,7 @@ class PublicUser extends CI_Controller {
         $result = (array) ($this->select->getAllFromTableWhere('review', 'book_id', $book_id, '', ''));
         foreach ($result as $review) {
             $user_details = (array) ($this->select->getSingleRecord('user', $review->user_id));
-            $reviews[$i++] = array('title' => $review->title, 'review' => $review->review, 'username' => $user_details['username'], 'member_since' => $user_details['created']);
+            $reviews[$i++] = array('title' => $review->title, 'review' => $review->review, 'name' => $user_details['name'], 'member_since' => $user_details['created']);
         }
         return $reviews;
     }
@@ -87,7 +87,7 @@ class PublicUser extends CI_Controller {
         $result = (array) ($this->select->getAllFromTableWhere('bidding', 'book_id', $book_id, '', ''));
         foreach ($result as $bidding) {
             $user_details = (array) ($this->select->getSingleRecord('user', $bidding->user_id));
-            $biddings[$i++] = array('bidding' => $bidding->bidding, 'time' => $bidding->date, 'username' => $user_details['username'], 'member_since' => $user_details['created']);
+            $biddings[$i++] = array('bidding' => $bidding->bidding, 'name' => $user_details['name'], 'member_since' => $user_details['created']);
         }
         return $biddings;
     }
@@ -191,6 +191,37 @@ class PublicUser extends CI_Controller {
     public function loginUser($book_id) {
         $this->session->set_userdata('redirectUrl', base_url() . 'showDetails/' . $book_id);
         redirect(base_url() . 'login', 'refresh');
+    }
+
+    public function postBid() {
+        $book_id = $this->input->post('book_id');
+        $user_id = $this->input->post('user_id');
+        $bid = $this->input->post('bid');
+        $data_bid_table = array('book_id' => $book_id, 'user_id' => $user_id, 'bidding' => $bid);
+        $book = (array) $this->select->getSingleRecord('book', $book_id);
+        if ($this->insert->insert_single_row($data_bid_table, "bidding")) {
+            $this->session->set_flashdata('message', "Bid posted for " . ucfirst($book['name']) . "!!!");
+            redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
+        } else {
+            $this->session->set_flashdata('message', 'Unable to post bid for ' . ucfirst($book['name']) . '!!!');
+            redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
+        }
+    }
+
+    public function postReview() {
+        $book_id = $this->input->post('book_id');
+        $user_id = $this->input->post('user_id');
+        $title = $this->input->post('title');
+        $review = $this->input->post('review');
+        $data_review_table = array('book_id' => $book_id, 'user_id' => $user_id, 'title' => $title, 'review' => $review);
+        $book = (array) $this->select->getSingleRecord('book', $book_id);
+        if ($this->insert->insert_single_row($data_review_table, "review")) {
+            $this->session->set_flashdata('message', "Review posted for " . ucfirst($book['name']) . "!!!");
+            redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
+        } else {
+            $this->session->set_flashdata('message', 'Unable to post review for ' . ucfirst($book['name']) . '!!!');
+            redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
+        }
     }
 
     public function loadView($data, $page_name) {

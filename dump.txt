@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2018 at 04:40 AM
+-- Generation Time: Apr 07, 2018 at 08:10 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -28,7 +28,16 @@ CREATE TABLE IF NOT EXISTS `bidding` (
   PRIMARY KEY (`id`),
   KEY `book_id` (`book_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `bidding`
+--
+
+INSERT INTO `bidding` (`id`, `book_id`, `user_id`, `bidding`) VALUES
+(1, 1, 1, 'qwer'),
+(2, 1, 1, 'asdasdasd'),
+(3, 1, 1, 'euryewiuryewirwher');
 
 -- --------------------------------------------------------
 
@@ -181,14 +190,15 @@ CREATE TABLE IF NOT EXISTS `review` (
   PRIMARY KEY (`id`),
   KEY `book_id` (`book_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `review`
 --
 
 INSERT INTO `review` (`id`, `book_id`, `user_id`, `review`, `title`) VALUES
-(1, 2, 1, 'This is a really bad book. Please don''t consider buying it. Its a waste of time and money. ', 'Worst book ever');
+(1, 2, 1, 'This is a really bad book. Please don''t consider buying it. Its a waste of time and money. ', 'Worst book ever'),
+(2, 1, 1, 'I love this book. It is awesome.', 'Great Book');
 
 -- --------------------------------------------------------
 

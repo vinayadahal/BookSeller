@@ -66,10 +66,11 @@ class Login extends CI_Controller {
     public function redirectTo() {
         if (null !== $this->session->userdata('redirectUrl') && !empty($this->session->userdata('redirectUrl'))) {
             redirect($this->session->userdata('redirectUrl'), 'refresh');
-        } else {
-            $this->session->set_flashdata('message', 'Invalid redirect url!!!');
-            redirect(base_url() . 'login', 'refresh');
         }
+//        else {
+//            $this->session->set_flashdata('message', 'Invalid redirect url!!!');
+//            redirect(base_url() . 'login', 'refresh');
+//        }
     }
 
     public function logout() {
