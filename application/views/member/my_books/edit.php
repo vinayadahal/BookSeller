@@ -1,7 +1,7 @@
 <div class="list_details_wrap">
     <h3>Edit Book</h3>
     <div class="form_wrap">
-        <form method="post" enctype="multipart/form-data" action="<?php echo base_url() ?>member/my-books/update" onsubmit="return validate(['book_name', 'img', 'category', 'author', 'year', 'edition', 'pages','desc'])">
+        <form method="post" enctype="multipart/form-data" action="<?php echo base_url() ?>member/my-books/update" onsubmit="return validate(['book_name', 'category', 'author', 'year', 'edition', 'pages', 'desc'])">
             <input type="hidden" value="<?php echo $book_id; ?>" name="book_id" />
             <table border="0">
                 <tr>
@@ -67,8 +67,13 @@
                     <td>Condition:</td>
                     <td>
                         <select class="form-control" name="condition">
-                            <option value="Brand New">Brand New</option>
-                            <option value="Used">Used</option>
+                            <?php if ("Brand New" == $book['condition']) { ?>
+                                <option value="Brand New" selected="selected">Brand New</option>
+                                <option value="Used">Used</option>
+                            <?php } else { ?>
+                                <option value="Brand New">Brand New</option>
+                                <option value="Used" selected="selected">Used</option>
+                            <?php } ?>
                         </select>
                     </td>
                 </tr>

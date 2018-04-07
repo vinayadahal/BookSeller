@@ -6,7 +6,7 @@
     <div class="showDetailsImage">
         <div id="image_main_preview">
             <?php if (!empty($images[0]->image_location)) { ?>
-                <img src="<?php echo base_url().'images/icons/' . $images[0]->image_location; ?>" alt="item image"/>
+                <img src="<?php echo base_url() . 'images/icons/' . $images[0]->image_location; ?>" alt="item image"/>
                 <?php
             } else {
                 ?>
@@ -152,38 +152,43 @@
         </div>
     </div>
 </div>
+
 <div class="reviewBidWrap">
     <div class="reviewBidBox">
         <h4>Post A Review</h4>
-        <form>
-            <table class="table">
-                <tr>
-                    <td>Name:</td>
-                    <td><input type="text" name="name" class="form-control" /></td>
-                </tr>
-                <tr>
-                    <td>Title:</td>
-                    <td><input type="text" name="title" class="form-control" /></td>
-                </tr>
-                <tr>
-                    <td>Review:</td>
-                    <td><textarea name="review" class="form-control"></textarea></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" value="Post Your Review" class="btn btn-info" /></td>
-                </tr>
-            </table>
-        </form>
+        <?php if (!empty($user_id) && isset($user_id)) { ?>
+            <form>
+                <table class="table">
+    <!--                <tr>
+                        <td>Name:</td>
+                        <td><input type="text" name="name" class="form-control" /></td>
+                    </tr>-->
+                    <tr>
+                        <td>Title:</td>
+                        <td><input type="text" name="title" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                        <td>Review:</td>
+                        <td><textarea name="review" class="form-control"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="Post Your Review" class="btn btn-info" /></td>
+                    </tr>
+                </table>
+            </form>
+        <?php } else { ?>
+            Please <a href="<?php echo base_url() ?>loginUser/<?php echo $book_category['id']; ?>">login</a> to post review for this book.
+        <?php } ?>
     </div>
     <?php if ($book_category['condition'] != "Brand New" && !empty($book_category['price'])) { ?>
         <div class="reviewBidBox">
             <h4>Post A Bidding</h4>
             <form>
                 <table class="table">
-                    <tr>
+    <!--                    <tr>
                         <td>Username:</td>
                         <td><input type="text" name="name" class="form-control" /></td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td>Review:</td>
                         <td><textarea name="review" class="form-control"></textarea></td>

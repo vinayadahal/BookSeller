@@ -13,6 +13,8 @@ $route['searchByCategory/(:any)'] = 'PublicUser/searchByCategory/$1';
 $route['request'] = 'PublicUser/request';
 $route['register'] = 'PublicUser/register';
 $route['signup'] = 'PublicUser/signup';
+$route['loginUser/(:any)'] = 'PublicUser/loginUser/$1';
+
 
 
 $route['login'] = 'Login/index';

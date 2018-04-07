@@ -50,7 +50,9 @@ if (isset($AllBooks)) {
         <div class="footerLink">
             <ul>
                 <li><h4>My Account</h4></li>
-                <li><a href="<?php echo base_url() ?>login">Login</a></li>
+                <?php if (empty($user_id) && !isset($user_id)) { ?>
+                    <li><a href="<?php echo base_url() ?>login">Login</a></li>
+                <?php } ?>
                 <li><a href="<?php echo base_url() ?>member/my-books">My Books</a></li>
                 <li><a href="<?php echo base_url() ?>member/my-posts" >My Posts</a></li>
                 <li><a href="<?php echo base_url() ?>member/matches">Matching Books</a></li>

@@ -168,7 +168,9 @@ class MyBooks extends CI_Controller {
         $data_image_table = array("book_id" => $new_book_id, "image_location" => $this->image);
         if ($this->insert->insert_single_row($data_description_table, "description")) {
             $this->insert->insert_single_row($data_image_table, "images");
-            $this->file_uploader();
+            if (empty($_FILES['userfile']['name'])) {
+                $this->file_uploader();
+            }
             $this->session->set_flashdata('message', ucfirst($this->book_name) . " added successfully!!!");
             redirect(base_url() . 'member/my-books', 'refresh');
         } else {
@@ -192,8 +194,10 @@ class MyBooks extends CI_Controller {
         $this->update->updateSingleCondition($data_book_table, "book", "id", $this->book_id);
         $data_description_table = array("description" => $this->description);
         if ($this->update->updateSingleCondition($data_description_table, "description", "book_id", $this->book_id)) {
-            $data_image_table = array("image_location" => $this->file_uploader());
-            $this->update->updateSingleCondition($data_image_table, "images", "book_id", $this->book_id);
+            if (empty($_FILES['userfile']['name'])) {
+                $data_image_table = array("image_location" => $this->file_uploader());
+                $this->update->updateSingleCondition($data_image_table, "images", "book_id", $this->book_id);
+            }
             $this->session->set_flashdata('message', ucfirst($this->book_name) . " updated successfully!!!");
             redirect(base_url() . 'member/my-books', 'refresh');
         } else {
@@ -204,15 +208,22 @@ class MyBooks extends CI_Controller {
 
     public function deleteBook($id) {
         $book = (array) $this->select->getSingleRecord('book', $id);
-        $this->delete->deleteSingleCondition("images", "book_id", $id);
         $this->delete->deleteSingleCondition("description", "book_id", $id);
         if ($this->delete->deleteSingleCondition("book", "id", $id)) {
+            $image = (array) $this->select->getSingleRecordWhere('images', 'book_id', $id);
+            $this->deleteImage($image['image_location']);
+            $this->delete->deleteSingleCondition("images", "book_id", $id);
+
             $this->session->set_flashdata('message', ucfirst($book['name']) . ' deleted successfully!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to delete ' . ucfirst($book['name']) . '!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
         }
+    }
+
+    public function deleteImage($image_name) {
+        unlink('./images/icons/' . $image_name);
     }
 
     public function publishBook($id) {

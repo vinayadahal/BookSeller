@@ -30,8 +30,12 @@
                         </div>
                     </li>
                     <a href="<?php echo base_url() ?>request"><li>User's Request</li></a>
-                    <a href="<?php echo base_url() ?>login"><li>Login</li></a>
-                    <a href="<?php echo base_url() ?>register"><li>Register</li></a>
+                    <?php if (empty($user_id) && !isset($user_id)) { ?>
+                        <a href="<?php echo base_url() ?>login"><li>Login</li></a>
+                        <a href="<?php echo base_url() ?>register"><li>Register</li></a>
+                    <?php } else { ?>
+                        <a href="<?php echo base_url() ?>logout"><li>Logout</li></a>
+                    <?php } ?>
                 </ul>
                 <div class="search_area">
                     <form method="get" action="<?php echo base_url() ?>search/">

@@ -1,7 +1,7 @@
 <div class="list_details_wrap">
     <h3>Add Book</h3>
     <div class="form_wrap">
-        <form method="post" enctype="multipart/form-data" action="<?php echo base_url() ?>member/my-books/create" onsubmit="return validate(['book_name', 'img', 'category', 'author', 'year', 'edition', 'pages','desc'])">
+        <form method="post" enctype="multipart/form-data" action="<?php echo base_url() ?>member/my-books/create" onsubmit="return validate(['book_name', 'category', 'author', 'year', 'edition', 'pages','desc'])">
             <table border="0">
                 <tr>
                     <td>Book Name:</td>

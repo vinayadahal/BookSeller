@@ -57,8 +57,18 @@ class Login extends CI_Controller {
             if ($role_value->role == 'role_admin') {
                 redirect(base_url() . 'admin', 'refresh');
             } else {
+                $this->redirectTo();
                 redirect(base_url() . 'member', 'refresh');
             }
+        }
+    }
+
+    public function redirectTo() {
+        if (null !== $this->session->userdata('redirectUrl') && !empty($this->session->userdata('redirectUrl'))) {
+            redirect($this->session->userdata('redirectUrl'), 'refresh');
+        } else {
+            $this->session->set_flashdata('message', 'Invalid redirect url!!!');
+            redirect(base_url() . 'login', 'refresh');
         }
     }
 
