@@ -164,19 +164,13 @@ class MyBooks extends CI_Controller {
         $this->form_value_init(); // initalize form value
         $data_book_table = $this->array_maker_book_table(); // create array with book
         $new_book_id = $this->insert->insert_return_id($data_book_table, "book");
-        $data_description_table = array("book_id" => $new_book_id, "description" => $this->description);
-        $data_image_table = array("book_id" => $new_book_id, "image_location" => $this->image);
-        if ($this->insert->insert_single_row($data_description_table, "description")) {
-            $this->insert->insert_single_row($data_image_table, "images");
-            if (empty($_FILES['userfile']['name'])) {
-                $this->file_uploader();
-            }
+        if ($this->insertDescription($new_book_id, $this->description)) {
+            $this->insertImage($new_book_id);
             $this->session->set_flashdata('message', ucfirst($this->book_name) . " added successfully!!!");
-            redirect(base_url() . 'member/my-books', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to add ' . ucfirst($this->book_name) . '!!!');
-            redirect(base_url() . 'member/my-books', 'refresh');
         }
+        redirect(base_url() . 'member/my-books', 'refresh');
     }
 
     public function editBook($id) {
@@ -192,18 +186,16 @@ class MyBooks extends CI_Controller {
         $this->form_value_init(); // initalize form value
         $data_book_table = $this->array_maker_book_table(); // create array with book
         $this->update->updateSingleCondition($data_book_table, "book", "id", $this->book_id);
-        $data_description_table = array("description" => $this->description);
-        if ($this->update->updateSingleCondition($data_description_table, "description", "book_id", $this->book_id)) {
-            if (empty($_FILES['userfile']['name'])) {
-                $data_image_table = array("image_location" => $this->file_uploader());
-                $this->update->updateSingleCondition($data_image_table, "images", "book_id", $this->book_id);
+        if ($this->updateDescription($this->description, $this->book_id)) {
+            if ($this->updateImage($this->book_id)) {
+                $this->session->set_flashdata('message', ucfirst($this->book_name) . " updated successfully!!!");
+            } else {
+                $this->session->set_flashdata('message', 'Unable to update image for ' . ucfirst($this->book_name) . '!!!');
             }
-            $this->session->set_flashdata('message', ucfirst($this->book_name) . " updated successfully!!!");
-            redirect(base_url() . 'member/my-books', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to update ' . ucfirst($this->book_name) . '!!!');
-            redirect(base_url() . 'member/my-books', 'refresh');
         }
+        redirect(base_url() . 'member/my-books', 'refresh');
     }
 
     public function deleteBook($id) {
@@ -247,6 +239,44 @@ class MyBooks extends CI_Controller {
         } else {
             $this->session->set_flashdata('message', 'Unable to hidden ' . ucfirst($book['name']) . '!!!');
             redirect(base_url() . 'member/my-books', 'refresh');
+        }
+    }
+
+    public function insertDescription($book_id, $description) {
+        $data_description_table = array("book_id" => $book_id, "description" => $description);
+        return $this->insert->insert_single_row($data_description_table, "description");
+    }
+
+    public function updateDescription($description, $book_id) {
+        $desc = (array) $this->select->getSingleRecordWhere('description', 'book_id', $book_id);
+        if (array_key_exists('0', $desc)) {
+            return $this->insertDescription($book_id, $description);
+        } else {
+            $data_description_table = array("description" => $description);
+            return $this->update->updateSingleCondition($data_description_table, "description", "book_id", $book_id);
+        }
+    }
+
+    public function insertImage($book_id) {
+        if (!empty($_FILES['imgFile']['name'])) {
+            $data_image_table = array("book_id" => $book_id, "image_location" => $this->file_uploader());
+            return $this->insert->insert_single_row($data_image_table, "images");
+        } else {
+            return false;
+        }
+    }
+
+    public function updateImage($book_id) {
+        $image = (array) $this->select->getSingleRecordWhere('images', 'book_id', $book_id);
+        if (array_key_exists('0', $image)) {
+            return $this->insertImage($book_id);
+        } else {
+            if (!empty($_FILES['imgFile']['name'])) {
+                $data_image_table = array("image_location" => $this->file_uploader());
+                return $this->update->updateSingleCondition($data_image_table, "images", "book_id", $book_id);
+            } else {
+                return FALSE;
+            }
         }
     }
 

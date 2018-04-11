@@ -25,6 +25,7 @@ class Member extends CI_Controller {
     public function index() {
         $data['message'] = $this->session->flashdata('message');
         $data['books'] = $this->matchingBooks();
+        $this->removeImages();
         $this->loadView($data, 'home', 'home');
     }
 
@@ -44,6 +45,37 @@ class Member extends CI_Controller {
             $data[$i++] = (array) $this->select->searchAllRecords(array($posted_book->book_name, $posted_book->author), array('name', 'author'), 'book');
         }
         return $data;
+    }
+
+    public function removeImages() {
+        $images = (array) $this->select->getAllFromTable('images', '', '');
+        $img_files = $this->getImgFile();
+        $img_from_db = array();
+        $i = 0;
+        foreach ($images as $image) {
+            $img_from_db[$i++] = $image->image_location;
+        }
+        foreach ($img_files as $img_file) {
+            if (in_array($img_file, $img_from_db)) {
+                continue;
+            } else {
+                unlink("./images/icons/$img_file");
+            }
+        }
+    }
+
+    public function getImgFile() {
+        $files = scandir('./images/icons/');
+        $array = array();
+        $i = 0;
+        foreach ($files as $file) {
+            if ($file == '.' || $file == '..') {
+                continue;
+            } else {
+                $array[$i++] = $file;
+            }
+        }
+        return $array;
     }
 
 }

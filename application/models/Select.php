@@ -2,7 +2,7 @@
 
 class Select extends CI_Model {
 
-    function getAllFromTable($table, $limit, $start) {
+    public function getAllFromTable($table, $limit, $start) {
         $this->db->select('*');
         $this->db->from($table);
         if (isset($limit)) {
@@ -12,7 +12,7 @@ class Select extends CI_Model {
         return $query->result();
     }
 
-    function getAllFromTableWhere($table, $cond_col, $cond_val, $limit, $start) {
+    public function getAllFromTableWhere($table, $cond_col, $cond_val, $limit, $start) {
         $this->db->select('*');
         $this->db->from($table);
         if (is_array($cond_col) && is_array($cond_val)) {
@@ -30,29 +30,28 @@ class Select extends CI_Model {
         return $query->result();
     }
 
-    function getAllRecordInnerJoin($col, $t_name1, $t_name2, $t_1_col, $t_2_col, $cond_col, $cond_value, $limit = null, $start = null) { //$col should be array like $col=array('name','category')
+    public function getAllRecordInnerJoin($col, $t_name1, $t_name2, $t_1_col, $t_2_col, $cond_col, $cond_value, $limit = null, $start = null) { //$col should be array like $col=array('name','category')
         $field = "`" . implode("`,`", $col) . "`";
         $this->db->select($field);
         $this->db->from($t_name1); //book table
         $this->db->join($t_name2, "$t_name1.$t_1_col = $t_name2.$t_2_col"); //category table
         $this->db->where("$t_name1.$cond_col", $cond_value);
+        $this->db->order_by("id", "asc");
         $this->dataLimiter($limit, $start);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function getAllRecordInnerJoinNoCondition($col, $t_name1, $t_name2, $t_1_col, $t_2_col) { //$col should be array like $col=array('name','category')
+    public function getAllRecordInnerJoinNoCondition($col, $t_name1, $t_name2, $t_1_col, $t_2_col) { //$col should be array like $col=array('name','category')
         $field = "`" . implode("`,`", $col) . "`";
         $this->db->select($field);
         $this->db->from($t_name1); //book table
         $this->db->join($t_name2, "$t_name1.$t_1_col = $t_name2.$t_2_col"); //category table
-//        $this->db->where("$t_name1.$cond_col", $cond_value);
-//        $this->dataLimiter($limit, $start);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function getSingleRecordInnerJoin($col, $t_name1, $t_name2, $t_1_col, $t_2_col, $cond_col, $cond_value) { //$col should be array like $col=array('name','category')
+    public function getSingleRecordInnerJoin($col, $t_name1, $t_name2, $t_1_col, $t_2_col, $cond_col, $cond_value) { //$col should be array like $col=array('name','category')
         $field = "`" . implode("`,`", $col) . "`";
         $this->db->select($field);
         $this->db->from($t_name1); //book table
@@ -63,7 +62,7 @@ class Select extends CI_Model {
         return $query->row();
     }
 
-    function getSingleRecordInnerJoinThreeTbl($col, $t_name1, $t_name2, $t_name3, $t_1_col, $t_2_col, $t_3_col, $t1_col2, $cond_col, $cond_value) { //$col should be array like $col=array('name','category')
+    public function getSingleRecordInnerJoinThreeTbl($col, $t_name1, $t_name2, $t_name3, $t_1_col, $t_2_col, $t_3_col, $t1_col2, $cond_col, $cond_value, $cond_col2 = null, $cond_val2 = null) { //$col should be array like $col=array('name','category')
         $field = "`" . implode("`,`", $col) . "`";
         $field = "" . implode(",", $col) . "";
         $this->db->select($field);
@@ -71,12 +70,15 @@ class Select extends CI_Model {
         $this->db->join($t_name2, "$t_name1.$t_1_col = $t_name2.$t_2_col"); //category table
         $this->db->join($t_name3, "$t_name1.$t1_col2 = $t_name3.$t_3_col");
         $this->db->where("$t_name1.$cond_col", $cond_value);
+        if (!empty($cond_col2) && !empty($cond_val2)) {
+            $this->db->where("$t_name1.$cond_col2", $cond_val2);
+        }
         $this->db->limit(1);
         $query = $this->db->get();
         return $query->row();
     }
 
-    function getCountFromTable($table, $id, $value) {
+    public function getCountFromTable($table, $id, $value) {
         $this->db->select('*');
         $this->db->from($table);
         $this->db->where($id . '<', $value);
@@ -84,14 +86,14 @@ class Select extends CI_Model {
         return count($query->result());
     }
 
-    function getTotalCount($table) {
+    public function getTotalCount($table) {
         $this->db->select("*");
         $this->db->from($table);
         $query = $this->db->get();
         return count($query->result());
     }
 
-    function getUserDetails($id) {
+    public function getUserDetails($id) {
         $this->db->select('first_name, gender');
         $this->db->from('user');
         $this->db->where('id', $id);
@@ -104,7 +106,7 @@ class Select extends CI_Model {
         }
     }
 
-    function search($keyword, $cols, $tablename, $cond_col = null, $cond_val = null) {
+    public function search($keyword, $cols, $tablename, $cond_col = null, $cond_val = null) {
         $this->db->select('*');
         $this->db->from($tablename);
         foreach ($cols as $col) {
@@ -117,7 +119,7 @@ class Select extends CI_Model {
         return $query->result();
     }
 
-    function searchAllRecords($keyword, $cols, $tablename) {
+    public function searchAllRecords($keyword, $cols, $tablename) {
         $this->db->select('*');
         $this->db->from($tablename);
         $i = 1;
@@ -137,7 +139,7 @@ class Select extends CI_Model {
         return $query->result();
     }
 
-    function getSingleRecord($table, $id) {
+    public function getSingleRecord($table, $id) {
         $this->db->select('*');
         $this->db->from($table);
         $this->db->where('id', $id);
@@ -150,7 +152,7 @@ class Select extends CI_Model {
         }
     }
 
-    function getSingleRecordWhere($table, $cond_col, $cond_val) {
+    public function getSingleRecordWhere($table, $cond_col, $cond_val) {
         $this->db->select('*');
         $this->db->from($table);
         $this->db->where($cond_col, $cond_val);
@@ -163,7 +165,7 @@ class Select extends CI_Model {
         }
     }
 
-    function getSingleRecordWhereMultiValue($table, $cond_col, $cond_val, $cond_col2, $cond_val2) {
+    public function getSingleRecordWhereMultiValue($table, $cond_col, $cond_val, $cond_col2, $cond_val2) {
         $this->db->select('*');
         $this->db->from($table);
         $this->db->where($cond_col, $cond_val);
@@ -177,7 +179,7 @@ class Select extends CI_Model {
         }
     }
 
-    function dataLimiter($limit, $start) {
+    public function dataLimiter($limit, $start) {
         if (isset($limit)) {
             $this->db->limit($limit, $start);
         }

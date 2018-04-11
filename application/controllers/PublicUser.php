@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class PublicUser extends CI_Controller {
 
-    private $name, $email, $phone, $address, $role, $username, $password, $con_password, $user_id;
+    private $name, $email, $phone, $address, $role, $username, $password, $con_password, $user_id, $common_array = array();
 
     public function __construct() {
         parent:: __construct();
@@ -29,10 +29,7 @@ class PublicUser extends CI_Controller {
         $DataPerPage = 12;
         $start = $this->pageDataLimiter($page, $DataPerPage);
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
-        $col = array("book.id", "book.name",
-            "book.author", "book.year",
-            "book.edition", "book.offer",
-            "book.price", "images.image_location as image_location");
+        $col = array("book.id", "book.name", "book.author", "book.year", "book.edition", "book.offer", "book.price", "images.image_location as image_location");
         $table1 = 'book';
         $table2 = 'images';
         $table1_id = "id";
@@ -55,6 +52,7 @@ class PublicUser extends CI_Controller {
         if (!empty($this->session->userdata('user_id'))) {
             $data['user_id'] = $this->session->userdata('user_id');
         }
+        $this->showPublicError404($data['book_category']);
         $this->loadView($data, "showDetails");
     }
 
@@ -67,39 +65,36 @@ class PublicUser extends CI_Controller {
         $table2_id = "id";
         $table3_id = "id";
         $table1_user_id = "user_id";
-        return (array) $this->select->getSingleRecordInnerJoinThreeTbl($col, $table1, $table2, $table3, $table1_id, $table2_id, $table3_id, $table1_user_id, 'id', $book_id);
+        return (array) $this->select->getSingleRecordInnerJoinThreeTbl($col, $table1, $table2, $table3, $table1_id, $table2_id, $table3_id, $table1_user_id, 'id', $book_id, 'publish', 'Yes');
     }
 
     public function UserReview($book_id) {
-        $reviews = array();
         $i = 0;
         $result = (array) ($this->select->getAllFromTableWhere('review', 'book_id', $book_id, '', ''));
         foreach ($result as $review) {
             $user_details = (array) ($this->select->getSingleRecord('user', $review->user_id));
-            $reviews[$i++] = array('title' => $review->title, 'review' => $review->review, 'name' => $user_details['name'], 'member_since' => $user_details['created']);
+            $this->common_array[$i++] = array('title' => $review->title, 'review' => $review->review, 'name' => $user_details['name'], 'member_since' => $user_details['created']);
         }
-        return $reviews;
+        return $this->common_array;
     }
 
     public function Bidding($book_id) {
-        $biddings = array();
         $i = 0;
         $result = (array) ($this->select->getAllFromTableWhere('bidding', 'book_id', $book_id, '', ''));
         foreach ($result as $bidding) {
             $user_details = (array) ($this->select->getSingleRecord('user', $bidding->user_id));
-            $biddings[$i++] = array('bidding' => $bidding->bidding, 'name' => $user_details['name'], 'member_since' => $user_details['created']);
+            $this->common_array[$i++] = array('bidding' => $bidding->bidding, 'name' => $user_details['name'], 'member_since' => $user_details['created']);
         }
-        return $biddings;
+        return $this->common_array;
     }
 
     public function Description($book_id) {
-        $descriptions = array();
         $i = 0;
         $result = (array) ($this->select->getAllFromTableWhere('description', 'book_id', $book_id, '', ''));
         foreach ($result as $description) {
-            $descriptions[$i++] = array('description' => $description->description);
+            $this->common_array[$i++] = array('description' => $description->description);
         }
-        return $descriptions;
+        return $this->common_array;
     }
 
     public function searchBook() {
@@ -177,15 +172,13 @@ class PublicUser extends CI_Controller {
         $data_user_table = $this->array_maker_user_table(); // create array with book
         if ($this->password != $this->con_password) {
             $this->session->set_flashdata('message', "Passwords are not equal!!!");
-            redirect(base_url() . 'register', 'refresh');
         }
         if ($this->insert->insert_single_row($data_user_table, "user")) {
             $this->session->set_flashdata('message', ucwords($this->name) . " registered successfully. Please check your email for verification code!!!");
-            redirect(base_url() . 'register', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to register ' . ucwords($this->name) . '!!!');
-            redirect(base_url() . 'register', 'refresh');
         }
+        redirect(base_url() . 'register', 'refresh');
     }
 
     public function loginUser($book_id) {
@@ -201,11 +194,10 @@ class PublicUser extends CI_Controller {
         $book = (array) $this->select->getSingleRecord('book', $book_id);
         if ($this->insert->insert_single_row($data_bid_table, "bidding")) {
             $this->session->set_flashdata('message', "Bid posted for " . ucfirst($book['name']) . "!!!");
-            redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to post bid for ' . ucfirst($book['name']) . '!!!');
-            redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
         }
+        redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
     }
 
     public function postReview() {
@@ -217,10 +209,15 @@ class PublicUser extends CI_Controller {
         $book = (array) $this->select->getSingleRecord('book', $book_id);
         if ($this->insert->insert_single_row($data_review_table, "review")) {
             $this->session->set_flashdata('message', "Review posted for " . ucfirst($book['name']) . "!!!");
-            redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to post review for ' . ucfirst($book['name']) . '!!!');
-            redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
+        }
+        redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
+    }
+
+    public function showPublicError404($data) {
+        if (empty($data)) {
+            show_error("Requested resource could not be found.", '404', $heading = '404 Error');
         }
     }
 
