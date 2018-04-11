@@ -18,14 +18,9 @@ class Posts extends CI_Controller {
         $this->load->model('delete');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-        $this->session_check();
-    }
-
-    public function session_check() {
-        if (empty($this->session->userdata('user_id'))) {
-            $this->session->set_flashdata('message', 'Invaild credentials!!!');
-            redirect(base_url() . 'login', 'refresh');
-        }
+        $this->load->library('commons');
+        $this->load->library('authorized');
+        $this->authorized->check_auth($this->select, $this->session->userdata('user_id'));
     }
 
     public function form_value_init() {
@@ -38,39 +33,34 @@ class Posts extends CI_Controller {
     }
 
     public function array_maker_post_table() {
-        return array(
-            "book_name" => $this->book_name,
-            "author" => $this->author,
-            "user_id" => $this->user_id
-        );
+        return array("book_name" => $this->book_name, "author" => $this->author, "user_id" => $this->user_id);
     }
 
-    public function pageDataLimiter($page, $dataPerPage) {
-        if ($page > 1) {
-            $page = $page - 1;
-            return ($dataPerPage * $page);
-        } else {
-            return 0;
-        }
-    }
-
-    public function matchingBooks() {
-        $posted_books = (array) $this->select->getAllFromTable('posts', '', '');
-        $data = array();
-        $i = 0;
-        foreach ($posted_books as $posted_book) {
-            $data[$i++] = (array) $this->select->searchAllRecords(array($posted_book->book_name, $posted_book->author), array('name', 'author'), 'book');
-        }
-        return $data;
-    }
+//    public function pageDataLimiter($page, $dataPerPage) {
+//        if ($page > 1) {
+//            $page = $page - 1;
+//            return ($dataPerPage * $page);
+//        } else {
+//            return 0;
+//        }
+//    }
+//    public function matchingBooks() {
+//        $posted_books = (array) $this->select->getAllFromTable('posts', '', '');
+//        $data = array();
+//        $i = 0;
+//        foreach ($posted_books as $posted_book) {
+//            $data[$i++] = (array) $this->select->searchAllRecords(array($posted_book->book_name, $posted_book->author), array('name', 'author'), 'book');
+//        }
+//        return $data;
+//    }
 
     public function index($page = null) {
-        $data['books'] = $this->matchingBooks();
+        $data['books'] = $this->commons->matchingBooks($this->select);
         $data['message'] = $this->session->flashdata('message');
         $TotalCount = $this->select->getTotalCount("posts");
         $DataPerPage = 8;
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
-        $start = $this->pageDataLimiter($page, $DataPerPage);
+        $start = $this->commons->pageDataLimiter($page, $DataPerPage);
         $table = 'posts';
         $data['AllPosts'] = (array) $this->select->getAllFromTableWhere($table, 'user_id', $this->session->userdata('user_id'), $DataPerPage, $start);
         if ($page > 1) {
@@ -80,7 +70,8 @@ class Posts extends CI_Controller {
     }
 
     public function addPost() {
-        $this->loadView("", "posts/create", "Add Post");
+        $data['books'] = $this->commons->matchingBooks($this->select);
+        $this->loadView($data, "posts/create", "Add Post");
     }
 
     public function createPost() {
@@ -96,6 +87,7 @@ class Posts extends CI_Controller {
     }
 
     public function editPost($id) {
+        $data['books'] = $this->commons->matchingBooks($this->select);
         $data['post'] = (array) $this->select->getSingleRecord('posts', $id);
         $data['post_id'] = $id;
         $this->loadView($data, "posts/edit", "Edit Post");

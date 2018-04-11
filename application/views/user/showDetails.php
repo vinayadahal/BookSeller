@@ -5,12 +5,12 @@
 
     <div class="showDetailsImage">
         <div id="image_main_preview">
-            <?php if (!empty($images[0]->image_location)) { ?>
+            <?php if (!empty($images[0]->image_location) && $images[0]->image_location != 'default.png') { ?>
                 <img src="<?php echo base_url() . 'images/icons/' . $images[0]->image_location; ?>" alt="item image"/>
                 <?php
             } else {
                 ?>
-                <img src="<?php echo base_url(); ?>images/icons/default.png" alt="item image"/>
+                <img src="<?php echo base_url(); ?>images/default/default.png" alt="item image"/>
                 <?php
             }
             ?>
@@ -21,7 +21,7 @@
                 foreach ($images as $image) {
                     ?>
                     <div class="images_icons">
-                        <img src="<?php echo base_url() . $image->image_location; ?>" alt="item image" style="width: 40px;" onclick="loadMainPreview(this);"/>
+                        <img src="<?php echo base_url() . 'images/icons/' . $image->image_location; ?>" alt="item image" style="width: 40px;" onclick="loadMainPreview(this);"/>
                     </div>
                     <?php
                 }

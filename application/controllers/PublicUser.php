@@ -24,6 +24,12 @@ class PublicUser extends CI_Controller {
         }
     }
 
+    public function checkSession() {
+        if (!empty($this->session->userdata('user_id'))) {
+            return $this->session->userdata('user_id');
+        }
+    }
+
     public function index($page = null) {
         $TotalCount = $this->select->getTotalCount("book");
         $DataPerPage = 12;
@@ -36,9 +42,7 @@ class PublicUser extends CI_Controller {
         $table2_id = "book_id";
         $data['AllBooks'] = (array) $this->select->getAllRecordInnerJoin($col, $table1, $table2, $table1_id, $table2_id, 'publish', 'Yes', $DataPerPage, $start);
         $data['AllCategories'] = (array) $this->select->getAllFromTable('category', '', '');
-        if (!empty($this->session->userdata('user_id'))) {
-            $data['user_id'] = $this->session->userdata('user_id');
-        }
+        $data['user_id'] = $this->checkSession();
         $this->loadView($data, 'home');
     }
 
@@ -49,9 +53,7 @@ class PublicUser extends CI_Controller {
         $data['images'] = (array) $this->select->getAllFromTableWhere('images', 'book_id', $book_id, '', '');
         $data['descriptions'] = $this->Description($book_id);
         $data['AllCategories'] = (array) $this->select->getAllFromTable('category', '', '');
-        if (!empty($this->session->userdata('user_id'))) {
-            $data['user_id'] = $this->session->userdata('user_id');
-        }
+        $data['user_id'] = $this->checkSession();
         $this->showPublicError404($data['book_category']);
         $this->loadView($data, "showDetails");
     }
@@ -108,9 +110,7 @@ class PublicUser extends CI_Controller {
             $image = (array) ($this->select->getSingleRecordWhere('images', 'book_id', $book->id));
             $data['searchBooks'][$i++] = array('id' => $book->id, 'name' => $book->name, 'author' => $book->author, 'edition' => $book->edition, 'offer' => $book->offer, 'price' => $book->price, 'pages' => $book->pages, 'image_location' => $image['image_location'],);
         }
-        if (!empty($this->session->userdata('user_id'))) {
-            $data['user_id'] = $this->session->userdata('user_id');
-        }
+        $data['user_id'] = $this->checkSession();
         $this->loadView($data, 'search');
     }
 
@@ -123,11 +123,14 @@ class PublicUser extends CI_Controller {
         $i = 0;
         foreach ($book_result as $book) {
             $image = (array) ($this->select->getSingleRecordWhere('images', 'book_id', $book->id));
-            $data['searchBooks'][$i++] = array('id' => $book->id, 'name' => $book->name, 'author' => $book->author, 'edition' => $book->edition, 'offer' => $book->offer, 'price' => $book->price, 'pages' => $book->pages, 'image_location' => $image['image_location'],);
+            if(empty($image['image_location'])){
+                $data['searchBooks'][$i++] = array('id' => $book->id, 'name' => $book->name, 'author' => $book->author, 'edition' => $book->edition, 'offer' => $book->offer, 'price' => $book->price, 'pages' => $book->pages, 'image_location' => 'default.png');
+            }else{
+                $data['searchBooks'][$i++] = array('id' => $book->id, 'name' => $book->name, 'author' => $book->author, 'edition' => $book->edition, 'offer' => $book->offer, 'price' => $book->price, 'pages' => $book->pages, 'image_location' => $image['image_location']);
+            }
+            
         }
-        if (!empty($this->session->userdata('user_id'))) {
-            $data['user_id'] = $this->session->userdata('user_id');
-        }
+        $data['user_id'] = $this->checkSession();
         $this->loadView($data, 'search');
     }
 
@@ -140,9 +143,7 @@ class PublicUser extends CI_Controller {
             $user = (array) ($this->select->getSingleRecordWhere('user', 'id', $post->user_id));
             $data['AllPosts'][$i++] = array("book_name" => $post->book_name, "author" => $post->author, "username" => $user['username'], "email" => $user['email']);
         }
-        if (!empty($this->session->userdata('user_id'))) {
-            $data['user_id'] = $this->session->userdata('user_id');
-        }
+
         $this->loadView($data, 'request');
     }
 

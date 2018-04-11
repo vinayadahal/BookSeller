@@ -11,6 +11,8 @@ class Admin extends CI_Controller {
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
         $this->session_check();
+        $this->load->library('authorized');
+        $this->authorized->check_auth($this->select, $this->session->userdata('user_id'));
     }
 
     public function session_check() {

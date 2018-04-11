@@ -15,15 +15,9 @@ class SettingsAdmin extends CI_Controller {
         $this->load->model('update');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-        $this->session_check();
+        $this->load->library('authorized');
+        $this->authorized->check_auth($this->select, $this->session->userdata('user_id'));
         $this->user_id = $this->session->userdata('user_id');
-    }
-
-    public function session_check() {
-        if (empty($this->session->userdata('user_id'))) {
-            $this->session->set_flashdata('message', 'Invaild credentials!!!');
-            redirect(base_url() . 'login', 'refresh');
-        }
     }
 
     public function form_value_init() {
@@ -38,10 +32,7 @@ class SettingsAdmin extends CI_Controller {
     }
 
     public function array_maker_post_table() {
-        return array(
-            "username" => $this->username,
-            "password" => sha1($this->password)
-        );
+        return array("username" => $this->username, "password" => sha1($this->password));
     }
 
     public function index() {
@@ -57,11 +48,10 @@ class SettingsAdmin extends CI_Controller {
             $data_post_table = $this->array_maker_post_table(); // create array with book
             if ($this->update->updateSingleCondition($data_post_table, "user", "id", $this->user_id)) {
                 $this->session->set_flashdata('message', 'User credential updated!!!');
-                redirect(base_url() . 'admin', 'refresh');
             } else {
                 $this->session->set_flashdata('message', 'Unable to update user credentials!!!');
-                redirect(base_url() . 'admin', 'refresh');
             }
+            redirect(base_url() . 'admin', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Old password do not match!!!');
             redirect(base_url() . 'admin/settings', 'refresh');

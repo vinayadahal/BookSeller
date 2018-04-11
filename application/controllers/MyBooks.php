@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MyBooks extends CI_Controller {
 
-    private $user_id, $book_name, $image, $category, $author, $year, $edition, $offer, $pages, $price, $condition, $description, $book_id;
+    private $user_id, $book_name, $category, $author, $year, $edition, $offer, $pages, $price, $condition, $description, $book_id;
 
     public function __construct() {
         parent:: __construct();
@@ -16,14 +16,10 @@ class MyBooks extends CI_Controller {
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
         $this->load->library('upload');
-        $this->session_check();
-    }
-
-    public function session_check() {
-        if (empty($this->session->userdata('user_id'))) {
-            $this->session->set_flashdata('message', 'Invaild credentials!!!');
-            redirect(base_url() . 'login', 'refresh');
-        }
+        $this->load->library('images');
+        $this->load->library('commons');
+        $this->load->library('authorized');
+        $this->authorized->check_auth($this->select, $this->session->userdata('user_id'));
     }
 
     public function form_value_init() {
@@ -49,7 +45,7 @@ class MyBooks extends CI_Controller {
         $config['max_width'] = 0;
         $config['max_height'] = 0;
         $config['max_size'] = 0;
-        $config['encrypt_name'] = FALSE;
+        $config['encrypt_name'] = true;
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
         if (!$this->upload->do_upload('imgFile')) {
@@ -58,58 +54,8 @@ class MyBooks extends CI_Controller {
             return false;
         } else {
             $data = ($this->upload->data());
-            $this->resizeImage("./images/icons/" . $data['file_name']);
+            $this->images->resizeImage("./images/icons/" . $data['file_name']);
             return $data['file_name'];
-        }
-    }
-
-    public function resizeImage($imgPath) {
-        $data = $this->getMime($imgPath);
-        $src_img = $data[0];
-        $mime = $data [1];
-        $img_width = imageSX($src_img);
-        $img_height = imageSY($src_img);
-        $new_size = $img_width / $img_height;
-        $img_height_new = 225;
-        $img_width_new = $img_height_new * $new_size;
-        $new_image = ImageCreateTrueColor($img_width_new, $img_height_new);
-        $background = imagecolorallocate($new_image, 0, 0, 0);
-        imagecolortransparent($new_image, $background);
-        imagealphablending($new_image, false);
-        imagesavealpha($new_image, true);
-        imagecopyresampled($new_image, $src_img, 0, 0, 0, 0, $img_width_new, $img_height_new, $img_width, $img_height); // New save location
-        $new_file_path = './images/icons/' . basename($imgPath);
-        return $this->create_image($new_image, $new_file_path, $mime, 'upload');
-    }
-
-    public function getMime($imgPath) {
-        $mime = getimagesize($imgPath);
-        if ($mime['mime'] == 'image/png') {
-            $src_img = imagecreatefrompng($imgPath);
-        } elseif ($mime['mime'] == 'image/jpg') {
-            $src_img = imagecreatefromjpeg($imgPath);
-        } elseif ($mime['mime'] == 'image/jpeg') {
-            $src_img = imagecreatefromjpeg($imgPath);
-        } elseif ($mime['mime'] == 'image/pjpeg') {
-            $src_img = imagecreatefromjpeg($imgPath);
-        }
-        return array($src_img, $mime);
-    }
-
-    public function create_image($new_image, $new_file_path, $mime, $filename, $folder = NULL) {
-        if ($mime['mime'] == 'image/png') {
-            $result = imagepng($new_image, $new_file_path, 9);
-        } elseif ($mime['mime'] == 'image/jpg') {
-            $result = imagejpeg($new_image, $new_file_path, 80);
-        } elseif ($mime['mime'] == 'image/jpeg') {
-            $result = imagejpeg($new_image, $new_file_path, 80);
-        } elseif ($mime['mime'] == 'image/pjpeg') {
-            $result = imagejpeg($new_image, $new_file_path, 80);
-        }
-        if ($folder == 'slide') {
-            return './images/slider/' . $filename;
-        } else {
-            return './images/uploads/' . $filename;
         }
     }
 
@@ -117,32 +63,14 @@ class MyBooks extends CI_Controller {
         return array("name" => $this->book_name, "category_id" => $this->category, "author" => $this->author, "year" => $this->year, "edition" => $this->edition, "offer" => $this->offer, "pages" => $this->pages, "price" => $this->price, "condition" => $this->condition, "user_id" => $this->user_id);
     }
 
-    public function matchingBooks() {
-        $posted_books = (array) $this->select->getAllFromTable('posts', '', '');
-        $data = array();
-        $i = 0;
-        foreach ($posted_books as $posted_book) {
-            $data[$i++] = (array) $this->select->searchAllRecords(array($posted_book->book_name, $posted_book->author), array('name', 'author'), 'book');
-        }
-        return $data;
-    }
-
-    public function pageDataLimiter($page, $dataPerPage) {
-        if ($page > 1) {
-            $page = $page - 1;
-            return ($dataPerPage * $page);
-        } else {
-            return 0;
-        }
-    }
-
     public function index($page = null) {
+        $this->images->removeImages($this->select);
         $data['message'] = $this->session->flashdata('message');
-        $data['books'] = $this->matchingBooks();
+        $data['books'] = $this->commons->matchingBooks($this->select);
         $TotalCount = $this->select->getTotalCount("book");
         $DataPerPage = 8;
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
-        $start = $this->pageDataLimiter($page, $DataPerPage);
+        $start = $this->commons->pageDataLimiter($page, $DataPerPage);
         $col = array("book.id", "book.name", "book.author", "book.year", "book.edition", "book.offer", "book.price", "book.pages", "book.condition", "book.publish", "category.name as category_name");
         $table1 = 'book';
         $table2 = 'category';
@@ -205,13 +133,11 @@ class MyBooks extends CI_Controller {
             $image = (array) $this->select->getSingleRecordWhere('images', 'book_id', $id);
             $this->deleteImage($image['image_location']);
             $this->delete->deleteSingleCondition("images", "book_id", $id);
-
             $this->session->set_flashdata('message', ucfirst($book['name']) . ' deleted successfully!!!');
-            redirect(base_url() . 'member/my-books', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to delete ' . ucfirst($book['name']) . '!!!');
-            redirect(base_url() . 'member/my-books', 'refresh');
         }
+        redirect(base_url() . 'member/my-books', 'refresh');
     }
 
     public function deleteImage($image_name) {
@@ -223,11 +149,10 @@ class MyBooks extends CI_Controller {
         $book = (array) $this->select->getSingleRecord('book', $id);
         if ($this->update->updateSingleCondition($data_book_table, "book", "id", $id)) {
             $this->session->set_flashdata('message', ucfirst($book['name']) . ' published successfully!!!');
-            redirect(base_url() . 'member/my-books', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to piblish ' . ucfirst($book['name']) . '!!!');
-            redirect(base_url() . 'member/my-books', 'refresh');
         }
+        redirect(base_url() . 'member/my-books', 'refresh');
     }
 
     public function hideBook($id) {
@@ -235,11 +160,10 @@ class MyBooks extends CI_Controller {
         $book = (array) $this->select->getSingleRecord('book', $id);
         if ($this->update->updateSingleCondition($data_book_table, "book", "id", $id)) {
             $this->session->set_flashdata('message', ucfirst($book['name']) . ' hidden successfully!!!');
-            redirect(base_url() . 'member/my-books', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to hidden ' . ucfirst($book['name']) . '!!!');
-            redirect(base_url() . 'member/my-books', 'refresh');
         }
+        redirect(base_url() . 'member/my-books', 'refresh');
     }
 
     public function insertDescription($book_id, $description) {

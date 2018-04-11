@@ -16,14 +16,8 @@ class Users extends CI_Controller {
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
         $this->load->library('upload');
-        $this->session_check();
-    }
-
-    public function session_check() {
-        if (empty($this->session->userdata('user_id'))) {
-            $this->session->set_flashdata('message', 'Invaild credentials!!!');
-            redirect(base_url() . 'login', 'refresh');
-        }
+        $this->load->library('authorized');
+        $this->authorized->check_auth($this->select, $this->session->userdata('user_id'));
     }
 
     public function form_value_init() {
@@ -69,15 +63,13 @@ class Users extends CI_Controller {
         $data_user_table = $this->array_maker_user_table(); // create array with book
         if ($this->password != $this->con_password) {
             $this->session->set_flashdata('message', "Passwords are not equal!!!");
-            redirect(base_url() . 'users/index', 'refresh');
         }
         if ($this->insert->insert_single_row($data_user_table, "user")) {
             $this->session->set_flashdata('message', ucwords($this->name) . " added successfully!!!");
-            redirect(base_url() . 'users/index', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to add ' . ucwords($this->name) . '!!!');
-            redirect(base_url() . 'users/index', 'refresh');
         }
+        redirect(base_url() . 'users/index', 'refresh');
     }
 
     public function editUser($id) {
@@ -97,26 +89,23 @@ class Users extends CI_Controller {
         $data_user_table = $this->array_maker_user_table(); // create array with book
         if ($this->password != $this->con_password) {
             $this->session->set_flashdata('message', "Passwords are not equal!!!");
-            redirect(base_url() . 'users/index', 'refresh');
         }
         if ($this->update->updateSingleCondition($data_user_table, "user", "id", $this->user_id)) {
             $this->session->set_flashdata('message', ucfirst($this->name) . " updated successfully!!!");
-            redirect(base_url() . 'users/index', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to update ' . ucfirst($this->name) . '!!!');
-            redirect(base_url() . 'users/index', 'refresh');
         }
+        redirect(base_url() . 'users/index', 'refresh');
     }
 
     public function deleteUser($id) {
         $user = (array) $this->select->getSingleRecord('user', $id);
         if ($this->delete->deleteSingleCondition("user", "id", $id)) {
             $this->session->set_flashdata('message', ucwords($user['name']) . ' deleted successfully!!!');
-            redirect(base_url() . 'users/index', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to delete ' . ucwords($user['name']) . '!!!');
-            redirect(base_url() . 'users/index', 'refresh');
         }
+        redirect(base_url() . 'users/index', 'refresh');
     }
 
     public function loadView($data, $page_name, $title) {

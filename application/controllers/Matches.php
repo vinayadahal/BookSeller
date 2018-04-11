@@ -10,14 +10,8 @@ class Matches extends CI_Controller {
         $this->load->model('select');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-        $this->session_check();
-    }
-
-    public function session_check() {
-        if (empty($this->session->userdata('user_id'))) {
-            $this->session->set_flashdata('message', 'Invaild credentials!!!');
-            redirect(base_url() . 'login', 'refresh');
-        }
+        $this->load->library('authorized');
+        $this->authorized->check_auth($this->select, $this->session->userdata('user_id'));
     }
 
     public function index() {

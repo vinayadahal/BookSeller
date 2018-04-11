@@ -13,10 +13,10 @@ if (empty($searchBooks)) {
             <div class="thumbnail" >
                 <div class="caption ">
                     <div class="thumbnail">
-                        <?php if (!empty($book['image_location'])) { ?>
+                        <?php if (!empty($book['image_location']) && $book['image_location'] != 'default.png') { ?>
                             <a href="<?php echo base_url(); ?>showDetails/<?php echo $book['id']; ?>"><img src="<?php echo base_url(); ?>images/icons/<?php echo $book['image_location']; ?>" alt="item image"></a>
                         <?php } else { ?>
-                            <a href="<?php echo base_url(); ?>showDetails/<?php echo $book['id']; ?>"><img src="<?php echo base_url(); ?>images/icons/default.png" alt="item image"></a>
+                            <a href="<?php echo base_url(); ?>showDetails/<?php echo $book['id']; ?>"><img src="<?php echo base_url(); ?>images/default/default.png" alt="item image"></a>
                         <?php } ?>
                     </div>
                     <div id="product_title" class="product_title">

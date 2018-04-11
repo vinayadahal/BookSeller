@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Category extends CI_Controller {
-    
+
     private $name;
     private $category_id;
 
@@ -16,14 +16,9 @@ class Category extends CI_Controller {
         $this->load->model('delete');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-        $this->session_check();
-    }
-
-    public function session_check() {
-        if (empty($this->session->userdata('user_id'))) {
-            $this->session->set_flashdata('message', 'Invaild credentials!!!');
-            redirect(base_url() . 'login', 'refresh');
-        }
+        $this->load->library('commons');
+        $this->load->library('authorized');
+        $this->authorized->check_auth($this->select, $this->session->userdata('user_id'));
     }
 
     public function form_value_init() {
@@ -37,21 +32,12 @@ class Category extends CI_Controller {
         return array("name" => $this->name);
     }
 
-    public function pageDataLimiter($page, $dataPerPage) {
-        if ($page > 1) {
-            $page = $page - 1;
-            return ($dataPerPage * $page);
-        } else {
-            return 0;
-        }
-    }
-
     public function index($page = null) {
         $data['message'] = $this->session->flashdata('message');
         $TotalCount = $this->select->getTotalCount("category");
         $DataPerPage = 8;
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
-        $start = $this->pageDataLimiter($page, $DataPerPage);
+        $start = $this->commons->pageDataLimiter($page, $DataPerPage);
         $data['categories'] = (array) $this->select->getAllFromTable('category', $DataPerPage, $start);
         $this->loadView($data, 'category/index', 'home');
     }
@@ -65,11 +51,10 @@ class Category extends CI_Controller {
         $data_post_table = $this->array_maker_post_table(); // create array with book
         if ($this->insert->insert_single_row($data_post_table, "category")) {
             $this->session->set_flashdata('message', 'Added a new category as ' . ucfirst($this->name) . '!!!');
-            redirect(base_url() . 'category/index', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to add category as ' . ucfirst($this->name) . '!!!');
-            redirect(base_url() . 'category/index', 'refresh');
         }
+        redirect(base_url() . 'category/index', 'refresh');
     }
 
     public function editCategory($id) {
@@ -83,22 +68,20 @@ class Category extends CI_Controller {
         $data_post_table = $this->array_maker_post_table(); // create array with book
         if ($this->update->updateSingleCondition($data_post_table, "category", "id", $this->category_id)) {
             $this->session->set_flashdata('message', 'Updated category ' . ucfirst($this->name) . '!!!');
-            redirect(base_url() . 'category/index', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to update category ' . ucfirst($this->name) . '!!!');
-            redirect(base_url() . 'category/index', 'refresh');
         }
+        redirect(base_url() . 'category/index', 'refresh');
     }
 
     public function deleteCategory($id) {
         $post = (array) $this->select->getSingleRecord('category', $id);
         if ($this->delete->deleteSingleCondition("category", "id", $id)) {
             $this->session->set_flashdata('message', 'Category ' . ucfirst($post['name']) . ' deleted successfully!!!');
-            redirect(base_url() . 'category/index', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Unable to delete category ' . ucfirst($post['name']) . '!!!');
-            redirect(base_url() . 'category/index', 'refresh');
         }
+        redirect(base_url() . 'category/index', 'refresh');
     }
 
     public function loadView($data, $page_name, $title) {

@@ -15,15 +15,10 @@ class Settings extends CI_Controller {
         $this->load->model('update');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-        $this->session_check();
+        $this->load->library('commons');
+        $this->load->library('authorized');
+        $this->authorized->check_auth($this->select, $this->session->userdata('user_id'));
         $this->user_id = $this->session->userdata('user_id');
-    }
-
-    public function session_check() {
-        if (empty($this->session->userdata('user_id'))) {
-            $this->session->set_flashdata('message', 'Invaild credentials!!!');
-            redirect(base_url() . 'login', 'refresh');
-        }
     }
 
     public function form_value_init() {
@@ -38,24 +33,11 @@ class Settings extends CI_Controller {
     }
 
     public function array_maker_post_table() {
-        return array(
-            "username" => $this->username,
-            "password" => sha1($this->password)
-        );
-    }
-
-    public function matchingBooks() {
-        $posted_books = (array) $this->select->getAllFromTable('posts', '', '');
-        $data = array();
-        $i = 0;
-        foreach ($posted_books as $posted_book) {
-            $data[$i++] = (array) $this->select->searchAllRecords(array($posted_book->book_name, $posted_book->author), array('name', 'author'), 'book');
-        }
-        return $data;
+        return array("username" => $this->username, "password" => sha1($this->password));
     }
 
     public function index() {
-        $data['books'] = $this->matchingBooks();
+        $data['books'] = $this->commons->matchingBooks($this->select);
         $data['user'] = (array) $this->select->getSingleRecord('user', $this->user_id);
         $data['message'] = $this->session->flashdata('message');
         $this->loadView($data, 'settings/index', 'Settings');
@@ -68,11 +50,10 @@ class Settings extends CI_Controller {
             $data_post_table = $this->array_maker_post_table(); // create array with book
             if ($this->update->updateSingleCondition($data_post_table, "user", "id", $this->user_id)) {
                 $this->session->set_flashdata('message', 'User credential updated!!!');
-                redirect(base_url() . 'member', 'refresh');
             } else {
                 $this->session->set_flashdata('message', 'Unable to update user credentials!!!');
-                redirect(base_url() . 'member', 'refresh');
             }
+            redirect(base_url() . 'member', 'refresh');
         } else {
             $this->session->set_flashdata('message', 'Old password do not match!!!');
             redirect(base_url() . 'member/settings', 'refresh');

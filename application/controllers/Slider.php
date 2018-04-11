@@ -11,14 +11,8 @@ class Slider extends CI_Controller {
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
         $this->load->library('upload');
-        $this->session_check();
-    }
-
-    public function session_check() {
-        if (empty($this->session->userdata('user_id'))) {
-            $this->session->set_flashdata('message', 'Invaild credentials!!!');
-            redirect(base_url() . 'login', 'refresh');
-        }
+        $this->load->library('authorized');
+        $this->authorized->check_auth($this->select, $this->session->userdata('user_id'));
     }
 
     public function file_uploader() {
@@ -33,13 +27,12 @@ class Slider extends CI_Controller {
         if (!$this->upload->do_upload('imgFile')) {
             $error = $this->upload->display_errors();
             $this->session->set_flashdata('message', $error . '!!!');
-            redirect(base_url() . 'admin/slider', 'refresh');
         } else {
             $data = ($this->upload->data());
             $this->resizeImage("./images/uploads/" . $data['file_name']);
             $this->session->set_flashdata('message', $data['file_name'] . ' uploaded successfully!!!');
-            redirect(base_url() . 'admin/slider', 'refresh');
         }
+        redirect(base_url() . 'admin/slider', 'refresh');
     }
 
     public function index() {
