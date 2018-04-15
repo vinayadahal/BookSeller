@@ -24,16 +24,16 @@ class MyBooks extends CI_Controller {
 
     public function form_value_init() {
         $this->user_id = $this->session->userdata('user_id');
-        $this->book_name = $this->input->post('book_name');
+        $this->book_name = ucwords($this->input->post('book_name'));
         $this->category = $this->input->post('category');
-        $this->author = $this->input->post('author');
+        $this->author = ucwords($this->input->post('author'));
         $this->year = $this->input->post('year');
-        $this->edition = $this->input->post('edition');
-        $this->offer = $this->input->post('offer');
+        $this->edition = ucwords($this->input->post('edition'));
+        $this->offer = ucfirst($this->input->post('offer'));
         $this->pages = $this->input->post('pages');
         $this->price = $this->input->post('price');
         $this->condition = $this->input->post('condition');
-        $this->description = $this->input->post('description');
+        $this->description = ucfirst($this->input->post('description'));
         if (!empty($this->input->post('book_id')) && null !== $this->input->post('book_id')) {
             $this->book_id = $this->input->post('book_id');
         }
@@ -186,7 +186,8 @@ class MyBooks extends CI_Controller {
             $data_image_table = array("book_id" => $book_id, "image_location" => $this->file_uploader());
             return $this->insert->insert_single_row($data_image_table, "images");
         } else {
-            return false;
+            $data_image_table = array("book_id" => $book_id);
+            return $this->insert->insert_single_row($data_image_table, "images");
         }
     }
 

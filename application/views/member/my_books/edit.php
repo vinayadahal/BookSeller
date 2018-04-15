@@ -45,7 +45,26 @@
                 </tr>
                 <tr>
                     <td>Year:</td>
-                    <td><input type="text" value="<?php echo $book['year']; ?>" class="form-control" name="year" id='year'/></td>
+                    <td>
+                        <select class="form-control" name="year">
+                            <?php
+                            $Startyear = date('Y');
+                            $endYear = $Startyear - 50;
+                            $yearArray = range($Startyear, $endYear);
+                            foreach ($yearArray as $year) {
+                                if ($year == date("Y", strtotime($book['year']))) {
+                                    ?>
+                                    <option value="<?php echo $year; ?>-01-01" selected="selected"><?php echo $year; ?></option>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <option value="<?php echo $year; ?>-01-01"><?php echo $year; ?></option>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>Edition:</td>
@@ -57,11 +76,11 @@
                 </tr>
                 <tr>
                     <td>Price:</td>
-                    <td><input type="text" value="<?php echo $book['price']; ?>" class="form-control" name="price" /></td>
+                    <td><input type="number" value="<?php echo $book['price']; ?>" class="form-control" name="price" /></td>
                 </tr>
                 <tr>
                     <td>Pages:</td>
-                    <td><input type="text" value="<?php echo $book['pages']; ?>" class="form-control" name="pages" id='pages'/></td>
+                    <td><input type="number" value="<?php echo $book['pages']; ?>" class="form-control" name="pages" id='pages'/></td>
                 </tr>
                 <tr>
                     <td>Condition:</td>

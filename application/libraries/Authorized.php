@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Authorized {
 
-    public function showPublicError404() {
+    public function showPublicError404($data) {
         if (empty($data)) {
             show_error("Requested resource could not be found.", '404', $heading = '404 Error');
         }

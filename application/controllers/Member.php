@@ -14,12 +14,13 @@ class Member extends CI_Controller {
         $this->load->library('session'); // starts session
         $this->load->library('images');
         $this->load->library('authorized');
+        $this->load->library('commons');
         $this->authorized->check_auth($this->select, $this->session->userdata('user_id'));
     }
 
     public function index() {
         $data['message'] = $this->session->flashdata('message');
-        $data['books'] = $this->matchingBooks();
+        $data['books'] = $this->commons->matchingBooks($this->select);
         $this->images->removeImages($this->select);
         $this->loadView($data, 'home', 'home');
     }

@@ -13,15 +13,8 @@ class PublicUser extends CI_Controller {
         $this->load->model('insert');
         $this->load->helper('url'); // Helps to get base url defined in config.php
         $this->load->library('session'); // starts session
-    }
-
-    public function pageDataLimiter($page, $dataPerPage) {
-        if ($page > 1) {
-            $page = $page - 1;
-            return ($dataPerPage * $page);
-        } else {
-            return 0;
-        }
+        $this->load->library('commons'); // starts session
+        $this->load->library('authorized'); // starts session
     }
 
     public function checkSession() {
@@ -33,7 +26,7 @@ class PublicUser extends CI_Controller {
     public function index($page = null) {
         $TotalCount = $this->select->getTotalCount("book");
         $DataPerPage = 12;
-        $start = $this->pageDataLimiter($page, $DataPerPage);
+        $start = $this->commons->pageDataLimiter($page, $DataPerPage);
         $data['num_pages'] = ceil($TotalCount / $DataPerPage);
         $col = array("book.id", "book.name", "book.author", "book.year", "book.edition", "book.offer", "book.price", "images.image_location as image_location");
         $table1 = 'book';
@@ -54,7 +47,7 @@ class PublicUser extends CI_Controller {
         $data['descriptions'] = $this->Description($book_id);
         $data['AllCategories'] = (array) $this->select->getAllFromTable('category', '', '');
         $data['user_id'] = $this->checkSession();
-        $this->showPublicError404($data['book_category']);
+        $this->authorized->showPublicError404($data['book_category']);
         $this->loadView($data, "showDetails");
     }
 
@@ -123,12 +116,11 @@ class PublicUser extends CI_Controller {
         $i = 0;
         foreach ($book_result as $book) {
             $image = (array) ($this->select->getSingleRecordWhere('images', 'book_id', $book->id));
-            if(empty($image['image_location'])){
+            if (empty($image['image_location'])) {
                 $data['searchBooks'][$i++] = array('id' => $book->id, 'name' => $book->name, 'author' => $book->author, 'edition' => $book->edition, 'offer' => $book->offer, 'price' => $book->price, 'pages' => $book->pages, 'image_location' => 'default.png');
-            }else{
+            } else {
                 $data['searchBooks'][$i++] = array('id' => $book->id, 'name' => $book->name, 'author' => $book->author, 'edition' => $book->edition, 'offer' => $book->offer, 'price' => $book->price, 'pages' => $book->pages, 'image_location' => $image['image_location']);
             }
-            
         }
         $data['user_id'] = $this->checkSession();
         $this->loadView($data, 'search');
@@ -214,12 +206,6 @@ class PublicUser extends CI_Controller {
             $this->session->set_flashdata('message', 'Unable to post review for ' . ucfirst($book['name']) . '!!!');
         }
         redirect(base_url() . 'showDetails/' . $book_id, 'refresh');
-    }
-
-    public function showPublicError404($data) {
-        if (empty($data)) {
-            show_error("Requested resource could not be found.", '404', $heading = '404 Error');
-        }
     }
 
     public function loadView($data, $page_name) {
