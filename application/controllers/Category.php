@@ -54,7 +54,7 @@ class Category extends CI_Controller {
         } else {
             $this->session->set_flashdata('message', 'Unable to add category as ' . ucfirst($this->name) . '!!!');
         }
-        redirect(base_url() . 'category/index', 'refresh');
+        redirect(base_url() . 'admin/category', 'refresh');
     }
 
     public function editCategory($id) {
@@ -71,7 +71,7 @@ class Category extends CI_Controller {
         } else {
             $this->session->set_flashdata('message', 'Unable to update category ' . ucfirst($this->name) . '!!!');
         }
-        redirect(base_url() . 'category/index', 'refresh');
+        redirect(base_url() . 'admin/category', 'refresh');
     }
 
     public function deleteCategory($id) {
@@ -81,7 +81,7 @@ class Category extends CI_Controller {
         } else {
             $this->session->set_flashdata('message', 'Unable to delete category ' . ucfirst($post['name']) . '!!!');
         }
-        redirect(base_url() . 'category/index', 'refresh');
+        redirect(base_url() . 'admin/category', 'refresh');
     }
 
     public function loadView($data, $page_name, $title) {

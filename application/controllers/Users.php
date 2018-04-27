@@ -69,7 +69,7 @@ class Users extends CI_Controller {
         } else {
             $this->session->set_flashdata('message', 'Unable to add ' . ucwords($this->name) . '!!!');
         }
-        redirect(base_url() . 'users/index', 'refresh');
+        redirect(base_url() . 'admin/users', 'refresh');
     }
 
     public function editUser($id) {
@@ -95,7 +95,7 @@ class Users extends CI_Controller {
         } else {
             $this->session->set_flashdata('message', 'Unable to update ' . ucfirst($this->name) . '!!!');
         }
-        redirect(base_url() . 'users/index', 'refresh');
+        redirect(base_url() . 'admin/users', 'refresh');
     }
 
     public function deleteUser($id) {
@@ -105,7 +105,7 @@ class Users extends CI_Controller {
         } else {
             $this->session->set_flashdata('message', 'Unable to delete ' . ucwords($user['name']) . '!!!');
         }
-        redirect(base_url() . 'users/index', 'refresh');
+        redirect(base_url() . 'admin/users', 'refresh');
     }
 
     public function loadView($data, $page_name, $title) {
